@@ -17,6 +17,8 @@ import { DashboardActivitySummaryComponent } from './components/dashboard-activi
 import { DashboardAlertCardComponent } from './components/dashboard-alert-card/dashboard-alert-card.component';
 import { DashboardKpiCardComponent } from './components/dashboard-kpi-card/dashboard-kpi-card.component';
 import { DashboardParSummaryComponent } from './components/dashboard-par-summary/dashboard-par-summary.component';
+import { DashboardPortfolioTrendComponent } from './components/dashboard-portfolio-trend/dashboard-portfolio-trend.component';
+import { DashboardProductMixComponent } from './components/dashboard-product-mix/dashboard-product-mix.component';
 import { DashboardQuickActionsComponent } from './components/dashboard-quick-actions/dashboard-quick-actions.component';
 import { DashboardRecentLoansComponent } from './components/dashboard-recent-loans/dashboard-recent-loans.component';
 import { DashboardTaskCardComponent } from './components/dashboard-task-card/dashboard-task-card.component';
@@ -34,6 +36,8 @@ import { DashboardFacadeService } from './services/dashboard-facade.service';
     DashboardAlertCardComponent,
     DashboardKpiCardComponent,
     DashboardParSummaryComponent,
+    DashboardPortfolioTrendComponent,
+    DashboardProductMixComponent,
     DashboardQuickActionsComponent,
     DashboardRecentLoansComponent,
     DashboardTaskCardComponent
