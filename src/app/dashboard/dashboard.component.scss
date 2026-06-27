@@ -95,55 +95,6 @@ h2 {
   padding: 6px 10px;
 }
 
-.line-chart {
-  align-items: end;
-  display: flex;
-  gap: 14px;
-  height: 190px;
-  padding: 20px 10px 0;
-}
-
-.line-chart span {
-  background: #2563eb;
-  border-radius: 12px 12px 4px 4px;
-  flex: 1;
-  min-height: 32px;
-}
-
-.donut-placeholder {
-  align-items: center;
-  background: #2563eb;
-  border-radius: 50%;
-  color: #ffffff;
-  display: flex;
-  font-size: 28px;
-  font-weight: 800;
-  height: 150px;
-  justify-content: center;
-  margin: 8px auto 20px;
-  width: 150px;
-}
-
-.legend-list {
-  display: grid;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.legend-dot {
-  border-radius: 50%;
-  display: inline-block;
-  height: 10px;
-  margin-right: 8px;
-  width: 10px;
-}
-
-.primary { background: #2563eb; }
-.success { background: #10b981; }
-.warning { background: #f59e0b; }
-
 @media (max-width: 1200px) {
   .kpi-grid,
   .dashboard-grid {
