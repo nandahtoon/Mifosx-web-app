@@ -1,8 +1,10 @@
-# Mifos® X Web App ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
+# MicroOps 360 Web ![build](https://github.com/nandahtoon/Mifosx-web-app/actions/workflows/build.yml/badge.svg)
 
 ## Overview
 
-Mifos® X Web App is a modern single-page application (SPA) built on top of the Mifos® X platform for financial inclusion. It serves as the default web interface for the Mifos® user community.
+MicroOps 360 Web is an Angular-based microfinance operations web application by Bhone Theinkha LLC. It keeps Apache Fineract-compatible API integration patterns while introducing the MicroOps 360 product identity.
+
+The inherited Mifos X Web App setup, proxy, Docker, environment, and Fineract integration documentation is preserved below while product positioning is migrated incrementally.
 
 **Technologies Used:**
 
