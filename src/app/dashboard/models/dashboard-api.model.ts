@@ -15,6 +15,11 @@ export interface DashboardRunReportResponse {
   columnHeaders?: Array<{ columnName?: string; columnType?: string }>;
 }
 
+export interface DashboardReportConfig {
+  reportName: string | null;
+  params: DashboardRunReportParams;
+}
+
 export interface DashboardApiError {
   message: string;
 }
