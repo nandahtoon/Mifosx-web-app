@@ -12,6 +12,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 /** Custom Modules */
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
+/** Custom Components */
+import { DashboardAlertCardComponent } from './components/dashboard-alert-card/dashboard-alert-card.component';
+import { DashboardKpiCardComponent } from './components/dashboard-kpi-card/dashboard-kpi-card.component';
+import { DashboardRecentLoansComponent } from './components/dashboard-recent-loans/dashboard-recent-loans.component';
+import { DashboardTaskCardComponent } from './components/dashboard-task-card/dashboard-task-card.component';
+
 /** Custom Services */
 import { DashboardFacadeService } from './services/dashboard-facade.service';
 
@@ -19,7 +25,13 @@ import { DashboardFacadeService } from './services/dashboard-facade.service';
   selector: 'mifosx-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [...STANDALONE_SHARED_IMPORTS],
+  imports: [
+    ...STANDALONE_SHARED_IMPORTS,
+    DashboardAlertCardComponent,
+    DashboardKpiCardComponent,
+    DashboardRecentLoansComponent,
+    DashboardTaskCardComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardComponent {
