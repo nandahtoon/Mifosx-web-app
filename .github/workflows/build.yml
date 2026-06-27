@@ -60,7 +60,21 @@ jobs:
           echo "$CHANGED_SCSS_FILES" | xargs npx stylelint
 
       - name: Run prettier
-        run: npx prettier . --check
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+          fi
+
+          CHANGED_PRETTIER_FILES=$(git diff --name-only --diff-filter=ACMRT "$BASE_SHA" HEAD | grep -E '\.(ts|js|html|css|scss|json|md|yml|yaml)$' || true)
+
+          if [ -z "$CHANGED_PRETTIER_FILES" ]; then
+            echo "No changed files to check with prettier"
+            exit 0
+          fi
+
+          echo "$CHANGED_PRETTIER_FILES" | xargs npx prettier --check
 
       - name: Run HTMLHint
         run: npx htmlhint "src" --config .htmlhintrc
