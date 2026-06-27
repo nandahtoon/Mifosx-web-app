@@ -26,6 +26,10 @@ describe('DashboardFacadeService', () => {
     expect(service.hasApiIntegrationReady()).toBe(true);
   });
 
+  it('should keep total portfolio report unconfigured by default', () => {
+    expect(service.hasTotalPortfolioReportConfigured()).toBe(false);
+  });
+
   it('should return a ready dashboard state with no error message', (done) => {
     service.getDashboardState().subscribe((state) => {
       expect(state.status).toBe('ready');
