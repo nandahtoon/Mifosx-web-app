@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.risk-meter {
+  background: #e5eaf3;
+  border-radius: 999px;
+  height: 14px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.risk-meter span {
+  background: #dc2626;
+  display: block;
+  height: 100%;
+  width: 62%;
+}
+
+.par-row {
+  border-bottom: 1px solid #e5eaf3;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.par-row strong {
+  font-weight: 800;
+}
