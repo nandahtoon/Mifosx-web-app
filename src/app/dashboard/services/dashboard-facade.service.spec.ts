@@ -19,10 +19,11 @@ describe('DashboardFacadeService', () => {
     service = TestBed.inject(DashboardFacadeService);
   });
 
-  it('should return a ready dashboard state', (done) => {
+  it('should return a ready dashboard state with no error message', (done) => {
     service.getDashboardState().subscribe((state) => {
       expect(state.status).toBe('ready');
       expect(state.data).not.toBeNull();
+      expect(state.message).toBeUndefined();
       done();
     });
   });
