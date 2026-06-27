@@ -7,20 +7,76 @@
  */
 
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 /** rxjs Imports */
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
+
+/** Custom Mappers */
+import { mapTotalPortfolioValue } from '../mappers/dashboard-total-portfolio.mapper';
 
 /** Custom Models */
-import { DashboardViewModel } from '../models/dashboard.model';
+import { DashboardKpi, DashboardState, DashboardViewModel } from '../models/dashboard.model';
+
+/** Custom Services */
+import { DashboardApiService } from './dashboard-api.service';
+import { DashboardReportConfigService } from './dashboard-report-config.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardFacadeService {
-  getDashboardViewModel(): Observable<DashboardViewModel> {
-    return of({
+  private readonly dashboardApi = inject(DashboardApiService);
+  private readonly dashboardReportConfig = inject(DashboardReportConfigService);
+
+  getDashboardState(): Observable<DashboardState> {
+    const reportConfig = this.dashboardReportConfig.getTotalPortfolioReportConfig();
+
+    if (!reportConfig.reportName) {
+      return of({
+        status: 'ready',
+        data: this.buildMockDashboard()
+      });
+    }
+
+    return this.dashboardApi.runReport(reportConfig.reportName, reportConfig.params).pipe(
+      map((response) => ({
+        status: 'ready' as const,
+        data: this.buildMockDashboard(this.buildTotalPortfolioKpi(mapTotalPortfolioValue(response)))
+      })),
+      catchError(() =>
+        of({
+          status: 'ready' as const,
+          data: this.buildMockDashboard(),
+          message: 'Dashboard report data could not be loaded. Showing fallback values.'
+        })
+      )
+    );
+  }
+
+  hasApiIntegrationReady(): boolean {
+    return Boolean(this.dashboardApi);
+  }
+
+  hasTotalPortfolioReportConfigured(): boolean {
+    return Boolean(this.dashboardReportConfig.getTotalPortfolioReportConfig().reportName);
+  }
+
+  private buildTotalPortfolioKpi(reportValue?: string | null): DashboardKpi {
+    const reportConfig = this.dashboardReportConfig.getTotalPortfolioReportConfig();
+
+    return {
+      title: 'Total Portfolio',
+      value: reportValue || 'MMK 2,458.75M',
+      helper: reportConfig.reportName && reportValue ? `Report: ${reportConfig.reportName}` : 'Outstanding portfolio',
+      trend: reportConfig.reportName && reportValue ? 'Loaded from report' : '+12.5% vs last month',
+      direction: 'up',
+      route: '/reports'
+    };
+  }
+
+  private buildMockDashboard(totalPortfolioKpi: DashboardKpi = this.buildTotalPortfolioKpi()): DashboardViewModel {
+    return {
       kpis: [
-        { title: 'Total Portfolio', value: 'MMK 2,458.75M', helper: 'Outstanding portfolio', trend: '+12.5% vs last month', direction: 'up', route: '/reports' },
+        totalPortfolioKpi,
         { title: 'Active Loans', value: '18,542', helper: 'Open loan accounts', trend: '+8.2% vs last month', direction: 'up', route: '/search' },
         { title: 'Collections Today', value: 'MMK 126.75M', helper: 'Posted repayments', trend: '+15.8% vs yesterday', direction: 'up', route: '/collections' },
         { title: 'PAR > 30 Days', value: '3.45%', helper: 'Portfolio at risk', trend: '-0.6% vs last month', direction: 'down', route: '/reports' },
@@ -74,6 +130,6 @@ export class DashboardFacadeService {
         { label: 'Group Loan', value: 25, className: 'success' },
         { label: 'Agriculture Loan', value: 17, className: 'warning' }
       ]
-    });
+    };
   }
 }
