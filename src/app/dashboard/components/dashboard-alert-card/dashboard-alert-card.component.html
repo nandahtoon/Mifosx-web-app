@@ -1,0 +1,4 @@
+<div class="alert-card" [class.critical]="alert.severity === 'critical'" [class.high]="alert.severity === 'high'" [class.medium]="alert.severity === 'medium'" [class.info]="alert.severity === 'info'">
+  <strong>{{ alert.title }}</strong>
+  <span>{{ alert.description }}</span>
+</div>
