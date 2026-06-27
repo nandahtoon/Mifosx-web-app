@@ -13,14 +13,16 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 /** Custom Models */
-import { DashboardState, DashboardViewModel } from '../models/dashboard.model';
+import { DashboardKpi, DashboardState, DashboardViewModel } from '../models/dashboard.model';
 
 /** Custom Services */
 import { DashboardApiService } from './dashboard-api.service';
+import { DashboardReportConfigService } from './dashboard-report-config.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardFacadeService {
   private readonly dashboardApi = inject(DashboardApiService);
+  private readonly dashboardReportConfig = inject(DashboardReportConfigService);
 
   getDashboardState(): Observable<DashboardState> {
     return of({
@@ -29,20 +31,31 @@ export class DashboardFacadeService {
     });
   }
 
-  /**
-   * API integration seam for Sprint 3+.
-   *
-   * The API service is intentionally injected but not called for production data yet,
-   * because exact report names and parameters must be approved first.
-   */
   hasApiIntegrationReady(): boolean {
     return Boolean(this.dashboardApi);
+  }
+
+  hasTotalPortfolioReportConfigured(): boolean {
+    return Boolean(this.dashboardReportConfig.getTotalPortfolioReportConfig().reportName);
+  }
+
+  private buildTotalPortfolioKpi(): DashboardKpi {
+    const reportConfig = this.dashboardReportConfig.getTotalPortfolioReportConfig();
+
+    return {
+      title: 'Total Portfolio',
+      value: reportConfig.reportName ? 'Loading from report' : 'MMK 2,458.75M',
+      helper: reportConfig.reportName ? `Report: ${reportConfig.reportName}` : 'Outstanding portfolio',
+      trend: reportConfig.reportName ? 'API mapping configured' : '+12.5% vs last month',
+      direction: 'up',
+      route: '/reports'
+    };
   }
 
   private buildMockDashboard(): DashboardViewModel {
     return {
       kpis: [
-        { title: 'Total Portfolio', value: 'MMK 2,458.75M', helper: 'Outstanding portfolio', trend: '+12.5% vs last month', direction: 'up', route: '/reports' },
+        this.buildTotalPortfolioKpi(),
         { title: 'Active Loans', value: '18,542', helper: 'Open loan accounts', trend: '+8.2% vs last month', direction: 'up', route: '/search' },
         { title: 'Collections Today', value: 'MMK 126.75M', helper: 'Posted repayments', trend: '+15.8% vs yesterday', direction: 'up', route: '/collections' },
         { title: 'PAR > 30 Days', value: '3.45%', helper: 'Portfolio at risk', trend: '-0.6% vs last month', direction: 'down', route: '/reports' },
