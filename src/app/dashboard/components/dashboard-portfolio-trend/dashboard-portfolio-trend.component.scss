@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.line-chart {
+  align-items: end;
+  display: flex;
+  gap: 14px;
+  height: 190px;
+  padding: 20px 10px 0;
+}
+
+.line-chart span {
+  background: #2563eb;
+  border-radius: 12px 12px 4px 4px;
+  flex: 1;
+  min-height: 32px;
+}

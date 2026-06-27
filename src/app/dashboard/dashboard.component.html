@@ -1,0 +1,59 @@
+<section class="enterprise-dashboard" *ngIf="dashboard$ | async as dashboard">
+  <header class="dashboard-hero">
+    <div>
+      <p class="eyebrow">MifosX Enterprise</p>
+      <h1>Dashboard</h1>
+      <p class="hero-copy">Modern portfolio, collection, approval, and task cockpit for daily branch operations.</p>
+    </div>
+    <div class="hero-actions">
+      <a mat-button routerLink="/search">Global Search</a>
+      <a mat-button routerLink="/checker-inbox-and-tasks">Approval Inbox</a>
+    </div>
+  </header>
+
+  <section class="kpi-grid" aria-label="Portfolio key performance indicators">
+    <mifosx-dashboard-kpi-card *ngFor="let kpi of dashboard.kpis" [kpi]="kpi"></mifosx-dashboard-kpi-card>
+  </section>
+
+  <section class="dashboard-grid">
+    <article class="panel panel-wide">
+      <div class="panel-header"><div><h2>Portfolio Trend</h2><p>Outstanding portfolio movement</p></div><span class="panel-chip">Monthly</span></div>
+      <mifosx-dashboard-portfolio-trend [points]="dashboard.portfolioTrend"></mifosx-dashboard-portfolio-trend>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>Portfolio by Product</h2><p>Loan product concentration</p></div></div>
+      <mifosx-dashboard-product-mix [items]="dashboard.productMix"></mifosx-dashboard-product-mix>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>Alerts</h2><p>Items needing attention</p></div></div>
+      <mifosx-dashboard-alert-card *ngFor="let alert of dashboard.alerts" [alert]="alert"></mifosx-dashboard-alert-card>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>Today Activities</h2><p>Operational movement</p></div></div>
+      <mifosx-dashboard-activity-summary [activities]="dashboard.activities"></mifosx-dashboard-activity-summary>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>PAR Summary</h2><p>Portfolio quality view</p></div></div>
+      <mifosx-dashboard-par-summary [parSummary]="dashboard.parSummary"></mifosx-dashboard-par-summary>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>My Tasks</h2><p>Human review queue</p></div></div>
+      <mifosx-dashboard-task-card *ngFor="let task of dashboard.tasks" [task]="task"></mifosx-dashboard-task-card>
+    </article>
+
+    <article class="panel panel-wide">
+      <div class="panel-header"><div><h2>Recent Loans</h2><p>Latest loan account activity</p></div><a mat-button routerLink="/search">View All</a></div>
+      <mifosx-dashboard-recent-loans [loans]="dashboard.recentLoans"></mifosx-dashboard-recent-loans>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header"><div><h2>Quick Actions</h2><p>Common workflows</p></div></div>
+      <mifosx-dashboard-quick-actions [actions]="dashboard.quickActions"></mifosx-dashboard-quick-actions>
+    </article>
+  </section>
+</section>

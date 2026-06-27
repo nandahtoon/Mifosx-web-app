@@ -1,0 +1,7 @@
+<div class="donut-placeholder">{{ primaryValue }}%</div>
+<ul class="legend-list">
+  <li *ngFor="let item of items">
+    <span class="legend-dot" [class.primary]="item.className === 'primary'" [class.success]="item.className === 'success'" [class.warning]="item.className === 'warning'"></span>
+    {{ item.label }}
+  </li>
+</ul>

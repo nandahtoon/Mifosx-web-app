@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.alert-card {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 12px;
+}
+
+.alert-card span {
+  color: #64748b;
+}
+
+.critical {
+  background: #fef2f2;
+}
+
+.high {
+  background: #fff1f2;
+}
+
+.medium {
+  background: #fff7ed;
+}
+
+.info {
+  background: #eff6ff;
+}

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+}
+
+.task-card {
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 12px;
+}
+
+.task-card span {
+  color: #64748b;
+  display: block;
+  margin-top: 4px;
+}
+
+.task-card em {
+  font-style: normal;
+  font-weight: 800;
+}

@@ -1,0 +1,16 @@
+<div class="loan-table">
+  <div class="loan-row loan-head">
+    <span>Loan ID</span>
+    <span>Client</span>
+    <span>Product</span>
+    <span>Amount</span>
+    <span>Status</span>
+  </div>
+  <div class="loan-row" *ngFor="let loan of loans">
+    <span>{{ loan.id }}</span>
+    <span>{{ loan.client }}</span>
+    <span>{{ loan.product }}</span>
+    <span>{{ loan.amount }}</span>
+    <span>{{ loan.status }}</span>
+  </div>
+</div>
