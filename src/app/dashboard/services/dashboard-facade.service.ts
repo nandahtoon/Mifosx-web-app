@@ -7,7 +7,7 @@
  */
 
 /** Angular Imports */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 /** rxjs Imports */
 import { Observable, of } from 'rxjs';
@@ -15,13 +15,28 @@ import { Observable, of } from 'rxjs';
 /** Custom Models */
 import { DashboardState, DashboardViewModel } from '../models/dashboard.model';
 
+/** Custom Services */
+import { DashboardApiService } from './dashboard-api.service';
+
 @Injectable({ providedIn: 'root' })
 export class DashboardFacadeService {
+  private readonly dashboardApi = inject(DashboardApiService);
+
   getDashboardState(): Observable<DashboardState> {
     return of({
       status: 'ready',
       data: this.buildMockDashboard()
     });
+  }
+
+  /**
+   * API integration seam for Sprint 3+.
+   *
+   * The API service is intentionally injected but not called for production data yet,
+   * because exact report names and parameters must be approved first.
+   */
+  hasApiIntegrationReady(): boolean {
+    return Boolean(this.dashboardApi);
   }
 
   private buildMockDashboard(): DashboardViewModel {
