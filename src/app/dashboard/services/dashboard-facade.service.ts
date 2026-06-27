@@ -13,12 +13,19 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
 /** Custom Models */
-import { DashboardViewModel } from '../models/dashboard.model';
+import { DashboardState, DashboardViewModel } from '../models/dashboard.model';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardFacadeService {
-  getDashboardViewModel(): Observable<DashboardViewModel> {
+  getDashboardState(): Observable<DashboardState> {
     return of({
+      status: 'ready',
+      data: this.buildMockDashboard()
+    });
+  }
+
+  private buildMockDashboard(): DashboardViewModel {
+    return {
       kpis: [
         { title: 'Total Portfolio', value: 'MMK 2,458.75M', helper: 'Outstanding portfolio', trend: '+12.5% vs last month', direction: 'up', route: '/reports' },
         { title: 'Active Loans', value: '18,542', helper: 'Open loan accounts', trend: '+8.2% vs last month', direction: 'up', route: '/search' },
@@ -74,6 +81,6 @@ export class DashboardFacadeService {
         { label: 'Group Loan', value: 25, className: 'success' },
         { label: 'Agriculture Loan', value: 17, className: 'warning' }
       ]
-    });
+    };
   }
 }
