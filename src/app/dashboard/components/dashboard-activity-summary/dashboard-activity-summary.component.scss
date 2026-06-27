@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+
+.activity-row {
+  border-bottom: 1px solid #e5eaf3;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.activity-row strong {
+  font-weight: 800;
+}
