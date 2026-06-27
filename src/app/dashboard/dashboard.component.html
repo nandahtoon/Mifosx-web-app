@@ -24,7 +24,7 @@
   <section *ngIf="dashboardState.status === 'error'" class="state-panel state-panel-error">
     <h2>Dashboard could not load</h2>
     <p>{{ dashboardState.message || 'Please refresh or try again later.' }}</p>
-    <button mat-button type="button">Retry</button>
+    <button mat-button type="button" (click)="reloadDashboard()">Retry</button>
   </section>
 
   <ng-container *ngIf="dashboardState.status === 'ready' && dashboardState.data as dashboard">
