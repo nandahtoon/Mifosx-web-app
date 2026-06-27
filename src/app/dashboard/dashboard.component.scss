@@ -6,8 +6,7 @@
 }
 
 .dashboard-hero,
-.panel,
-.kpi-card {
+.panel {
   background: #ffffff;
   border: 1px solid #dce4f0;
   border-radius: 16px;
@@ -47,15 +46,11 @@ h2 {
 }
 
 .hero-copy,
-.panel-header p,
-.kpi-helper,
-.alert-card span,
-.task-card span {
+.panel-header p {
   color: #64748b;
 }
 
-.hero-actions,
-.quick-actions {
+.hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -67,41 +62,6 @@ h2 {
   grid-template-columns: repeat(6, minmax(160px, 1fr));
   gap: 16px;
   margin-bottom: 20px;
-}
-
-.kpi-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 18px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.kpi-card strong {
-  font-size: 24px;
-  font-weight: 800;
-}
-
-.kpi-title {
-  color: #475569;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.kpi-trend {
-  color: #059669;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.trend-down {
-  color: #dc2626;
-}
-
-.trend-flat {
-  color: #f59e0b;
 }
 
 .dashboard-grid {
@@ -184,71 +144,6 @@ h2 {
 .success { background: #10b981; }
 .warning { background: #f59e0b; }
 
-.alert-card,
-.task-card,
-.activity-row,
-.loan-row {
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px;
-}
-
-.alert-card,
-.task-card {
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
-.alert-card.critical { background: #fef2f2; }
-.alert-card.high { background: #fff1f2; }
-.alert-card.medium { background: #fff7ed; }
-.alert-card.info { background: #eff6ff; }
-
-.activity-row,
-.loan-row {
-  border-bottom: 1px solid #e5eaf3;
-}
-
-.activity-row strong,
-.task-card em {
-  font-style: normal;
-  font-weight: 800;
-}
-
-.risk-meter {
-  background: #e5eaf3;
-  border-radius: 999px;
-  height: 14px;
-  margin-bottom: 18px;
-  overflow: hidden;
-}
-
-.risk-meter span {
-  background: #dc2626;
-  display: block;
-  height: 100%;
-  width: 62%;
-}
-
-.loan-table {
-  display: grid;
-  gap: 4px;
-}
-
-.loan-row {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr 1.3fr 1.2fr 0.8fr;
-}
-
-.loan-head {
-  color: #475569;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
 @media (max-width: 1200px) {
   .kpi-grid,
   .dashboard-grid {
@@ -262,5 +157,4 @@ h2 {
   .dashboard-grid,
   .kpi-grid { display: grid; grid-template-columns: 1fr; }
   .panel-wide { grid-column: auto; }
-  .loan-row { grid-template-columns: 1fr; }
 }
