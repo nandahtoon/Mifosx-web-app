@@ -1,25 +1,45 @@
-# Dashboard Route Patch
+# Dashboard Route Decision
 
-Dashboard files added:
+Sprint: 1
+Status: Applied
 
-- src/app/dashboard/dashboard.module.ts
-- src/app/dashboard/dashboard-routing.module.ts
-- src/app/dashboard/dashboard.component.ts
-- src/app/dashboard/dashboard.component.html
-- src/app/dashboard/dashboard.component.scss
+## Files Added
 
-To make the screen reachable, register a lazy-loaded dashboard route in src/app/app-routing.module.ts before the wildcard route.
+- `src/app/dashboard/dashboard.module.ts`
+- `src/app/dashboard/dashboard-routing.module.ts`
+- `src/app/dashboard/dashboard.component.ts`
+- `src/app/dashboard/dashboard.component.html`
+- `src/app/dashboard/dashboard.component.scss`
 
-Recommended route behavior:
+## Route Registration
 
-1. Empty path redirects to dashboard.
-2. Dashboard path lazy loads DashboardModule.
+The dashboard route has been registered in:
 
-Human review decision needed:
+- `src/app/app-routing.module.ts`
 
-- Approve empty-path redirect to dashboard, or
-- Keep existing landing behavior and add dashboard only to navigation.
+Route added:
 
-Connector note:
+```text
+/dashboard -> DashboardModule
+```
 
-The direct app-routing update was blocked by tool safety checks, so this patch note records the required route change for review.
+## Decision
+
+Sprint 1 uses a low-risk route strategy:
+
+- Add `/dashboard` as a lazy-loaded feature route.
+- Do not redirect the empty path to dashboard yet.
+- Do not change existing landing/startup behavior yet.
+
+## Reason
+
+This keeps the dashboard reachable for review without changing existing production navigation behavior.
+
+## Sprint 2 Follow-up
+
+Human review must decide:
+
+1. Keep dashboard as navigation-only route.
+2. Make dashboard the default landing page.
+3. Add dashboard menu item to shell/navigation.
+4. Add permission-aware visibility if needed.
