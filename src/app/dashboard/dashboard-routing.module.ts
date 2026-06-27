@@ -10,14 +10,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+/** Routing Imports */
+import { Route } from '../core/route/route.service';
+
 /** Custom Components */
 import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardComponent
-  }
+  Route.withShell([
+    {
+      path: '',
+      component: DashboardComponent,
+      data: { title: 'Dashboard', breadcrumb: 'Dashboard', routeParamBreadcrumb: false }
+    }
+  ])
 ];
 
 @NgModule({
