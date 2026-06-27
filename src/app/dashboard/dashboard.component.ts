@@ -47,5 +47,5 @@ import { DashboardFacadeService } from './services/dashboard-facade.service';
 export class DashboardComponent {
   private readonly dashboardFacade = inject(DashboardFacadeService);
 
-  readonly dashboard$ = this.dashboardFacade.getDashboardViewModel();
+  readonly dashboardState$ = this.dashboardFacade.getDashboardState();
 }
