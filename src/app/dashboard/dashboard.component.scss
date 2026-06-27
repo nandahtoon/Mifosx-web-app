@@ -6,7 +6,8 @@
 }
 
 .dashboard-hero,
-.panel {
+.panel,
+.state-panel {
   background: #ffffff;
   border: 1px solid #dce4f0;
   border-radius: 16px;
@@ -46,7 +47,8 @@ h2 {
 }
 
 .hero-copy,
-.panel-header p {
+.panel-header p,
+.state-panel p {
   color: #64748b;
 }
 
@@ -55,6 +57,18 @@ h2 {
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+}
+
+.state-panel {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-bottom: 20px;
+  padding: 24px;
+}
+
+.state-panel-error {
+  border-color: #fecaca;
 }
 
 .kpi-grid {
