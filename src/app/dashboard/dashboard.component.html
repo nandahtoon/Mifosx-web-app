@@ -67,10 +67,7 @@
           <p>Operational movement</p>
         </div>
       </div>
-      <div class="activity-row"><span>Disbursements</span><strong>8</strong></div>
-      <div class="activity-row"><span>Collections</span><strong>126</strong></div>
-      <div class="activity-row"><span>New Clients</span><strong>32</strong></div>
-      <div class="activity-row"><span>Field Visits</span><strong>47</strong></div>
+      <mifosx-dashboard-activity-summary></mifosx-dashboard-activity-summary>
     </article>
 
     <article class="panel">
@@ -80,10 +77,7 @@
           <p>Risk aging view</p>
         </div>
       </div>
-      <div class="risk-meter"><span></span></div>
-      <div class="activity-row"><span>PAR 1-30</span><strong>2.10%</strong></div>
-      <div class="activity-row"><span>PAR 31-90</span><strong>1.05%</strong></div>
-      <div class="activity-row"><span>PAR 90+</span><strong>0.30%</strong></div>
+      <mifosx-dashboard-par-summary></mifosx-dashboard-par-summary>
     </article>
 
     <article class="panel">
@@ -114,12 +108,7 @@
           <p>Common workflows</p>
         </div>
       </div>
-      <div class="quick-actions">
-        <a mat-button routerLink="/clients/create">New Client</a>
-        <a mat-button routerLink="/search">New Loan</a>
-        <a mat-button routerLink="/collections">Collection</a>
-        <a mat-button routerLink="/reports">Reports</a>
-      </div>
+      <mifosx-dashboard-quick-actions></mifosx-dashboard-quick-actions>
     </article>
   </section>
 </section>
