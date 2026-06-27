@@ -132,6 +132,23 @@ export class DashboardFacadeService {
           amount: 'MMK 3,200,000',
           status: 'Active'
         }
+      ],
+      activities: [
+        { label: 'Disbursements', value: '8' },
+        { label: 'Collections', value: '126' },
+        { label: 'New Clients', value: '32' },
+        { label: 'Field Visits', value: '47' }
+      ],
+      parSummary: [
+        { label: 'PAR 1 to 30', value: '2.10%' },
+        { label: 'PAR 31 to 90', value: '1.05%' },
+        { label: 'PAR over 90', value: '0.30%' }
+      ],
+      quickActions: [
+        { label: 'New Client', route: '/clients/create' },
+        { label: 'New Loan', route: '/search' },
+        { label: 'Collection', route: '/collections' },
+        { label: 'Reports', route: '/reports' }
       ]
     });
   }
