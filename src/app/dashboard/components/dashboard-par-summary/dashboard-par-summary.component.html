@@ -1,4 +1,5 @@
 <div class="risk-meter"><span></span></div>
-<div class="par-row"><span>PAR 1 to 30</span><strong>2.10%</strong></div>
-<div class="par-row"><span>PAR 31 to 90</span><strong>1.05%</strong></div>
-<div class="par-row"><span>PAR over 90</span><strong>0.30%</strong></div>
+<div class="par-row" *ngFor="let row of parSummary">
+  <span>{{ row.label }}</span>
+  <strong>{{ row.value }}</strong>
+</div>
