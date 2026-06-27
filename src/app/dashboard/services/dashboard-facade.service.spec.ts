@@ -28,6 +28,8 @@ describe('DashboardFacadeService', () => {
       expect(dashboard.activities.length).toBeGreaterThan(0);
       expect(dashboard.parSummary.length).toBeGreaterThan(0);
       expect(dashboard.quickActions.length).toBeGreaterThan(0);
+      expect(dashboard.portfolioTrend.length).toBeGreaterThan(0);
+      expect(dashboard.productMix.length).toBeGreaterThan(0);
       done();
     });
   });
@@ -44,6 +46,14 @@ describe('DashboardFacadeService', () => {
     service.getDashboardViewModel().subscribe((dashboard) => {
       expect(dashboard.kpis.some((kpi) => kpi.title.includes('PAR'))).toBe(true);
       expect(dashboard.parSummary.some((row) => row.label.includes('PAR'))).toBe(true);
+      done();
+    });
+  });
+
+  it('should keep chart values within a safe display range', (done) => {
+    service.getDashboardViewModel().subscribe((dashboard) => {
+      expect(dashboard.portfolioTrend.every((point) => point.value >= 0 && point.value <= 100)).toBe(true);
+      expect(dashboard.productMix.every((item) => item.value >= 0 && item.value <= 100)).toBe(true);
       done();
     });
   });
