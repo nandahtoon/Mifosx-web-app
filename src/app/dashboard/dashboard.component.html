@@ -1,4 +1,4 @@
-<section class="enterprise-dashboard">
+<section class="enterprise-dashboard" *ngIf="dashboard$ | async as dashboard">
   <header class="dashboard-hero">
     <div>
       <p class="eyebrow">MifosX Enterprise</p>
@@ -12,7 +12,7 @@
   </header>
 
   <section class="kpi-grid" aria-label="Portfolio key performance indicators">
-    <a class="kpi-card" *ngFor="let kpi of kpis" [routerLink]="kpi.route">
+    <a class="kpi-card" *ngFor="let kpi of dashboard.kpis" [routerLink]="kpi.route">
       <span class="kpi-title">{{ kpi.title }}</span>
       <strong>{{ kpi.value }}</strong>
       <span class="kpi-helper">{{ kpi.helper }}</span>
@@ -64,7 +64,7 @@
           <p>Items needing attention</p>
         </div>
       </div>
-      <div class="alert-card" *ngFor="let alert of alerts" [class]="'alert-card ' + alert.severity">
+      <div class="alert-card" *ngFor="let alert of dashboard.alerts" [class]="'alert-card ' + alert.severity">
         <strong>{{ alert.title }}</strong>
         <span>{{ alert.description }}</span>
       </div>
@@ -103,7 +103,7 @@
           <p>Human review queue</p>
         </div>
       </div>
-      <div class="task-card" *ngFor="let task of tasks">
+      <div class="task-card" *ngFor="let task of dashboard.tasks">
         <div>
           <strong>{{ task.title }}</strong>
           <span>{{ task.meta }}</span>
@@ -124,7 +124,7 @@
         <div class="loan-row loan-head">
           <span>Loan ID</span><span>Client</span><span>Product</span><span>Amount</span><span>Status</span>
         </div>
-        <div class="loan-row" *ngFor="let loan of recentLoans">
+        <div class="loan-row" *ngFor="let loan of dashboard.recentLoans">
           <span>{{ loan.id }}</span><span>{{ loan.client }}</span><span>{{ loan.product }}</span><span>{{ loan.amount }}</span><span>{{ loan.status }}</span>
         </div>
       </div>
