@@ -2,13 +2,14 @@
 
 Sprint: Modern Rich Dashboard Foundation
 Branch: feature/dashboard-modernization
-Status: Implementation foundation complete, pending human review and route decision.
+Status: Sprint 1 implementation complete; pending human visual/business review and local CI validation.
 
 ## Scope Completed
 
 - [x] Codebase/package analysis
 - [x] AiSFT human-in-the-loop workflow documented
 - [x] Dashboard feature module added
+- [x] Dashboard top-level route registered as `/dashboard`
 - [x] Dashboard route aligned with `Route.withShell`
 - [x] Dashboard shell added
 - [x] KPI cards added
@@ -22,40 +23,31 @@ Status: Implementation foundation complete, pending human review and route decis
 - [x] Product mix placeholder component added
 - [x] View model types added
 - [x] Facade service added
-- [x] Dashboard mock data isolated in facade
+- [x] All dashboard mock data isolated in facade
 - [x] Unit test added for dashboard facade contract
 - [x] API mapping plan documented
 - [x] Refactor log documented
+- [x] Deep refactor checkpoint documented
 
 ## Human Review Required
 
-- [ ] Approve dashboard route registration strategy.
-- [ ] Approve visual dashboard layout.
+- [ ] Review dashboard visual layout.
 - [ ] Approve KPI labels and business definitions.
 - [ ] Approve PAR definition.
-- [ ] Approve whether Sprint 2 should connect real APIs or refine UI first.
+- [ ] Decide whether `/dashboard` should become the default landing page.
+- [ ] Decide whether Sprint 2 should connect real APIs or refine UI first.
 
-## Route Decision
+## Route Decision Applied in Sprint 1
 
-Top-level `app-routing.module.ts` update is still pending.
+Sprint 1 registers `/dashboard` only.
 
-Decision options:
+It does not redirect the empty path to dashboard yet.
 
-### Option A: Dashboard as default landing page
+Reason:
 
-Empty path redirects to dashboard.
-
-Best for enterprise cockpit experience.
-
-### Option B: Dashboard as navigation-only page
-
-Existing landing behavior remains unchanged.
-
-Best for lower risk if current startup behavior must be preserved.
-
-## Suggested Decision
-
-For commercial MifosX Enterprise UX, use Option A after human approval.
+- Lower risk
+- Existing startup behavior preserved
+- Dashboard still reachable for review
 
 ## Quality Gates To Run Locally or CI
 
@@ -81,6 +73,6 @@ DashboardComponent
 - Empty state
 - Error state
 - Permission-aware section visibility
-- Real chart rendering
+- Real Chart.js/D3 rendering if needed
 - Navigation menu integration
-- Top-level route registration after human approval
+- Optional default landing redirect after human approval
