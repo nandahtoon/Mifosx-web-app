@@ -7,6 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { describe, it, expect, beforeEach } from '@jest/globals';
 
 import { DashboardFacadeService } from './dashboard-facade.service';
@@ -15,8 +16,14 @@ describe('DashboardFacadeService', () => {
   let service: DashboardFacadeService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient()]
+    });
     service = TestBed.inject(DashboardFacadeService);
+  });
+
+  it('should expose the dashboard api integration seam', () => {
+    expect(service.hasApiIntegrationReady()).toBe(true);
   });
 
   it('should return a ready dashboard state with no error message', (done) => {
