@@ -18,13 +18,12 @@
   <section class="dashboard-grid">
     <article class="panel panel-wide">
       <div class="panel-header"><div><h2>Portfolio Trend</h2><p>Outstanding portfolio movement</p></div><span class="panel-chip">Monthly</span></div>
-      <div class="line-chart" aria-label="Mock portfolio trend chart"><span style="height: 34%"></span><span style="height: 48%"></span><span style="height: 42%"></span><span style="height: 62%"></span><span style="height: 58%"></span><span style="height: 76%"></span><span style="height: 84%"></span></div>
+      <mifosx-dashboard-portfolio-trend [points]="dashboard.portfolioTrend"></mifosx-dashboard-portfolio-trend>
     </article>
 
     <article class="panel">
       <div class="panel-header"><div><h2>Portfolio by Product</h2><p>Loan product concentration</p></div></div>
-      <div class="donut-placeholder">58%</div>
-      <ul class="legend-list"><li><span class="legend-dot primary"></span> Individual Loan</li><li><span class="legend-dot success"></span> Group Loan</li><li><span class="legend-dot warning"></span> Agriculture Loan</li></ul>
+      <mifosx-dashboard-product-mix [items]="dashboard.productMix"></mifosx-dashboard-product-mix>
     </article>
 
     <article class="panel">
