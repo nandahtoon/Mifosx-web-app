@@ -25,20 +25,25 @@ describe('DashboardFacadeService', () => {
       expect(dashboard.alerts.length).toBeGreaterThan(0);
       expect(dashboard.tasks.length).toBeGreaterThan(0);
       expect(dashboard.recentLoans.length).toBeGreaterThan(0);
+      expect(dashboard.activities.length).toBeGreaterThan(0);
+      expect(dashboard.parSummary.length).toBeGreaterThan(0);
+      expect(dashboard.quickActions.length).toBeGreaterThan(0);
       done();
     });
   });
 
-  it('should provide route targets for KPI cards', (done) => {
+  it('should provide route targets for KPI cards and quick actions', (done) => {
     service.getDashboardViewModel().subscribe((dashboard) => {
       expect(dashboard.kpis.every((kpi) => kpi.route.startsWith('/'))).toBe(true);
+      expect(dashboard.quickActions.every((action) => action.route.startsWith('/'))).toBe(true);
       done();
     });
   });
 
-  it('should include an operational PAR KPI', (done) => {
+  it('should include an operational PAR KPI and PAR summary', (done) => {
     service.getDashboardViewModel().subscribe((dashboard) => {
       expect(dashboard.kpis.some((kpi) => kpi.title.includes('PAR'))).toBe(true);
+      expect(dashboard.parSummary.some((row) => row.label.includes('PAR'))).toBe(true);
       done();
     });
   });
