@@ -49,6 +49,17 @@ export interface DashboardQuickAction {
   route: string;
 }
 
+export interface DashboardTrendPoint {
+  label: string;
+  value: number;
+}
+
+export interface DashboardProductMixItem {
+  label: string;
+  value: number;
+  className: string;
+}
+
 export interface DashboardViewModel {
   kpis: DashboardKpi[];
   alerts: DashboardAlert[];
@@ -57,4 +68,6 @@ export interface DashboardViewModel {
   activities: DashboardMetricRow[];
   parSummary: DashboardMetricRow[];
   quickActions: DashboardQuickAction[];
+  portfolioTrend: DashboardTrendPoint[];
+  productMix: DashboardProductMixItem[];
 }
