@@ -10,7 +10,10 @@
 import { Injectable, inject } from '@angular/core';
 
 /** rxjs Imports */
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
+
+/** Custom Mappers */
+import { mapTotalPortfolioValue } from '../mappers/dashboard-total-portfolio.mapper';
 
 /** Custom Models */
 import { DashboardKpi, DashboardState, DashboardViewModel } from '../models/dashboard.model';
@@ -25,10 +28,28 @@ export class DashboardFacadeService {
   private readonly dashboardReportConfig = inject(DashboardReportConfigService);
 
   getDashboardState(): Observable<DashboardState> {
-    return of({
-      status: 'ready',
-      data: this.buildMockDashboard()
-    });
+    const reportConfig = this.dashboardReportConfig.getTotalPortfolioReportConfig();
+
+    if (!reportConfig.reportName) {
+      return of({
+        status: 'ready',
+        data: this.buildMockDashboard()
+      });
+    }
+
+    return this.dashboardApi.runReport(reportConfig.reportName, reportConfig.params).pipe(
+      map((response) => ({
+        status: 'ready' as const,
+        data: this.buildMockDashboard(this.buildTotalPortfolioKpi(mapTotalPortfolioValue(response)))
+      })),
+      catchError(() =>
+        of({
+          status: 'ready' as const,
+          data: this.buildMockDashboard(),
+          message: 'Dashboard report data could not be loaded. Showing fallback values.'
+        })
+      )
+    );
   }
 
   hasApiIntegrationReady(): boolean {
@@ -39,23 +60,23 @@ export class DashboardFacadeService {
     return Boolean(this.dashboardReportConfig.getTotalPortfolioReportConfig().reportName);
   }
 
-  private buildTotalPortfolioKpi(): DashboardKpi {
+  private buildTotalPortfolioKpi(reportValue?: string | null): DashboardKpi {
     const reportConfig = this.dashboardReportConfig.getTotalPortfolioReportConfig();
 
     return {
       title: 'Total Portfolio',
-      value: reportConfig.reportName ? 'Loading from report' : 'MMK 2,458.75M',
-      helper: reportConfig.reportName ? `Report: ${reportConfig.reportName}` : 'Outstanding portfolio',
-      trend: reportConfig.reportName ? 'API mapping configured' : '+12.5% vs last month',
+      value: reportValue || 'MMK 2,458.75M',
+      helper: reportConfig.reportName && reportValue ? `Report: ${reportConfig.reportName}` : 'Outstanding portfolio',
+      trend: reportConfig.reportName && reportValue ? 'Loaded from report' : '+12.5% vs last month',
       direction: 'up',
       route: '/reports'
     };
   }
 
-  private buildMockDashboard(): DashboardViewModel {
+  private buildMockDashboard(totalPortfolioKpi: DashboardKpi = this.buildTotalPortfolioKpi()): DashboardViewModel {
     return {
       kpis: [
-        this.buildTotalPortfolioKpi(),
+        totalPortfolioKpi,
         { title: 'Active Loans', value: '18,542', helper: 'Open loan accounts', trend: '+8.2% vs last month', direction: 'up', route: '/search' },
         { title: 'Collections Today', value: 'MMK 126.75M', helper: 'Posted repayments', trend: '+15.8% vs yesterday', direction: 'up', route: '/collections' },
         { title: 'PAR > 30 Days', value: '3.45%', helper: 'Portfolio at risk', trend: '-0.6% vs last month', direction: 'down', route: '/reports' },
