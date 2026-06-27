@@ -39,9 +39,22 @@ export interface DashboardRecentLoan {
   status: string;
 }
 
+export interface DashboardMetricRow {
+  label: string;
+  value: string;
+}
+
+export interface DashboardQuickAction {
+  label: string;
+  route: string;
+}
+
 export interface DashboardViewModel {
   kpis: DashboardKpi[];
   alerts: DashboardAlert[];
   tasks: DashboardTask[];
   recentLoans: DashboardRecentLoan[];
+  activities: DashboardMetricRow[];
+  parSummary: DashboardMetricRow[];
+  quickActions: DashboardQuickAction[];
 }
