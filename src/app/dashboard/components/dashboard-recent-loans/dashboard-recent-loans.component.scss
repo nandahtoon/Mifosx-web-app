@@ -1,0 +1,26 @@
+.loan-table {
+  display: grid;
+  gap: 4px;
+}
+
+.loan-row {
+  border-bottom: 1px solid #e5eaf3;
+  border-radius: 12px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1.3fr 1.3fr 1.2fr 0.8fr;
+  padding: 12px;
+}
+
+.loan-head {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .loan-row {
+    grid-template-columns: 1fr;
+  }
+}
