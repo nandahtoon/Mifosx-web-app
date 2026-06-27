@@ -1,0 +1,8 @@
+<a class="kpi-card" [routerLink]="kpi.route">
+  <span class="kpi-title">{{ kpi.title }}</span>
+  <strong>{{ kpi.value }}</strong>
+  <span class="kpi-helper">{{ kpi.helper }}</span>
+  <span class="kpi-trend" [class.trend-down]="kpi.direction === 'down'" [class.trend-flat]="kpi.direction === 'flat'">
+    {{ kpi.trend }}
+  </span>
+</a>
