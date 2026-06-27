@@ -13,8 +13,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
 /** Custom Components */
+import { DashboardActivitySummaryComponent } from './components/dashboard-activity-summary/dashboard-activity-summary.component';
 import { DashboardAlertCardComponent } from './components/dashboard-alert-card/dashboard-alert-card.component';
 import { DashboardKpiCardComponent } from './components/dashboard-kpi-card/dashboard-kpi-card.component';
+import { DashboardParSummaryComponent } from './components/dashboard-par-summary/dashboard-par-summary.component';
+import { DashboardQuickActionsComponent } from './components/dashboard-quick-actions/dashboard-quick-actions.component';
 import { DashboardRecentLoansComponent } from './components/dashboard-recent-loans/dashboard-recent-loans.component';
 import { DashboardTaskCardComponent } from './components/dashboard-task-card/dashboard-task-card.component';
 
@@ -27,8 +30,11 @@ import { DashboardFacadeService } from './services/dashboard-facade.service';
   styleUrls: ['./dashboard.component.scss'],
   imports: [
     ...STANDALONE_SHARED_IMPORTS,
+    DashboardActivitySummaryComponent,
     DashboardAlertCardComponent,
     DashboardKpiCardComponent,
+    DashboardParSummaryComponent,
+    DashboardQuickActionsComponent,
     DashboardRecentLoansComponent,
     DashboardTaskCardComponent
   ],
