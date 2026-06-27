@@ -1,0 +1,148 @@
+<section class="enterprise-dashboard">
+  <header class="dashboard-hero">
+    <div>
+      <p class="eyebrow">MifosX Enterprise</p>
+      <h1>Dashboard</h1>
+      <p class="hero-copy">Modern portfolio, collection, approval, and task cockpit for daily branch operations.</p>
+    </div>
+    <div class="hero-actions">
+      <a mat-button routerLink="/search">Global Search</a>
+      <a mat-button routerLink="/checker-inbox-and-tasks">Approval Inbox</a>
+    </div>
+  </header>
+
+  <section class="kpi-grid" aria-label="Portfolio key performance indicators">
+    <a class="kpi-card" *ngFor="let kpi of kpis" [routerLink]="kpi.route">
+      <span class="kpi-title">{{ kpi.title }}</span>
+      <strong>{{ kpi.value }}</strong>
+      <span class="kpi-helper">{{ kpi.helper }}</span>
+      <span class="kpi-trend" [class.trend-down]="kpi.direction === 'down'" [class.trend-flat]="kpi.direction === 'flat'">
+        {{ kpi.trend }}
+      </span>
+    </a>
+  </section>
+
+  <section class="dashboard-grid">
+    <article class="panel panel-wide">
+      <div class="panel-header">
+        <div>
+          <h2>Portfolio Trend</h2>
+          <p>Outstanding portfolio movement</p>
+        </div>
+        <span class="panel-chip">Monthly</span>
+      </div>
+      <div class="line-chart" aria-label="Mock portfolio trend chart">
+        <span style="height: 34%"></span>
+        <span style="height: 48%"></span>
+        <span style="height: 42%"></span>
+        <span style="height: 62%"></span>
+        <span style="height: 58%"></span>
+        <span style="height: 76%"></span>
+        <span style="height: 84%"></span>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Portfolio by Product</h2>
+          <p>Loan product concentration</p>
+        </div>
+      </div>
+      <div class="donut-placeholder">58%</div>
+      <ul class="legend-list">
+        <li><span class="legend-dot primary"></span> Individual Loan</li>
+        <li><span class="legend-dot success"></span> Group Loan</li>
+        <li><span class="legend-dot warning"></span> Agriculture Loan</li>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Alerts</h2>
+          <p>Items needing attention</p>
+        </div>
+      </div>
+      <div class="alert-card" *ngFor="let alert of alerts" [class]="'alert-card ' + alert.severity">
+        <strong>{{ alert.title }}</strong>
+        <span>{{ alert.description }}</span>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Today Activities</h2>
+          <p>Operational movement</p>
+        </div>
+      </div>
+      <div class="activity-row"><span>Disbursements</span><strong>8</strong></div>
+      <div class="activity-row"><span>Collections</span><strong>126</strong></div>
+      <div class="activity-row"><span>New Clients</span><strong>32</strong></div>
+      <div class="activity-row"><span>Field Visits</span><strong>47</strong></div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>PAR Summary</h2>
+          <p>Risk aging view</p>
+        </div>
+      </div>
+      <div class="risk-meter"><span></span></div>
+      <div class="activity-row"><span>PAR 1-30</span><strong>2.10%</strong></div>
+      <div class="activity-row"><span>PAR 31-90</span><strong>1.05%</strong></div>
+      <div class="activity-row"><span>PAR 90+</span><strong>0.30%</strong></div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>My Tasks</h2>
+          <p>Human review queue</p>
+        </div>
+      </div>
+      <div class="task-card" *ngFor="let task of tasks">
+        <div>
+          <strong>{{ task.title }}</strong>
+          <span>{{ task.meta }}</span>
+        </div>
+        <em>{{ task.priority }}</em>
+      </div>
+    </article>
+
+    <article class="panel panel-wide">
+      <div class="panel-header">
+        <div>
+          <h2>Recent Loans</h2>
+          <p>Latest loan account activity</p>
+        </div>
+        <a mat-button routerLink="/search">View All</a>
+      </div>
+      <div class="loan-table">
+        <div class="loan-row loan-head">
+          <span>Loan ID</span><span>Client</span><span>Product</span><span>Amount</span><span>Status</span>
+        </div>
+        <div class="loan-row" *ngFor="let loan of recentLoans">
+          <span>{{ loan.id }}</span><span>{{ loan.client }}</span><span>{{ loan.product }}</span><span>{{ loan.amount }}</span><span>{{ loan.status }}</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Quick Actions</h2>
+          <p>Common workflows</p>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <a mat-button routerLink="/clients/create">New Client</a>
+        <a mat-button routerLink="/search">New Loan</a>
+        <a mat-button routerLink="/collections">Collection</a>
+        <a mat-button routerLink="/reports">Reports</a>
+      </div>
+    </article>
+  </section>
+</section>
