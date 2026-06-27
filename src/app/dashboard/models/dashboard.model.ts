@@ -10,6 +10,8 @@ export type DashboardTrendDirection = 'up' | 'down' | 'flat';
 
 export type DashboardAlertSeverity = 'critical' | 'high' | 'medium' | 'info';
 
+export type DashboardStateStatus = 'loading' | 'ready' | 'empty' | 'error';
+
 export interface DashboardKpi {
   title: string;
   value: string;
@@ -70,4 +72,10 @@ export interface DashboardViewModel {
   quickActions: DashboardQuickAction[];
   portfolioTrend: DashboardTrendPoint[];
   productMix: DashboardProductMixItem[];
+}
+
+export interface DashboardState {
+  status: DashboardStateStatus;
+  data: DashboardViewModel | null;
+  message?: string;
 }
