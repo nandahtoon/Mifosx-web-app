@@ -1,10 +1,14 @@
 {
-  "plugins": [
-    "stylelint-scss"
-  ],
   "rules": {
     "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": null,
-    "selector-class-pattern": null
+    "block-no-empty": null,
+    "color-no-invalid-hex": null,
+    "declaration-block-no-duplicate-properties": null,
+    "font-family-no-duplicate-names": null,
+    "no-descending-specificity": null,
+    "property-no-unknown": null,
+    "selector-class-pattern": null,
+    "selector-pseudo-element-no-unknown": null,
+    "unit-no-unknown": null
   }
 }
