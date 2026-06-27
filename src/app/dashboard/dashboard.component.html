@@ -12,14 +12,7 @@
   </header>
 
   <section class="kpi-grid" aria-label="Portfolio key performance indicators">
-    <a class="kpi-card" *ngFor="let kpi of dashboard.kpis" [routerLink]="kpi.route">
-      <span class="kpi-title">{{ kpi.title }}</span>
-      <strong>{{ kpi.value }}</strong>
-      <span class="kpi-helper">{{ kpi.helper }}</span>
-      <span class="kpi-trend" [class.trend-down]="kpi.direction === 'down'" [class.trend-flat]="kpi.direction === 'flat'">
-        {{ kpi.trend }}
-      </span>
-    </a>
+    <mifosx-dashboard-kpi-card *ngFor="let kpi of dashboard.kpis" [kpi]="kpi"></mifosx-dashboard-kpi-card>
   </section>
 
   <section class="dashboard-grid">
@@ -64,10 +57,7 @@
           <p>Items needing attention</p>
         </div>
       </div>
-      <div class="alert-card" *ngFor="let alert of dashboard.alerts" [class]="'alert-card ' + alert.severity">
-        <strong>{{ alert.title }}</strong>
-        <span>{{ alert.description }}</span>
-      </div>
+      <mifosx-dashboard-alert-card *ngFor="let alert of dashboard.alerts" [alert]="alert"></mifosx-dashboard-alert-card>
     </article>
 
     <article class="panel">
@@ -103,13 +93,7 @@
           <p>Human review queue</p>
         </div>
       </div>
-      <div class="task-card" *ngFor="let task of dashboard.tasks">
-        <div>
-          <strong>{{ task.title }}</strong>
-          <span>{{ task.meta }}</span>
-        </div>
-        <em>{{ task.priority }}</em>
-      </div>
+      <mifosx-dashboard-task-card *ngFor="let task of dashboard.tasks" [task]="task"></mifosx-dashboard-task-card>
     </article>
 
     <article class="panel panel-wide">
@@ -120,14 +104,7 @@
         </div>
         <a mat-button routerLink="/search">View All</a>
       </div>
-      <div class="loan-table">
-        <div class="loan-row loan-head">
-          <span>Loan ID</span><span>Client</span><span>Product</span><span>Amount</span><span>Status</span>
-        </div>
-        <div class="loan-row" *ngFor="let loan of dashboard.recentLoans">
-          <span>{{ loan.id }}</span><span>{{ loan.client }}</span><span>{{ loan.product }}</span><span>{{ loan.amount }}</span><span>{{ loan.status }}</span>
-        </div>
-      </div>
+      <mifosx-dashboard-recent-loans [loans]="dashboard.recentLoans"></mifosx-dashboard-recent-loans>
     </article>
 
     <article class="panel">
