@@ -6,12 +6,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/** Angular Imports */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Not Found Component
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CallbackComponent } from './zitadel/callback/callback.component';
 
+/**
+ * App routing module.
+ *
+ * Registers all feature modules as lazy-loaded routes plus the fallback routes.
+ */
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -103,6 +110,11 @@ const routes: Routes = [
   }
 ];
 
+/**
+ * App Routing Module.
+ *
+ * Configures the top-level routes with lazy loading for all feature modules.
+ */
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
