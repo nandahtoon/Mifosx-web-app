@@ -20,6 +20,7 @@ Track visible product naming migration from inherited Mifos X labels to MicroOps
 | App manifest short name | `MicroOps 360` | Done |
 | App manifest description | MicroOps 360 Web microfinance operations copy | Done |
 | Shell sidenav visible app brand | `MicroOps 360 Web` | Done |
+| Footer visible app labels | `MicroOps 360 Web` | Done |
 | Shell branding audit docs | `docs/microops360/SHELL_BRANDING_AUDIT.md` | Done |
 | Repository branding search report | `docs/microops360/REPOSITORY_BRANDING_SEARCH_REPORT.md` | Done |
 | Product identity doc | `docs/microops360/PRODUCT_IDENTITY.md` | Done |
@@ -37,6 +38,7 @@ These references should not be renamed blindly because they may refer to:
 - Existing routes, selectors, CSS classes, Angular prefixes, package names, or historical release notes.
 - Community documentation links inherited from the original web app.
 - Existing icon assets until replacement MicroOps 360 assets are created and reviewed.
+- Technical version fields such as `versions.mifos` until a separate version-model migration is approved.
 
 ## Completed Branding Slices
 
@@ -52,6 +54,7 @@ These references should not be renamed blindly because they may refer to:
 | #23 | App manifest name branding | Manifest `name` and `short_name` only |
 | #24 | App manifest description branding | Manifest `description` only |
 | #29 | Sidenav visible app brand | Sidenav visible app brand text only |
+| #33 | Footer visible app labels | Footer app labels only; version values unchanged |
 
 ## Branding Migration Rules
 
@@ -64,11 +67,10 @@ These references should not be renamed blindly because they may refer to:
 
 ## Next Audit Targets
 
-- Footer backend information text outside the login screen.
 - Icon asset replacement after MicroOps 360 assets exist.
 - Remaining visible community/resource labels that should stay as documentation links or be relabeled carefully.
 - Any remaining visible `Mifos X`, `Mifos`, or `MifosX Enterprise` labels.
 
 ## Recommended Next Slice
 
-Verify remaining shell/header/footer visible labels and choose one small user-facing branding change at a time.
+Inspect remaining visible resource/community labels and choose one small user-facing branding change only if it is not a technical or inherited documentation link.
