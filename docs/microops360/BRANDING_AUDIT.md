@@ -19,6 +19,7 @@ Track visible product naming migration from inherited Mifos X labels to MicroOps
 | App manifest name | `MicroOps 360 Web` | Done |
 | App manifest short name | `MicroOps 360` | Done |
 | App manifest description | MicroOps 360 Web microfinance operations copy | Done |
+| Shell sidenav visible app brand | `MicroOps 360 Web` | Done |
 | Shell branding audit docs | `docs/microops360/SHELL_BRANDING_AUDIT.md` | Done |
 | Repository branding search report | `docs/microops360/REPOSITORY_BRANDING_SEARCH_REPORT.md` | Done |
 | Product identity doc | `docs/microops360/PRODUCT_IDENTITY.md` | Done |
@@ -50,6 +51,7 @@ These references should not be renamed blindly because they may refer to:
 | #22 | Repository branding search report | Search-first branding report only |
 | #23 | App manifest name branding | Manifest `name` and `short_name` only |
 | #24 | App manifest description branding | Manifest `description` only |
+| #29 | Sidenav visible app brand | Sidenav visible app brand text only |
 
 ## Branding Migration Rules
 
@@ -62,7 +64,6 @@ These references should not be renamed blindly because they may refer to:
 
 ## Next Audit Targets
 
-- Shell/header/sidenav visible labels after exact file paths are confirmed.
 - Footer backend information text outside the login screen.
 - Icon asset replacement after MicroOps 360 assets exist.
 - Remaining visible community/resource labels that should stay as documentation links or be relabeled carefully.
@@ -70,4 +71,4 @@ These references should not be renamed blindly because they may refer to:
 
 ## Recommended Next Slice
 
-Create a final branding completion and technical debt verification note for the PR #16 through PR #25 branding sequence before starting broader UI refactoring.
+Verify remaining shell/header/footer visible labels and choose one small user-facing branding change at a time.
