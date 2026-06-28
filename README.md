@@ -52,7 +52,8 @@ The inherited Mifos X Web App setup, proxy, Docker, environment, and Fineract in
 ## Quick Links
 
 - [Live Demo](https://demo.mifos.community/#/login) (Updated nightly — sandbox data is reset every 6 hours; test data and transient state may be cleared.)
-- [GitHub Repository](https://github.com/openMF/web-app)
+- [MicroOps 360 Web Repository](https://github.com/nandahtoon/Mifosx-web-app)
+- [Inherited upstream web app](https://github.com/openMF/web-app)
 - [Slack Channel](https://app.slack.com/client/T0F5GHE8Y/CJJGJLN10)
 - [Jira Board of Mifos](https://mifosforge.jira.com/jira/your-work)
 - [Jira Board of Mifos Web App Project](https://mifosforge.jira.com/jira/software/c/projects/WEB/boards/62)
@@ -103,15 +104,15 @@ Choose ONE of the following methods to install the web app:
    ```
 3. Clone the repository:
    ```
-   git clone https://github.com/openMF/web-app.git
+   git clone https://github.com/nandahtoon/Mifosx-web-app.git
    ```
    For Windows:
    ```
-   git clone https://github.com/openMF/web-app.git --config core.autocrlf=input
+   git clone https://github.com/nandahtoon/Mifosx-web-app.git --config core.autocrlf=input
    ```
 4. Navigate to the project directory:
    ```
-   cd web-app
+   cd Mifosx-web-app
    ```
 5. Install dependencies:
    ```
@@ -137,17 +138,17 @@ Choose ONE of the following methods to install the web app:
 
 #### Method 3: Docker Compose (Frontend + Backend)
 
-This sets up both the Mifos® X Web App and Apache Fineract® backend:
+This sets up both MicroOps 360 Web and the Apache Fineract® backend:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/openMF/web-app.git
-   cd web-app
+   git clone https://github.com/nandahtoon/Mifosx-web-app.git
+   cd Mifosx-web-app
    ```
    For Windows:
    ```
-   git clone https://github.com/openMF/web-app.git --config core.autocrlf=input
-   cd web-app
+   git clone https://github.com/nandahtoon/Mifosx-web-app.git --config core.autocrlf=input
+   cd Mifosx-web-app
    ```
 2. Start Docker Compose:
    ```
