@@ -14,7 +14,7 @@
       <!-- Default Mode: Full content -->
       @if (!productionMode) {
         <div class="hero-text">
-          <h1 class="hero-title">{{ 'APP_NAME' | translate }}</h1>
+          <h1 class="hero-title">MicroOps 360</h1>
           <p class="hero-subtitle">
             {{ 'labels.text.A' | translate }}
             <span class="hero-highlight">{{ 'labels.text.global community' | translate }}</span>
@@ -54,7 +54,7 @@
       <!-- Production Mode: Minimal branding at bottom -->
       @if (productionMode) {
         <div class="hero-branding-bottom">
-          <h1 class="hero-title-minimal">{{ 'APP_NAME' | translate }}</h1>
+          <h1 class="hero-title-minimal">MicroOps 360</h1>
         </div>
       }
     </div>
@@ -79,12 +79,12 @@
         <!-- Logo Section -->
         <div class="logo-section">
           @if (!themeDarkEnabled) {
-            <img [src]="logoPath" (error)="onLogoError()" alt="{{ 'APP_NAME' | translate }} Logo" class="logo-image" />
+            <img [src]="logoPath" (error)="onLogoError()" alt="MicroOps 360 Logo" class="logo-image" />
           } @else {
             <img
               [src]="logoPathDark"
               (error)="onLogoErrorDark()"
-              alt="{{ 'APP_NAME' | translate }} Logo"
+              alt="MicroOps 360 Logo"
               class="logo-image"
             />
           }
