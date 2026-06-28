@@ -16,6 +16,11 @@ Track visible product naming migration from inherited Mifos X labels to MicroOps
 | Login logo alt text | `MicroOps 360 Logo` | Done |
 | Login version label | `MicroOps 360 Web` | Done |
 | Login resources branding | `MicroOps 360 Web` | Done |
+| App manifest name | `MicroOps 360 Web` | Done |
+| App manifest short name | `MicroOps 360` | Done |
+| App manifest description | MicroOps 360 Web microfinance operations copy | Done |
+| Shell branding audit docs | `docs/microops360/SHELL_BRANDING_AUDIT.md` | Done |
+| Repository branding search report | `docs/microops360/REPOSITORY_BRANDING_SEARCH_REPORT.md` | Done |
 | Product identity doc | `docs/microops360/PRODUCT_IDENTITY.md` | Done |
 | README positioning guide | `docs/microops360/README_POSITIONING.md` | Done |
 
@@ -30,6 +35,7 @@ These references should not be renamed blindly because they may refer to:
 - Existing environment variable names.
 - Existing routes, selectors, CSS classes, Angular prefixes, package names, or historical release notes.
 - Community documentation links inherited from the original web app.
+- Existing icon assets until replacement MicroOps 360 assets are created and reviewed.
 
 ## Completed Branding Slices
 
@@ -39,6 +45,11 @@ These references should not be renamed blindly because they may refer to:
 | #17 | Login page product branding | Login hero title and logo alt text only |
 | #18 | Login version label | Login version info label only |
 | #19 | Login resources branding | Login resources branding text only |
+| #20 | Branding audit progress | Audit documentation only |
+| #21 | Shell branding audit | Shell/header/sidenav audit documentation only |
+| #22 | Repository branding search report | Search-first branding report only |
+| #23 | App manifest name branding | Manifest `name` and `short_name` only |
+| #24 | App manifest description branding | Manifest `description` only |
 
 ## Branding Migration Rules
 
@@ -51,12 +62,12 @@ These references should not be renamed blindly because they may refer to:
 
 ## Next Audit Targets
 
-- Shell/header/sidenav visible labels.
+- Shell/header/sidenav visible labels after exact file paths are confirmed.
 - Footer backend information text outside the login screen.
-- App metadata and icon asset references.
+- Icon asset replacement after MicroOps 360 assets exist.
 - Remaining visible community/resource labels that should stay as documentation links or be relabeled carefully.
 - Any remaining visible `Mifos X`, `Mifos`, or `MifosX Enterprise` labels.
 
 ## Recommended Next Slice
 
-Create a code-search based report for shell/header/sidenav visible labels before changing more UI text. The next implementation slice should patch only one visible area at a time and avoid renaming selectors, routes, environment variables, or backend compatibility references.
+Create a final branding completion and technical debt verification note for the PR #16 through PR #25 branding sequence before starting broader UI refactoring.
