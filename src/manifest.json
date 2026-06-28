@@ -6,7 +6,7 @@
   "theme_color": "#fff",
   "background_color": "#fff",
   "display": "standalone",
-  "description": "Mifos® X Web App is the default web application built on top of the Apache Fineract® platform for the Mifos® user community leveraging the popular Angular framework.",
+  "description": "MicroOps 360 Web supports practical microfinance operations workflows.",
   "icons": [
     {
       "src": "assets/images/MifosX_logo.png",
