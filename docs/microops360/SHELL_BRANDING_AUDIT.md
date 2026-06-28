@@ -28,6 +28,8 @@ Initial connector search did not return reliable shell or sidenav file hits for 
 | Sidenav app brand | Visible text now uses `MicroOps 360 Web` | Complete |
 | Toolbar visible labels | No visible inherited product name found in the inspected toolbar template | No UI copy patch needed |
 | Toolbar technical identifiers | `mifosx-*` selectors and `mifosx-toolbar` ID remain technical implementation identifiers | Do not rename without a technical migration plan |
+| Shell footer outlet | Shell template renders `<mifosx-footer [styleClass]="'main-page'"></mifosx-footer>` | Inspect footer implementation before any copy patch |
+| Footer locator search | Direct `footer` and `mifosx-footer` connector searches did not resolve a file; the guessed `src/app/core/shell/footer/footer.component.html` path returned 404 | Do not guess footer edits |
 
 ## Shell Branding Risk Rules
 
@@ -39,11 +41,11 @@ Initial connector search did not return reliable shell or sidenav file hits for 
 
 ## Candidate Areas To Inspect Next
 
+- Footer/backend information component implementation path.
 - Application shell component templates.
-- Footer/backend information component templates.
 - Manifest and icon metadata.
 - Remaining resource/community copy that is user-facing but may intentionally link to inherited community documentation.
 
 ## Recommended Next Slice
 
-Inspect footer/backend information and remaining visible resource/community copy, then choose one small user-facing branding change at a time.
+Locate the actual footer component implementation path before applying any footer/backend information branding patch.
