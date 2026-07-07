@@ -31,6 +31,7 @@ Keep universal multi-CBS platform work outside this repo unless the owner explic
 - `src/theme/`: Global SCSS and Angular Material theme overrides.
 - `skills/SKILL.md`: Additional AI UI generation constraints.
 - `docs/`: Product scope, governance, architecture, and AI workflow guidance.
+- `.ai/`: Structured context, skills, playbooks, resources, and memory for AI-assisted development.
 
 ## Domain Context
 
@@ -102,10 +103,20 @@ Also follow existing project checks for headers, translations, formatting, and U
 - `docs/PROJECT_SCOPE.md`
 - `docs/ANTIGRAVITY_WORKFLOW.md`
 - `docs/AI_DEVELOPMENT_WORKFLOW.md`
-- `docs/ARCHITECTURE_PRINCIPLES.md`
-- `docs/DEFINITION_OF_DONE.md`
-- `docs/FINERACT_EXTENSION_GUIDE.md`
-- `docs/RISKOPS_LITE_ARCHITECTURE.md`
-- `docs/AI_COPILOT_ARCHITECTURE.md`
+- `.ai/README.md`
+- `.ai/context/product.md`
+- `.ai/context/architecture.md`
+- `.ai/context/domain.md`
+- `.ai/memory/decisions.md`
+
+## Task-Specific Context
+
+Use the relevant files only:
+
+- Dashboard work: `.ai/skills/dashboard.skill.md` and `.ai/playbooks/add-dashboard-widget.md`
+- Angular work: `.ai/skills/angular.skill.md`
+- Fineract work: `.ai/skills/fineract.skill.md` and `.ai/resources/fineract-api.md`
+- RiskOps work: `.ai/skills/riskops.skill.md` and `docs/RISKOPS_LITE_ARCHITECTURE.md`
+- Routing work: `.ai/resources/route-map.md`
 
 Apply these standards rigorously across every file modification.
