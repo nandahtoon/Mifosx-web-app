@@ -12,6 +12,18 @@ The inherited Mifos X Web App setup, proxy, Docker, environment, and Fineract in
 - Angular 20 framework
 - Angular Material components
 
+## OPS-365 Architecture Boundary
+
+MicroOps 360 Web is the **presentation/orchestration layer** for OPS-365. Apache Fineract remains the operational CBS/backend and system of record for supported Clients, Groups/Centers, Offices/Staff, Loans, Savings, transactions and accounting.
+
+This web application must not create a competing backend or duplicate financial/customer master. New data placement follows the project rule:
+
+`Fineract Core → Codes/Reference Data → Identifiers/Documents → Data Tables → Fineract platform controls → External Specialized Service only for a proven gap`
+
+Specialized Customer Identity, FinSentry/RCC risk, Field Operations offline, Odoo, and CBS-migration capabilities are consumed through approved bounded APIs/workflows; their engines do not belong in the Angular application.
+
+CBS migration is performed by the MicroOps migration workbench, not in the browser. Do not place source-CBS credentials, migration exports, production PII, financial backups, or migration staging data in this repository.
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -163,7 +175,7 @@ When using the development server with basic authentication:
 - **Username:** mifos
 - **Password:** password
 
-**Important:** Do not alter these credentials.
+**Development/demo only:** these inherited credentials are for disposable local/demo environments. Never use them as staging or production credentials. Real environments must use deployment-managed authentication/secrets and the approved Fineract access policy.
 
 ## Development Commands
 
@@ -211,7 +223,7 @@ Use the provided localhost proxy file (recommended for `ng serve`):
    ng serve --proxy-config proxy.localhost.conf.js
    ```
 
-2. Ensure your local Fineract instance is running on `http://localhost:8443`.
+2. Ensure the local Fineract endpoint matches `proxy.localhost.conf.js`. The inherited upstream development default may use port `8443`; OPS-365 persistent BTK staging is a separate governed HTTPS environment and must not be substituted into generic local-development instructions without explicit configuration.
 
 Notes:
 
