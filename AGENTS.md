@@ -4,6 +4,18 @@ Welcome, AI Coding Agent! This file provides the necessary context and strict in
 
 Your goal is to ensure high-quality, perfectly formatted Angular code that aligns with our strict contribution workflows.
 
+## OPS-365 / MicroOps Architecture Boundary
+
+This repository is a UI layer, not a core-banking or domain-service repository.
+
+- Apache Fineract is the operational backend/system of record for supported CBS entities and financial transactions.
+- Do not implement a duplicate Client, Loan, Savings, transaction, accounting, Office, Staff, User, or Role master in Angular/local browser storage.
+- Before proposing a new backend/data store, follow the OPS-365 placement order: Fineract Core → Codes/Reference Data → Identifiers/Documents → Data Tables → Fineract controls → specialized external service only for a proven gap.
+- Customer Identity specialized processing, FinSentry/RCC risk intelligence, Field Operations offline orchestration, Odoo integration, and CBS migration remain separate bounded capabilities. The web app may call approved APIs but must not absorb their engines.
+- CBS migration/source extraction is not a browser workflow. Never commit or expose source-CBS credentials, raw migration datasets, production PII, financial backups, or privileged Fineract service credentials in frontend code/configuration.
+- UI state is presentation state. It is never authoritative financial/customer truth.
+- Preserve the upstream Mifos X/Fineract API behavior unless an OPS-365 issue explicitly authorizes a bounded UI change.
+
 ## Repository Structure & Context
 
 This is a large-scale financial application. It contains many domain modules (e.g., accounting, clients, loans, savings).
