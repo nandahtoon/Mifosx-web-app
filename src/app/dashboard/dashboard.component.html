@@ -2,27 +2,27 @@
   <header class="dashboard-hero">
     <div>
       <p class="eyebrow">MicroOps 360</p>
-      <h1>Dashboard</h1>
-      <p class="hero-copy">Modern portfolio, collection, approval, and task cockpit for daily branch operations.</p>
+      <h1>Operations Workspace</h1>
+      <p class="hero-copy">Start common processes, review work that needs attention, and keep direct access to the full MifosX capability set.</p>
     </div>
     <div class="hero-actions">
-      <a mat-button routerLink="/search">Global Search</a>
-      <a mat-button routerLink="/checker-inbox-and-tasks">Approval Inbox</a>
+      <a mat-button routerLink="/search">Find Client or Account</a>
+      <a mat-button routerLink="/checker-inbox-and-tasks">My Work & Approvals</a>
     </div>
   </header>
 
   <section *ngIf="dashboardState.status === 'loading'" class="state-panel">
-    <h2>Loading dashboard</h2>
-    <p>Please wait while dashboard information is prepared.</p>
+    <h2>Loading operations workspace</h2>
+    <p>Please wait while operational information is prepared.</p>
   </section>
 
   <section *ngIf="dashboardState.status === 'empty'" class="state-panel">
-    <h2>No dashboard data available</h2>
+    <h2>No operational data available</h2>
     <p>{{ dashboardState.message || 'There is no information to show yet.' }}</p>
   </section>
 
   <section *ngIf="dashboardState.status === 'error'" class="state-panel state-panel-error">
-    <h2>Dashboard could not load</h2>
+    <h2>Operations workspace could not load</h2>
     <p>{{ dashboardState.message || 'Please refresh or try again later.' }}</p>
     <button mat-button type="button" (click)="reloadDashboard()">Retry</button>
   </section>
@@ -57,8 +57,8 @@
       <article class="panel">
         <div class="panel-header">
           <div>
-            <h2>Alerts</h2>
-            <p>Items needing attention</p>
+            <h2>Needs Attention</h2>
+            <p>Exceptions and operational items to review</p>
           </div>
         </div>
         <mifosx-dashboard-alert-card *ngFor="let alert of dashboard.alerts" [alert]="alert"></mifosx-dashboard-alert-card>
@@ -87,8 +87,8 @@
       <article class="panel">
         <div class="panel-header">
           <div>
-            <h2>My Tasks</h2>
-            <p>Human review queue</p>
+            <h2>My Work</h2>
+            <p>Tasks and human review queue</p>
           </div>
         </div>
         <mifosx-dashboard-task-card *ngFor="let task of dashboard.tasks" [task]="task"></mifosx-dashboard-task-card>
@@ -108,8 +108,8 @@
       <article class="panel">
         <div class="panel-header">
           <div>
-            <h2>Quick Actions</h2>
-            <p>Common workflows</p>
+            <h2>Start a Process</h2>
+            <p>Quick access to common operational workflows</p>
           </div>
         </div>
         <mifosx-dashboard-quick-actions [actions]="dashboard.quickActions"></mifosx-dashboard-quick-actions>
