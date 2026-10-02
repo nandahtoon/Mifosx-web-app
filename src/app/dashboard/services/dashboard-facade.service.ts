@@ -111,9 +111,13 @@ export class DashboardFacadeService {
         { label: 'PAR over 90', value: '0.30%' }
       ],
       quickActions: [
-        { label: 'New Client', route: '/clients/create' },
-        { label: 'New Loan', route: '/search' },
-        { label: 'Collection', route: '/collections' },
+        { label: 'Register Client', route: '/clients/create' },
+        { label: 'Find Client or Account', route: '/search' },
+        { label: 'Group Collection', route: '/collections/collection-sheet' },
+        { label: 'Individual Collection', route: '/collections/individual-collection-sheet' },
+        { label: 'Loan Approval', route: '/checker-inbox-and-tasks/loan-approval' },
+        { label: 'Loan Disbursal', route: '/checker-inbox-and-tasks/loan-disbursal' },
+        { label: 'Checker Inbox', route: '/checker-inbox-and-tasks/checker-inbox' },
         { label: 'Reports', route: '/reports' }
       ],
       portfolioTrend: [
