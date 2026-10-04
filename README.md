@@ -12,6 +12,14 @@ The inherited Mifos X Web App setup, proxy, Docker, environment, and Fineract in
 - Angular 20 framework
 - Angular Material components
 
+## OPS-365 Fast Path
+
+For the current MicroOps Organization + Customer/Identity Web scope, Apache Fineract is the single primary application backend. MicroOps Web reuses supported Fineract APIs directly for native Office, Staff, User/Role, Client, Identifier, Document, Family Member, Data Table and accepted configuration capabilities.
+
+A workflow-first or consolidated UI does not justify a second general backend. Specialized runtime endpoints are introduced only for separately accepted proven gaps.
+
+See [OPS-365 Fineract-First Web Fast Path](docs/ops365-fineract-first-fast-path.md).
+
 ## OPS-365 Architecture Boundary
 
 MicroOps 360 Web is the **presentation/orchestration layer** for OPS-365. Apache Fineract remains the operational CBS/backend and system of record for supported Clients, Groups/Centers, Offices/Staff, Loans, Savings, transactions and accounting.
