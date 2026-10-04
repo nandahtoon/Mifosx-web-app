@@ -3,7 +3,10 @@
     <div>
       <p class="eyebrow">MicroOps 360</p>
       <h1>Operations Workspace</h1>
-      <p class="hero-copy">Start common processes, review work that needs attention, and keep direct access to the full MifosX capability set.</p>
+      <p class="hero-copy">
+        Start common processes, review work that needs attention, and keep direct access to the full MifosX capability
+        set.
+      </p>
     </div>
     <div class="hero-actions">
       <a mat-button routerLink="/search">Find Client or Account</a>
@@ -27,13 +30,13 @@
     <button mat-button type="button" (click)="reloadDashboard()">Retry</button>
   </section>
 
-  <ng-container *ngIf="dashboardState.status === 'ready' && dashboardState.data as dashboard">
-    <section class="kpi-grid" aria-label="Portfolio key performance indicators">
+  <ng-container *ngIf="dashboardState.data as dashboard">
+    <section *ngIf="dashboard.kpis.length > 0" class="kpi-grid" aria-label="Portfolio key performance indicators">
       <mifosx-dashboard-kpi-card *ngFor="let kpi of dashboard.kpis" [kpi]="kpi"></mifosx-dashboard-kpi-card>
     </section>
 
     <section class="dashboard-grid">
-      <article class="panel panel-wide">
+      <article *ngIf="dashboard.portfolioTrend.length > 0" class="panel panel-wide">
         <div class="panel-header">
           <div>
             <h2>Portfolio Trend</h2>
@@ -44,7 +47,7 @@
         <mifosx-dashboard-portfolio-trend [points]="dashboard.portfolioTrend"></mifosx-dashboard-portfolio-trend>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.productMix.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>Portfolio by Product</h2>
@@ -54,17 +57,20 @@
         <mifosx-dashboard-product-mix [items]="dashboard.productMix"></mifosx-dashboard-product-mix>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.alerts.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>Needs Attention</h2>
             <p>Exceptions and operational items to review</p>
           </div>
         </div>
-        <mifosx-dashboard-alert-card *ngFor="let alert of dashboard.alerts" [alert]="alert"></mifosx-dashboard-alert-card>
+        <mifosx-dashboard-alert-card
+          *ngFor="let alert of dashboard.alerts"
+          [alert]="alert"
+        ></mifosx-dashboard-alert-card>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.activities.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>Today Activities</h2>
@@ -74,7 +80,7 @@
         <mifosx-dashboard-activity-summary [activities]="dashboard.activities"></mifosx-dashboard-activity-summary>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.parSummary.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>PAR Summary</h2>
@@ -84,7 +90,7 @@
         <mifosx-dashboard-par-summary [parSummary]="dashboard.parSummary"></mifosx-dashboard-par-summary>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.tasks.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>My Work</h2>
@@ -94,7 +100,7 @@
         <mifosx-dashboard-task-card *ngFor="let task of dashboard.tasks" [task]="task"></mifosx-dashboard-task-card>
       </article>
 
-      <article class="panel panel-wide">
+      <article *ngIf="dashboard.recentLoans.length > 0" class="panel panel-wide">
         <div class="panel-header">
           <div>
             <h2>Recent Loans</h2>
@@ -105,7 +111,7 @@
         <mifosx-dashboard-recent-loans [loans]="dashboard.recentLoans"></mifosx-dashboard-recent-loans>
       </article>
 
-      <article class="panel">
+      <article *ngIf="dashboard.quickActions.length > 0" class="panel">
         <div class="panel-header">
           <div>
             <h2>Start a Process</h2>
