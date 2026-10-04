@@ -1,0 +1,34 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+html,
+body {
+  overflow: hidden;
+}
+
+.overflow-x-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.overflow-no {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}

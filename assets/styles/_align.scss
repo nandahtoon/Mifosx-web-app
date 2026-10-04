@@ -1,0 +1,53 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+@use 'colours' as *;
+
+.v-mid,
+.v-m {
+  vertical-align: middle;
+}
+
+.v-top,
+.v-t {
+  vertical-align: top;
+}
+
+.v-bottom,
+.v-b {
+  vertical-align: bottom;
+}
+
+.v-super {
+  vertical-align: super;
+}
+
+.r-amount {
+  text-align: right !important;
+  padding-right: 5px !important;
+}
+
+.left {
+  text-align: left !important;
+}
+
+.right {
+  text-align: right !important;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.amount-plus {
+  color: $black;
+}
+
+.amount-minus {
+  color: $status-approved;
+}
