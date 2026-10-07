@@ -1,0 +1,340 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+@use '@angular/material' as mat;
+@use 'sass:map';
+
+// =============================================================================
+// MicroOps 360 Canonical Angular Material Palettes
+// =============================================================================
+
+// 1. MicroOps Signature
+$microops-signature-light-primary: (
+  100: #a7f3d0,
+  500: #0e6251,
+  700: #063b36,
+  contrast: (
+    100: #063b36,
+    500: #fff,
+    700: #fff
+  )
+);
+$microops-signature-light-accent: (
+  100: #ccfbf1,
+  500: #0f766e,
+  700: #115e59,
+  contrast: (
+    100: #042f2e,
+    500: #fff,
+    700: #fff
+  )
+);
+$microops-signature-dark-primary: (
+  100: #2ec4b6,
+  500: #14b8a6,
+  700: #0f766e,
+  contrast: (
+    100: #042f2e,
+    500: #042f2e,
+    700: #fff
+  )
+);
+$microops-signature-dark-accent: (
+  100: #5eead4,
+  500: #2dd4bf,
+  700: #14b8a6,
+  contrast: (
+    100: #042f2e,
+    500: #042f2e,
+    700: #fff
+  )
+);
+
+// 2. Ocean Corporate
+$ocean-corporate-light-primary: (
+  100: #bae6fd,
+  500: #0284c7,
+  700: #0369a1,
+  contrast: (
+    100: #082f49,
+    500: #fff,
+    700: #fff
+  )
+);
+$ocean-corporate-light-accent: (
+  100: #e0f2fe,
+  500: #0369a1,
+  700: #075985,
+  contrast: (
+    100: #082f49,
+    500: #fff,
+    700: #fff
+  )
+);
+$ocean-corporate-dark-primary: (
+  100: #7dd3fc,
+  500: #38bdf8,
+  700: #0284c7,
+  contrast: (
+    100: #082f49,
+    500: #082f49,
+    700: #fff
+  )
+);
+$ocean-corporate-dark-accent: (
+  100: #bae6fd,
+  500: #0ea5e9,
+  700: #0284c7,
+  contrast: (
+    100: #082f49,
+    500: #082f49,
+    700: #fff
+  )
+);
+
+// 3. Rich Purple
+$rich-purple-light-primary: (
+  100: #e9d5ff,
+  500: #6d28d9,
+  700: #4c1d95,
+  contrast: (
+    100: #2e1065,
+    500: #fff,
+    700: #fff
+  )
+);
+$rich-purple-light-accent: (
+  100: #f3e8ff,
+  500: #7c3aed,
+  700: #5b21b6,
+  contrast: (
+    100: #2e1065,
+    500: #fff,
+    700: #fff
+  )
+);
+$rich-purple-dark-primary: (
+  100: #c4b5fd,
+  500: #a78bfa,
+  700: #7c3aed,
+  contrast: (
+    100: #2e1065,
+    500: #2e1065,
+    700: #fff
+  )
+);
+$rich-purple-dark-accent: (
+  100: #ddd6fe,
+  500: #8b5cf6,
+  700: #6d28d9,
+  contrast: (
+    100: #2e1065,
+    500: #2e1065,
+    700: #fff
+  )
+);
+
+// 4. Corporate Navy
+$corporate-navy-light-primary: (
+  100: #bfdbfe,
+  500: #1e40af,
+  700: #1e3a8a,
+  contrast: (
+    100: #172554,
+    500: #fff,
+    700: #fff
+  )
+);
+$corporate-navy-light-accent: (
+  100: #dbeafe,
+  500: #1d4ed8,
+  700: #1e40af,
+  contrast: (
+    100: #172554,
+    500: #fff,
+    700: #fff
+  )
+);
+$corporate-navy-dark-primary: (
+  100: #93c5fd,
+  500: #60a5fa,
+  700: #2563eb,
+  contrast: (
+    100: #172554,
+    500: #172554,
+    700: #fff
+  )
+);
+$corporate-navy-dark-accent: (
+  100: #bfdbfe,
+  500: #3b82f6,
+  700: #1d4ed8,
+  contrast: (
+    100: #172554,
+    500: #172554,
+    700: #fff
+  )
+);
+
+// 5. Calm Productivity
+$calm-productivity-light-primary: (
+  100: #e2e8f0,
+  500: #475569,
+  700: #334155,
+  contrast: (
+    100: #0f172a,
+    500: #fff,
+    700: #fff
+  )
+);
+$calm-productivity-light-accent: (
+  100: #f1f5f9,
+  500: #334155,
+  700: #1e293b,
+  contrast: (
+    100: #0f172a,
+    500: #fff,
+    700: #fff
+  )
+);
+$calm-productivity-dark-primary: (
+  100: #cbd5e1,
+  500: #94a3b8,
+  700: #64748b,
+  contrast: (
+    100: #0f172a,
+    500: #0f172a,
+    700: #fff
+  )
+);
+$calm-productivity-dark-accent: (
+  100: #e2e8f0,
+  500: #64748b,
+  700: #475569,
+  contrast: (
+    100: #0f172a,
+    500: #0f172a,
+    700: #fff
+  )
+);
+
+// 6. Emerald Banking
+$emerald-banking-light-primary: (
+  100: #d1fae5,
+  500: #047857,
+  700: #064e3b,
+  contrast: (
+    100: #022c22,
+    500: #fff,
+    700: #fff
+  )
+);
+$emerald-banking-light-accent: (
+  100: #a7f3d0,
+  500: #059669,
+  700: #047857,
+  contrast: (
+    100: #022c22,
+    500: #fff,
+    700: #fff
+  )
+);
+$emerald-banking-dark-primary: (
+  100: #6ee7b7,
+  500: #34d399,
+  700: #059669,
+  contrast: (
+    100: #022c22,
+    500: #022c22,
+    700: #fff
+  )
+);
+$emerald-banking-dark-accent: (
+  100: #a7f3d0,
+  500: #10b981,
+  700: #047857,
+  contrast: (
+    100: #022c22,
+    500: #022c22,
+    700: #fff
+  )
+);
+
+// Helper mixin to define a theme and apply it to a preset class
+@mixin apply-microops-preset($preset-class, $light-primary, $light-accent, $dark-primary, $dark-accent) {
+  $light-theme: mat.m2-define-light-theme(
+    (
+      color: (
+        primary: mat.m2-define-palette($light-primary),
+        accent: mat.m2-define-palette($light-accent),
+        warn: mat.m2-define-palette(mat.$m2-red-palette)
+      )
+    )
+  );
+
+  $dark-theme: mat.m2-define-dark-theme(
+    (
+      color: (
+        primary: mat.m2-define-palette($dark-primary),
+        accent: mat.m2-define-palette($dark-accent),
+        warn: mat.m2-define-palette(mat.$m2-red-palette)
+      )
+    )
+  );
+
+  body.#{$preset-class} {
+    @include mat.all-component-colors($light-theme);
+
+    &.dark-theme {
+      @include mat.all-component-colors($dark-theme);
+    }
+  }
+}
+
+@include apply-microops-preset(
+  'theme-microops-signature',
+  $microops-signature-light-primary,
+  $microops-signature-light-accent,
+  $microops-signature-dark-primary,
+  $microops-signature-dark-accent
+);
+@include apply-microops-preset(
+  'theme-ocean-corporate',
+  $ocean-corporate-light-primary,
+  $ocean-corporate-light-accent,
+  $ocean-corporate-dark-primary,
+  $ocean-corporate-dark-accent
+);
+@include apply-microops-preset(
+  'theme-rich-purple',
+  $rich-purple-light-primary,
+  $rich-purple-light-accent,
+  $rich-purple-dark-primary,
+  $rich-purple-dark-accent
+);
+@include apply-microops-preset(
+  'theme-corporate-navy',
+  $corporate-navy-light-primary,
+  $corporate-navy-light-accent,
+  $corporate-navy-dark-primary,
+  $corporate-navy-dark-accent
+);
+@include apply-microops-preset(
+  'theme-calm-productivity',
+  $calm-productivity-light-primary,
+  $calm-productivity-light-accent,
+  $calm-productivity-dark-primary,
+  $calm-productivity-dark-accent
+);
+@include apply-microops-preset(
+  'theme-emerald-banking',
+  $emerald-banking-light-primary,
+  $emerald-banking-light-accent,
+  $emerald-banking-dark-primary,
+  $emerald-banking-dark-accent
+);

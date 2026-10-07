@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Jest configuration in TypeScript with full type safety
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
@@ -65,8 +65,8 @@ const config: Config = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: [
-    '<rootDir>/src/app/**/*.spec.ts',
-    '<rootDir>/src/app/**/*.test.ts'
+    '**/src/app/**/*.spec.ts',
+    '**/src/app/**/*.test.ts'
   ],
 
   // A map from regular expressions to paths to transformers

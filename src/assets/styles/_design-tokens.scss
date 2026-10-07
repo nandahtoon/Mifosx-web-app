@@ -6,67 +6,368 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/* =============================================================================
+   MicroOps 360 Design Tokens V1
+   Layer A: Brand / Theme Primary & Accent
+   Layer B: System Semantic Status Tokens (Fixed business meaning)
+   Layer C: Financial / Data Visualization Multi-Color Palette
+   ============================================================================= */
+
 :root {
-  /* Brand blue scale */
-  --ds-blue-900: #0d2b5e;
-  --ds-blue-700: #1565c0;
-  --ds-blue-600: #1976d2;
-  --ds-blue-400: #42a5f5;
-  --ds-blue-100: #bbdefb;
-  --ds-blue-50: #e3f2fd;
-  --ds-blue-20: #f0f7ff;
+  /* -------------------------------------------------------------------------
+     Core Spacing & Radius Tokens (8px Grid Standard)
+     ------------------------------------------------------------------------- */
+  --ops-space-1: 4px;
+  --ops-space-2: 8px;
+  --ops-space-3: 12px;
+  --ops-space-4: 16px;
+  --ops-space-5: 20px;
+  --ops-space-6: 24px;
+  --ops-space-8: 32px;
+  --ops-space-10: 40px;
+  --ops-space-12: 48px;
+  --ops-radius-xs: 2px;
+  --ops-radius-sm: 4px;
+  --ops-radius-md: 8px;
+  --ops-radius-lg: 12px;
+  --ops-radius-full: 9999px;
 
-  /* Surfaces */
-  --ds-surface: #fff;
-  --ds-surface-alt: #f4f7fb;
-  --ds-surface-head: #ebf2fa;
-  --ds-border: #dde5f0;
-  --ds-border-strong: #c0d0e4;
+  /* Elevation & Shadows */
+  --ops-shadow-xs: 0 1px 2px rgb(15 23 42 / 5%);
+  --ops-shadow-sm: 0 2px 4px rgb(15 23 42 / 6%), 0 1px 2px rgb(15 23 42 / 4%);
+  --ops-shadow-md: 0 4px 6px -1px rgb(15 23 42 / 8%), 0 2px 4px -2px rgb(15 23 42 / 6%);
+  --ops-shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 8%), 0 4px 6px -4px rgb(15 23 42 / 4%);
 
-  /* Text scale */
-  --ds-text-1: #0d1b2a;
-  --ds-text-2: #4a6785;
-  --ds-text-3: #8fa5bc;
+  /* Focus Ring */
+  --ops-focus-ring: 0 0 0 2px var(--ops-surface-card, #fff), 0 0 0 4px var(--ops-primary, #0e6251);
 
-  /* Financial-status colors */
-  --ds-paid: #2e7d32;
-  --ds-paid-bg: #e8f5e9;
-  --ds-partial: #e65100;
-  --ds-partial-bg: #fff3e0;
-  --ds-alert: #c62828;
-  --ds-alert-bg: #ffebee;
-  --ds-zero: #b0bec5;
+  /* -------------------------------------------------------------------------
+     Surfaces & Backgrounds (Light Default)
+     Pure #FFFFFF is NOT dominant: canvas is subtle Smoke White (#f4f6f9)
+     ------------------------------------------------------------------------- */
+  --ops-bg-app: #f4f6f9;
+  --ops-surface-card: #fff;
+  --ops-surface-elevated: #fff;
+  --ops-surface-alt: #eef2f6;
+  --ops-surface-head: #e8edf4;
+  --ops-surface-nav: #0f172a;
+  --ops-border: #e2e8f0;
+  --ops-border-strong: #cbd5e1;
 
-  /* Elevation */
-  --ds-shadow-xs: 0 1px 2px rgb(13 43 94 / 6%);
-  --ds-shadow-sm: 0 2px 8px rgb(13 43 94 / 10%);
-  --ds-shadow-md: 0 6px 20px rgb(13 43 94 / 14%);
+  /* Text Scale (Light) */
+  --ops-text-primary: #0f172a;
+  --ops-text-secondary: #475569;
+  --ops-text-muted: #64748b;
+  --ops-text-disabled: #94a3b8;
 
-  /* Radii */
-  --ds-radius-sm: 4px;
-  --ds-radius: 8px;
-  --ds-radius-lg: 12px;
+  /* -------------------------------------------------------------------------
+     Layer B: Fixed System Semantic Status Tokens (Light)
+     Meaning remains immutable across themes
+     ------------------------------------------------------------------------- */
+  --ops-status-success: #15803d;
+  --ops-status-success-bg: #ecfdf5;
+  --ops-status-success-border: #86efac;
+  --ops-status-warning: #b45309;
+  --ops-status-warning-bg: #fffbeb;
+  --ops-status-warning-border: #fcd34d;
+  --ops-status-error: #b91c1c;
+  --ops-status-error-bg: #fef2f2;
+  --ops-status-error-border: #fca5a5;
+  --ops-status-critical: #881337;
+  --ops-status-critical-bg: #fff1f2;
+  --ops-status-critical-border: #f43f5e;
+  --ops-status-info: #0369a1;
+  --ops-status-info-bg: #f0f9ff;
+  --ops-status-info-border: #7dd3fc;
+  --ops-status-progress: #6d28d9;
+  --ops-status-progress-bg: #faf5ff;
+  --ops-status-progress-border: #d8b4fe;
+  --ops-status-neutral: #475569;
+  --ops-status-neutral-bg: #f1f5f9;
+  --ops-status-neutral-border: #cbd5e1;
+
+  /* -------------------------------------------------------------------------
+     Layer C: Accessible Financial / Data Visualization Multi-Color Palette
+     Preserves multi-series contrast across all themes
+     ------------------------------------------------------------------------- */
+  --ops-chart-1: #0284c7; /* Portfolio / Outstanding */
+  --ops-chart-2: #10b981; /* Collections / Repayments */
+  --ops-chart-3: #8b5cf6; /* Savings / Deposits */
+  --ops-chart-4: #f59e0b; /* PAR / Risk / Arrears */
+  --ops-chart-5: #06b6d4; /* Income / Revenue */
+  --ops-chart-6: #ef4444; /* Expense / Write-off */
+  --ops-chart-7: #ec4899; /* Capital / Equity */
+  --ops-chart-8: #64748b; /* Treasury / Neutral */
+
+  /* -------------------------------------------------------------------------
+     Layer A: Preset 1: MicroOps Signature (Default Light)
+     ------------------------------------------------------------------------- */
+  --ops-primary: #0e6251;
+  --ops-primary-hover: #0a4f41;
+  --ops-primary-container: #e6f5f3;
+  --ops-primary-on-container: #063b36;
+  --ops-accent: #0f766e;
+  --ops-accent-container: #ccfbf1;
+
+  /* -------------------------------------------------------------------------
+     Backward Compatibility: Legacy --ds-* Tokens
+     ------------------------------------------------------------------------- */
+  --ds-blue-900: var(--ops-primary-on-container);
+  --ds-blue-700: var(--ops-primary);
+  --ds-blue-600: var(--ops-primary-hover);
+  --ds-blue-400: var(--ops-accent);
+  --ds-blue-100: var(--ops-primary-container);
+  --ds-blue-50: var(--ops-primary-container);
+  --ds-blue-20: var(--ops-surface-alt);
+  --ds-surface: var(--ops-surface-card);
+  --ds-surface-alt: var(--ops-surface-alt);
+  --ds-surface-head: var(--ops-surface-head);
+  --ds-border: var(--ops-border);
+  --ds-border-strong: var(--ops-border-strong);
+  --ds-text-1: var(--ops-text-primary);
+  --ds-text-2: var(--ops-text-secondary);
+  --ds-text-3: var(--ops-text-muted);
+  --ds-paid: var(--ops-status-success);
+  --ds-paid-bg: var(--ops-status-success-bg);
+  --ds-partial: var(--ops-status-warning);
+  --ds-partial-bg: var(--ops-status-warning-bg);
+  --ds-alert: var(--ops-status-error);
+  --ds-alert-bg: var(--ops-status-error-bg);
+  --ds-zero: var(--ops-status-neutral);
+  --ds-shadow-xs: var(--ops-shadow-xs);
+  --ds-shadow-sm: var(--ops-shadow-sm);
+  --ds-shadow-md: var(--ops-shadow-md);
+  --ds-radius-sm: var(--ops-radius-sm);
+  --ds-radius: var(--ops-radius-md);
+  --ds-radius-lg: var(--ops-radius-lg);
+
+  /* Material Design 3 System Tokens Integration */
+  --md-sys-color-primary: var(--ops-primary);
+  --md-sys-color-on-primary: #fff;
+  --md-sys-color-primary-container: var(--ops-primary-container);
+  --md-sys-color-on-primary-container: var(--ops-primary-on-container);
+  --md-sys-color-surface: var(--ops-surface-card);
+  --md-sys-color-surface-container: var(--ops-surface-card);
+  --md-sys-color-on-surface: var(--ops-text-primary);
+  --md-sys-color-background: var(--ops-bg-app);
+  --md-sys-color-on-background: var(--ops-text-primary);
+  --md-sys-color-outline: var(--ops-border);
 }
 
+/* =============================================================================
+   Dark Mode Base Surface and Semantic Tokens
+   Pure #000000 is NOT dominant: canvas is Navy/Graphite (#0f172a)
+   ============================================================================= */
 body.dark-theme {
-  --ds-blue-700: #5b9bd5;
-  --ds-blue-600: #7ab3e0;
-  --ds-blue-100: #1a3a60;
-  --ds-blue-50: #0a2040;
-  --ds-blue-20: #0d1f35;
-  --ds-surface: #1a2535;
-  --ds-surface-alt: #101d2d;
-  --ds-surface-head: #132032;
-  --ds-border: #1e3050;
-  --ds-border-strong: #2a4264;
-  --ds-text-1: #e2ebf6;
-  --ds-text-2: #8baecf;
-  --ds-text-3: #6a8fad;
-  --ds-paid: #66bb6a;
-  --ds-paid-bg: #172b1a;
-  --ds-partial: #ffa726;
-  --ds-partial-bg: #281c0b;
-  --ds-alert: #ef9a9a;
-  --ds-alert-bg: #2b1212;
-  --ds-zero: #6a8fad;
+  --ops-bg-app: #0f172a;
+  --ops-surface-card: #1e293b;
+  --ops-surface-elevated: #273548;
+  --ops-surface-alt: #162032;
+  --ops-surface-head: #1e2d44;
+  --ops-surface-nav: #0b1120;
+  --ops-border: #25354e;
+  --ops-border-strong: #334766;
+
+  /* Text Scale (Dark) */
+  --ops-text-primary: #f8fafc;
+  --ops-text-secondary: #cbd5e1;
+  --ops-text-muted: #94a3b8;
+  --ops-text-disabled: #64748b;
+
+  /* Layer B: Fixed System Semantic Status Tokens (Dark) */
+  --ops-status-success: #4ade80;
+  --ops-status-success-bg: #064e3b;
+  --ops-status-success-border: #059669;
+  --ops-status-warning: #fbbf24;
+  --ops-status-warning-bg: #78350f;
+  --ops-status-warning-border: #d97706;
+  --ops-status-error: #f87171;
+  --ops-status-error-bg: #7f1d1d;
+  --ops-status-error-border: #dc2626;
+  --ops-status-critical: #fda4af;
+  --ops-status-critical-bg: #4c0519;
+  --ops-status-critical-border: #9f1239;
+  --ops-status-info: #38bdf8;
+  --ops-status-info-bg: #0c4a6e;
+  --ops-status-info-border: #0284c7;
+  --ops-status-progress: #c084fc;
+  --ops-status-progress-bg: #581c87;
+  --ops-status-progress-border: #7e22ce;
+  --ops-status-neutral: #94a3b8;
+  --ops-status-neutral-bg: #1e293b;
+  --ops-status-neutral-border: #475569;
+
+  /* MicroOps Signature (Dark Default) */
+  --ops-primary: #2ec4b6;
+  --ops-primary-hover: #5eead4;
+  --ops-primary-container: #103b36;
+  --ops-primary-on-container: #ccfbf1;
+  --ops-accent: #14b8a6;
+  --ops-accent-container: #042f2e;
+
+  /* Backward Compatibility: Legacy --ds-* in Dark Mode */
+  --ds-blue-900: var(--ops-primary-on-container);
+  --ds-blue-700: var(--ops-primary);
+  --ds-blue-600: var(--ops-primary-hover);
+  --ds-blue-400: var(--ops-accent);
+  --ds-blue-100: var(--ops-primary-container);
+  --ds-blue-50: var(--ops-primary-container);
+  --ds-blue-20: var(--ops-surface-alt);
+  --ds-surface: var(--ops-surface-card);
+  --ds-surface-alt: var(--ops-surface-alt);
+  --ds-surface-head: var(--ops-surface-head);
+  --ds-border: var(--ops-border);
+  --ds-border-strong: var(--ops-border-strong);
+  --ds-text-1: var(--ops-text-primary);
+  --ds-text-2: var(--ops-text-secondary);
+  --ds-text-3: var(--ops-text-muted);
+  --ds-paid: var(--ops-status-success);
+  --ds-paid-bg: var(--ops-status-success-bg);
+  --ds-partial: var(--ops-status-warning);
+  --ds-partial-bg: var(--ops-status-warning-bg);
+  --ds-alert: var(--ops-status-error);
+  --ds-alert-bg: var(--ops-status-error-bg);
+  --ds-zero: var(--ops-status-neutral);
+}
+
+/* =============================================================================
+   Layer A: 6 Canonical Theme Presets
+   ============================================================================= */
+
+/* 1. MicroOps Signature */
+body.theme-microops-signature {
+  --ops-primary: #0e6251;
+  --ops-primary-hover: #0a4f41;
+  --ops-primary-container: #e6f5f3;
+  --ops-primary-on-container: #063b36;
+  --ops-accent: #0f766e;
+  --ops-accent-container: #ccfbf1;
+
+  &.dark-theme {
+    --ops-primary: #2ec4b6;
+    --ops-primary-hover: #5eead4;
+    --ops-primary-container: #103b36;
+    --ops-primary-on-container: #ccfbf1;
+    --ops-accent: #14b8a6;
+    --ops-accent-container: #042f2e;
+  }
+}
+
+/* 2. Ocean Corporate */
+body.theme-ocean-corporate {
+  --ops-primary: #0284c7;
+  --ops-primary-hover: #0369a1;
+  --ops-primary-container: #e0f2fe;
+  --ops-primary-on-container: #075985;
+  --ops-accent: #0369a1;
+  --ops-accent-container: #bae6fd;
+
+  &.dark-theme {
+    --ops-primary: #38bdf8;
+    --ops-primary-hover: #7dd3fc;
+    --ops-primary-container: #0c4a6e;
+    --ops-primary-on-container: #e0f2fe;
+    --ops-accent: #0284c7;
+    --ops-accent-container: #082f49;
+  }
+}
+
+/* 3. Rich Purple */
+body.theme-rich-purple {
+  --ops-primary: #6d28d9;
+  --ops-primary-hover: #5b21b6;
+  --ops-primary-container: #f3e8ff;
+  --ops-primary-on-container: #4c1d95;
+  --ops-accent: #7c3aed;
+  --ops-accent-container: #e9d5ff;
+
+  &.dark-theme {
+    --ops-primary: #a78bfa;
+    --ops-primary-hover: #c4b5fd;
+    --ops-primary-container: #3b0764;
+    --ops-primary-on-container: #f3e8ff;
+    --ops-accent: #8b5cf6;
+    --ops-accent-container: #2e1065;
+  }
+}
+
+/* 4. Corporate Navy */
+body.theme-corporate-navy {
+  --ops-primary: #1e40af;
+  --ops-primary-hover: #1e3a8a;
+  --ops-primary-container: #dbeafe;
+  --ops-primary-on-container: #172554;
+  --ops-accent: #1d4ed8;
+  --ops-accent-container: #bfdbfe;
+
+  &.dark-theme {
+    --ops-primary: #60a5fa;
+    --ops-primary-hover: #93c5fd;
+    --ops-primary-container: #172554;
+    --ops-primary-on-container: #dbeafe;
+    --ops-accent: #3b82f6;
+    --ops-accent-container: #1e3a8a;
+  }
+}
+
+/* 5. Calm Productivity */
+body.theme-calm-productivity {
+  --ops-primary: #475569;
+  --ops-primary-hover: #334155;
+  --ops-primary-container: #f1f5f9;
+  --ops-primary-on-container: #0f172a;
+  --ops-accent: #334155;
+  --ops-accent-container: #e2e8f0;
+
+  &.dark-theme {
+    --ops-primary: #94a3b8;
+    --ops-primary-hover: #cbd5e1;
+    --ops-primary-container: #1e293b;
+    --ops-primary-on-container: #f8fafc;
+    --ops-accent: #64748b;
+    --ops-accent-container: #0f172a;
+  }
+}
+
+/* 6. Emerald Banking */
+body.theme-emerald-banking {
+  --ops-primary: #047857;
+  --ops-primary-hover: #065f46;
+  --ops-primary-container: #d1fae5;
+  --ops-primary-on-container: #022c22;
+  --ops-accent: #059669;
+  --ops-accent-container: #a7f3d0;
+
+  &.dark-theme {
+    --ops-primary: #34d399;
+    --ops-primary-hover: #6ee7b7;
+    --ops-primary-container: #064e3b;
+    --ops-primary-on-container: #d1fae5;
+    --ops-accent: #10b981;
+    --ops-accent-container: #022c22;
+  }
+}
+
+/* =============================================================================
+   Application Shell Neutral Surface Application
+   ============================================================================= */
+html,
+body {
+  background-color: var(--ops-bg-app);
+  color: var(--ops-text-primary);
+  min-height: 100%;
+}
+
+.mat-drawer-container,
+.mat-drawer-content,
+#mifosx-shell-container,
+.view-container {
+  background-color: var(--ops-bg-app) !important;
+}
+
+.mat-mdc-card,
+mat-card {
+  background-color: var(--ops-surface-card);
+  color: var(--ops-text-primary);
+  border: 1px solid var(--ops-border);
 }
