@@ -61,7 +61,7 @@
   // Time in seconds for COB Catch-Up, default 30 seconds
   window['env']['waitTimeForCOBCatchUp'] = '$MIFOS_WAIT_TIME_FOR_CATCHUP';
 
-  // Time in milliseconds for Session idle timeout, default 300000 seconds
+  // Time in milliseconds for Session idle timeout, default 300000 ms (5 minutes)
   window['env']['sessionIdleTimeout'] = '$MIFOS_SESSION_IDLE_TIMEOUT';
 
   // OAuth Server Enabled
@@ -92,7 +92,7 @@
   window['env']['minPasswordLength'] = '$MIFOS_MIN_PASSWORD_LENGTH';
 
   // Password Regex
-  window['env']['minPasswordLength'] = '$MIFOS_MIN_PASSWORD_LENGTH';
+  window['env']['passwordRegex'] = '$MIFOS_PASSWORD_REGEX';
 
   // Enable or Disable HTTP Cache
   window['env']['httpCacheEnabled'] = '$MIFOS_HTTP_CACHE_ENABLED';
@@ -129,6 +129,9 @@
   window['env']['externalNationalIdSystemApiHeader'] = '$EXTERNAL_NATIONAL_ID_SYSTEM_API_HEADER';
   window['env']['externalNationalIdSystemApiKey'] = '$EXTERNAL_NATIONAL_ID_SYSTEM_API_KEY';
   window['env']['externalNationalIdRegex'] = '$EXTERNAL_NATIONAL_ID_REGEX';
+
+  // Postal Code Lookup
+  window['env']['enablePostalCodeLookup'] = '$ENABLE_POSTAL_CODE_LOOKUP';
 
   // OIDC Plugin Environment variables
   window['env']['oidcServerEnabled'] = '$FINERACT_PLUGIN_OIDC_ENABLED';
