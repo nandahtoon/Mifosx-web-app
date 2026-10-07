@@ -86,7 +86,7 @@ export const environment = {
   mifosInterbankTransfersApiProvider: loadedEnv['mifosInterbankTransfersApiProvider'] || '/vnext1',
   mifosInterbankTransfersApiVersion: loadedEnv['mifosInterbankTransfersApiVersion'] || '/v1.0',
   mifosInterbankTransfersEnabled:
-    loadedEnv['mifosInterbankTransfersEnabled'] !== 'false' && loadedEnv['mifosInterbankTransfersEnabled'] !== false,
+    loadedEnv['mifosInterbankTransfersEnabled'] === 'true' || loadedEnv['mifosInterbankTransfersEnabled'] === true,
 
   /**
    * Mifos Copilot AI assistant: deployment master switch (level 1 feature flag).
@@ -102,7 +102,7 @@ export const environment = {
   mifosRemittanceApiProvider: loadedEnv['mifosRemittanceApiProvider'] || '',
   mifosRemittanceApiVersion: loadedEnv['mifosRemittanceApiVersion'] || '',
   mifosRemittanceEnabled:
-    loadedEnv['mifosRemittanceEnabled'] !== 'false' && loadedEnv['mifosRemittanceEnabled'] !== false,
+    loadedEnv['mifosRemittanceEnabled'] === 'true' || loadedEnv['mifosRemittanceEnabled'] === true,
   mifosRemittanceApiHeader: loadedEnv['mifosRemittanceApiClientHeader'] || '',
   mifosRemittanceApiKey: loadedEnv['mifosRemittanceApiClientKey'] || '',
 
@@ -136,8 +136,8 @@ export const environment = {
     loadedEnv['complianceHideClientData'] === 'true' || loadedEnv['complianceHideClientData'] === true || false,
 
   /**
-   * Enable Role-Based Access Control (RBAC) for menus and buttons
-   * When enabled, menus/buttons visibility is controlled by user permissions
+   * Enable permission-aware UI visibility for menus and buttons.
+   * This is a presentation control only; Fineract/server-side authorization remains authoritative.
    * When disabled (default), shows all menus/buttons for backward compatibility
    * Set via MIFOS_PRODUCTION_MODE_ENABLE_RBAC env var
    */
