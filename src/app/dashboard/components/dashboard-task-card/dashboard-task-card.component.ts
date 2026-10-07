@@ -7,12 +7,14 @@
  */
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 import { DashboardTask } from '../../models/dashboard.model';
 
 @Component({
   selector: 'mifosx-dashboard-task-card',
   templateUrl: './dashboard-task-card.component.html',
   styleUrls: ['./dashboard-task-card.component.scss'],
+  imports: [...STANDALONE_SHARED_IMPORTS],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardTaskCardComponent {

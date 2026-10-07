@@ -19,7 +19,10 @@ describe('DashboardApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     });
 
     service = TestBed.inject(DashboardApiService);
@@ -45,5 +48,23 @@ describe('DashboardApiService', () => {
     );
 
     request.flush({ data: [] });
+  });
+
+  it('should call loans endpoint with limit and order parameters', (done) => {
+    service.getRecentLoans(5).subscribe((response) => {
+      expect(response).toEqual([]);
+      done();
+    });
+
+    const request = httpTestingController.expectOne(
+      (req) =>
+        req.method === 'GET' &&
+        req.url === '/loans' &&
+        req.params.get('limit') === '5' &&
+        req.params.get('orderBy') === 'id' &&
+        req.params.get('sortOrder') === 'DESC'
+    );
+
+    request.flush([]);
   });
 });

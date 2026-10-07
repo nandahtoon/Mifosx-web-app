@@ -11,7 +11,8 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 /** Custom Services */
 import { SearchService } from './search.service';
@@ -24,13 +25,16 @@ export class SearchResolver {
   private searchService = inject(SearchService);
 
   /**
-   * Returns the Search Resultsdata.
+   * Returns the Search Results data.
    * @param {ActivatedRouteSnapshot} route Route Snapshot
    * @returns {Observable<any>}
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const query = route.queryParams['query'];
     const resource = route.queryParams['resource'];
-    return this.searchService.getSearchResults(query, resource);
+    if (!query) {
+      return of([]);
+    }
+    return this.searchService.getSearchResults(query, resource).pipe(catchError(() => of([])));
   }
 }

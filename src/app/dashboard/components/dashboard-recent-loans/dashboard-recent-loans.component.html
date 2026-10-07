@@ -1,3 +1,11 @@
+<!--
+  Copyright since 2025 Mifos Initiative
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
 <div class="loan-table">
   <div class="loan-row loan-head">
     <span>Loan ID</span>
@@ -6,11 +14,22 @@
     <span>Amount</span>
     <span>Status</span>
   </div>
-  <div class="loan-row" *ngFor="let loan of loans">
-    <span>{{ loan.id }}</span>
-    <span>{{ loan.client }}</span>
-    <span>{{ loan.product }}</span>
-    <span>{{ loan.amount }}</span>
-    <span>{{ loan.status }}</span>
-  </div>
+  <ng-container *ngFor="let loan of loans">
+    <a *ngIf="loan.route; else staticLoan" [routerLink]="loan.route" class="loan-row loan-row-link">
+      <span>{{ loan.id }}</span>
+      <span>{{ loan.client }}</span>
+      <span>{{ loan.product }}</span>
+      <span>{{ loan.amount }}</span>
+      <span>{{ loan.status }}</span>
+    </a>
+    <ng-template #staticLoan>
+      <div class="loan-row">
+        <span>{{ loan.id }}</span>
+        <span>{{ loan.client }}</span>
+        <span>{{ loan.product }}</span>
+        <span>{{ loan.amount }}</span>
+        <span>{{ loan.status }}</span>
+      </div>
+    </ng-template>
+  </ng-container>
 </div>

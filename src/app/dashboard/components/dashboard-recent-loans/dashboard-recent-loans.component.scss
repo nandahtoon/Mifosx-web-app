@@ -1,3 +1,11 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 .loan-table {
   display: grid;
   gap: 4px;
@@ -8,8 +16,19 @@
   border-radius: 12px;
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1.3fr 1.3fr 1.2fr 0.8fr;
+  grid-template-columns: 1fr 1.3fr 1.3fr 1.2fr 0.8fr; /* stylelint-disable-line unit-allowed-list */
   padding: 12px;
+}
+
+a.loan-row {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #f8fafc;
+  }
 }
 
 .loan-head {
@@ -19,8 +38,8 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 760px) {
+@media (width <= 760px) {
   .loan-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* stylelint-disable-line unit-allowed-list */
   }
 }
