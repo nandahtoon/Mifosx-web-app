@@ -88,7 +88,7 @@
   window['env']['mifosInterbankTransfersApiUrl'] = '';
   window['env']['mifosInterbankTransfersApiProvider'] = '';
   window['env']['mifosInterbankTransfersApiVersion'] = '';
-  window['env']['mifosInterbankTransfersEnabled'] = 'true';
+  window['env']['mifosInterbankTransfersEnabled'] = false;
 
   // Remittance Module Environment variables
   window['env']['mifosRemittanceApiClientUrl'] = '';
@@ -111,7 +111,7 @@
   // Set to 'true' to enable External National ID lookup during client creation/editing
   // When enabled, set EXTERNAL_NATIONAL_ID_SYSTEM_URL, API_HEADER, API_KEY, and REGEX
   // In production, API key is injected server-side via nginx proxy_set_header (never set here)
-  window['env']['enableExternalNationalIdSystem'] = 'false';
+  window['env']['enableExternalNationalIdSystem'] = false;
   window['env']['externalNationalIdSystemUrl'] = '';
   window['env']['externalNationalIdSystemApiHeader'] = '';
   window['env']['externalNationalIdSystemApiKey'] = '';
@@ -119,10 +119,17 @@
 
   // Postal Code Lookup (auto-fill address from postal code via external API)
   // Set to 'true' to enable, 'false' (default) to disable
-  window['env']['enablePostalCodeLookup'] = 'false';
+  window['env']['enablePostalCodeLookup'] = false;
 
   // Password Configuration
   window['env']['minPasswordLength'] = 8;
+  window['env']['passwordRegex'] = '';
+
+  // HTTP Cache
+  window['env']['httpCacheEnabled'] = false;
+
+  // Documentation Base URL
+  window['env']['documentationBaseUrl'] = '';
 
   // OIDC Plugin Environment variables
   window['env']['oidcServerEnabled'] = false;
