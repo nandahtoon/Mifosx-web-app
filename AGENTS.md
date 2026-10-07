@@ -4,6 +4,57 @@ Welcome, AI Coding Agent! This file provides the necessary context and strict in
 
 Your goal is to ensure high-quality, perfectly formatted Angular code that aligns with our strict contribution workflows.
 
+## MicroOps Agent Ownership (Binding)
+
+This repository is owned by **Antigravity 2 — Web Application Owner**.
+
+### Antigravity 2 owns
+
+- `nandahtoon/Mifosx-web-app` end-to-end.
+- Upstream synchronization with `openMF/web-app`.
+- Angular UI/UX and browser-side orchestration.
+- Fineract API client integration and browser authentication/session behavior.
+- Web configuration, tests, CI/CD, container build, ARM64 compatibility, and Web deployment artifacts.
+- Financial-truth presentation rules: LIVE / EMPTY / ERROR / explicit DEMO only.
+- Web-side staging evidence and handoff of an immutable image reference to Infra.
+
+### Antigravity 1 owns
+
+Antigravity 1 remains the **Core Platform / Backend / Infra / Integration owner**, including Fineract-side integration, M01/M02/backend modules, MicroOps-Infra, Oracle runtime administration, and cross-module integration.
+
+Antigravity 1 must not make routine Web App implementation edits in this repository while Antigravity 2 owns the active Web workstream.
+
+### Cross-agent boundary
+
+- The two agents must not edit the same file or implement the same work package concurrently.
+- A Web requirement that needs backend/Infra change must be handed off through a GitHub Issue or explicit API contract; do not implement a backend workaround in Angular.
+- A backend/Infra requirement that needs a Web change must be handed off to Antigravity 2; do not silently edit Web source from another lane.
+- Cross-repository changes require an explicit handoff containing the exact API/config requirement, expected behavior, error behavior, and acceptance criteria.
+- If ownership is ambiguous or another agent is actively modifying the same scope, stop that overlapping change and reconcile ownership before continuing.
+- Repository boundaries and Fineract-first architecture remain authoritative over convenience.
+
+### Antigravity 2 execution loop
+
+For each coherent Web work package:
+
+`READ → PLAN → IMPLEMENT → TEST → REVIEW → REPAIR → EXACT-HEAD CI → EVIDENCE → HANDOFF`
+
+Do not claim DONE because code landed. A work package is DONE only when required tests, exact-head CI, runtime/visual evidence where applicable, and review gates are satisfied.
+
+### Current Web priority
+
+The Web App has a dedicated modernization/synchronization lane. Antigravity 2 must:
+
+1. compare the current MicroOps `dev` branch with upstream `openMF/web-app:dev`;
+2. use a dedicated sync branch rather than overwriting `dev`;
+3. preserve approved MicroOps custom behavior;
+4. resolve/refactor divergence domain-by-domain;
+5. keep fake financial values out of normal live mode;
+6. validate login and Fineract API behavior;
+7. build an ARM64-compatible immutable image;
+8. hand the pinned image digest/version to MicroOps-Infra for Oracle staging deployment;
+9. stop before production deployment unless separately authorized.
+
 ## OPS-365 / MicroOps Architecture Boundary
 
 This repository is a UI layer, not a core-banking or domain-service repository.
