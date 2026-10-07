@@ -71,6 +71,4 @@ src/environments/.env.ts
 /playwright/.cache/
 /playwright/.auth/
 
-docs/
-scripts/
 

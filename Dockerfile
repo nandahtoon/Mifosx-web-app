@@ -4,7 +4,7 @@
 ARG BUILDER_IMAGE=node:24-alpine3.23
 ARG NGINX_IMAGE=nginx:1.31.1-alpine3.23-slim
 
-FROM $BUILDER_IMAGE AS builder
+FROM --platform=$BUILDPLATFORM $BUILDER_IMAGE AS builder
 ARG NPM_REGISTRY_URL=https://registry.npmjs.org/
 ARG BUILD_ENVIRONMENT_OPTIONS="--configuration production"
 ARG PUPPETEER_DOWNLOAD_HOST_ARG=https://storage.googleapis.com

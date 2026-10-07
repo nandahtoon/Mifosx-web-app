@@ -1,4 +1,4 @@
-name: Publish Image in Docker Hub
+name: Publish Container Image (GHCR & Docker Hub)
 
 on:
   push:
@@ -6,9 +6,11 @@ on:
 
 permissions:
   contents: read
+  packages: write
 
 jobs:
   build:
+    name: Build and Push Multi-Arch Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -31,22 +33,26 @@ jobs:
           echo "configured=false" >> "$GITHUB_OUTPUT"
 
           if [ "$GITHUB_REF" = "refs/heads/main" ]; then
-            echo "::error::Docker Hub publication is required on main but registry credentials are not configured."
-            exit 1
+            echo "::notice::Docker Hub credentials are not configured on main; Docker Hub publication will be skipped."
+          else
+            echo "::notice::Docker Hub credentials are not configured; skipping dev Docker Hub publication."
           fi
 
-          echo "::notice::Docker Hub credentials are not configured; skipping dev image publication."
-
       - name: Set up QEMU
-        if: ${{ steps.registry.outputs.configured == 'true' }}
         uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
-        if: ${{ steps.registry.outputs.configured == 'true' }}
         id: buildx
         uses: docker/setup-buildx-action@v4
         with:
           install: true
+
+      - name: Log in to GitHub Container Registry (GHCR)
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log in to Docker Hub
         if: ${{ steps.registry.outputs.configured == 'true' }}
@@ -56,32 +62,36 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Extract branch name
-        if: ${{ steps.registry.outputs.configured == 'true' }}
         shell: bash
         run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> "$GITHUB_OUTPUT"
         id: extract_branch
 
       - name: Get Git hashes
-        if: ${{ steps.registry.outputs.configured == 'true' }}
         run: |
           echo "short_hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
           echo "long_hash=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
         id: git_hashes
 
       - name: Build and push multi-arch Docker image
-        if: ${{ steps.registry.outputs.configured == 'true' }}
         shell: bash
         env:
           DOCKER_ORGANIZATION: ${{ secrets.DOCKER_ORGANIZATION }}
         run: |
           set -euo pipefail
 
-          TAGS="--tag $DOCKER_ORGANIZATION/web-app:${{ steps.extract_branch.outputs.branch }}"
+          GHCR_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          GHCR_REPO="ghcr.io/${GHCR_OWNER}/mifosx-web-app"
 
-          if [ "${{ steps.extract_branch.outputs.branch }}" = "main" ]; then
-            TAGS="$TAGS --tag $DOCKER_ORGANIZATION/web-app:${{ steps.git_hashes.outputs.short_hash }} --tag $DOCKER_ORGANIZATION/web-app:${{ steps.git_hashes.outputs.long_hash }}"
-          else
-            TAGS="$TAGS --tag $DOCKER_ORGANIZATION/web-app:${{ steps.extract_branch.outputs.branch }}-${{ steps.git_hashes.outputs.short_hash }}"
+          TAGS="--tag $GHCR_REPO:${{ steps.extract_branch.outputs.branch }} --tag $GHCR_REPO:${{ steps.extract_branch.outputs.branch }}-${{ steps.git_hashes.outputs.short_hash }} --tag $GHCR_REPO:${{ steps.git_hashes.outputs.long_hash }}"
+
+          if [ "${{ steps.registry.outputs.configured }}" = "true" ]; then
+            TAGS="$TAGS --tag $DOCKER_ORGANIZATION/web-app:${{ steps.extract_branch.outputs.branch }}"
+
+            if [ "${{ steps.extract_branch.outputs.branch }}" = "main" ]; then
+              TAGS="$TAGS --tag $DOCKER_ORGANIZATION/web-app:${{ steps.git_hashes.outputs.short_hash }} --tag $DOCKER_ORGANIZATION/web-app:${{ steps.git_hashes.outputs.long_hash }}"
+            else
+              TAGS="$TAGS --tag $DOCKER_ORGANIZATION/web-app:${{ steps.extract_branch.outputs.branch }}-${{ steps.git_hashes.outputs.short_hash }}"
+            fi
           fi
 
           docker build --push --build-arg="PUPPETEER_SKIP_DOWNLOAD_ARG=true" --platform linux/amd64,linux/arm64 $TAGS .
