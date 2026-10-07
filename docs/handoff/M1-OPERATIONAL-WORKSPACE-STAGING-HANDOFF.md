@@ -29,10 +29,16 @@ Deploy the updated MicroOps Mifos X Web Application container image built from t
 - **Local Staging Verified Image**: `mifos-web:dev-87787944`
   - Manifest List / Config SHA: `sha256:03380ba8f7b556e1cd75e15c4bd2fe01406f962f447b662a6d0530fe60126647`
   - Local Image ID: `61dba949883e`
-- **GitHub Container Registry (GHCR) Targets**:
-  - `ghcr.io/nandahtoon/mifosx-web-app:dev`
-  - `ghcr.io/nandahtoon/mifosx-web-app:dev-87787944`
-  - `ghcr.io/nandahtoon/mifosx-web-app:87787944b0e9f7fbe1fae49577436c1ef6d58629`
+- **GitHub Container Registry (GHCR) Multi-Arch Artifacts**:
+  - Image Repository: `ghcr.io/nandahtoon/mifosx-web-app`
+  - Tags:
+    - `ghcr.io/nandahtoon/mifosx-web-app:dev`
+    - `ghcr.io/nandahtoon/mifosx-web-app:dev-5c1445f`
+    - `ghcr.io/nandahtoon/mifosx-web-app:5c1445fdb4c4a6c8ab1470b8fb178fd6da8092dd`
+  - **Multi-Arch Manifest List Digest**: `sha256:5ff85be42b93b81571ae61da76fe129eb2fc34769b3c14e7a00af8dbf2f1b1e5`
+  - Platform Architectures & Image Configs:
+    - `linux/amd64`: Manifest `sha256:44ea759948d31a4bb4e5396619efd63afb61110c8a26e173b27749615824ef79` | Config `sha256:c0eb8ad2e5e895fb11eb07f3925b619eca8e9029f6c832df24bb7994342bac45`
+    - `linux/arm64` (Oracle A1 Ampere target): Manifest `sha256:50f75d06918d6989727b75327ad886263827c16577d627399f47e94f4d5c1eaf` | Config `sha256:f6ac2322346e478506889d944e81570e139baa6f87fe06ffc49eb282bb1d10a2`
 
 ---
 
@@ -106,14 +112,15 @@ ENABLE_POSTAL_CODE_LOOKUP=false
 ## 7. Acceptance Criteria & Verification Evidence
 
 1. **HTTP Health**: Container starts and serves `index.html` with status `200 OK` on port `4200`.
-2. **CI Pipeline Evidence**:
-   - `Playwright E2E`: 39/39 passing against PostgreSQL + Apache Fineract (Run ID `37623190806`).
-   - `Run Lint, Test and Build`: Passing with zero errors (Run ID `37623190827`).
-   - `Single Commit Check`: Passing (Run ID `37623190833`).
-   - `Validate MPL-2.0 Headers`: Passing (Run ID `37623190832`).
-3. **Multi-Arch Docker Build**:
-   - Both `linux/amd64` and `linux/arm64` supported by base images and Buildx compilation.
-   - Entrypoint `envsubst` runs successfully, generating compliant `assets/env.js`.
+2. **CI Pipeline Evidence on Canonical Baseline (`dev`)**:
+   - `Publish Container Image (GHCR & Docker Hub)`: Passing in 2m27s (Run ID [37647758303](https://github.com/nandahtoon/Mifosx-web-app/actions/runs/37647758303)).
+   - `Playwright E2E`: 39/39 passing against PostgreSQL + Apache Fineract in 5m2s (Run ID [37647757825](https://github.com/nandahtoon/Mifosx-web-app/actions/runs/37647757825)).
+   - `Run Lint, Test and Build`: Passing in 3m47s with zero errors (Run ID [37647758065](https://github.com/nandahtoon/Mifosx-web-app/actions/runs/37647758065)).
+   - `Deploy GitHub Pages`: Passing (Artifact deployed to `gh-pages`).
+3. **Multi-Arch Docker Build & Verification**:
+   - Both `linux/amd64` and `linux/arm64` compiled natively using Buildx `--platform=$BUILDPLATFORM` builder and multi-arch runtime images.
+   - Entrypoint `envsubst` runs successfully, generating compliant `assets/env.js` from runtime environment variables.
+   - Multi-arch manifest published to GHCR with digest `sha256:5ff85be42b93b81571ae61da76fe129eb2fc34769b3c14e7a00af8dbf2f1b1e5`.
 4. **Smoke Verification on Staging Stack**:
-   - Staging Fineract instance (`btk-fineract-staging-fineract-1`) actuator health returns `{"status":"UP","groups":["liveness","readiness"]}`.
-   - Staging Web instance serves modern Angular 20 application with correct tenant identifier `btk-staging`.
+   - Staging Fineract instance (`btk-fineract-staging-fineract-1`) actuator health returns `{"status":"UP","groups":["liveness","readiness"]}` on port 8444.
+   - Staging Web instance serves modern Angular 20 application with tenant identifier `btk-staging` on port 4200.
