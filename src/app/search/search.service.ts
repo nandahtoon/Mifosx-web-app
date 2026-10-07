@@ -27,8 +27,14 @@ export class SearchService {
    * @param {string} resource Entity resource
    * @returns {Observable<any>} Search Results.
    */
-  getSearchResults(query: string, resource: string): Observable<any> {
-    const httpParams = new HttpParams().set('exactMatch', 'false').set('query', query).set('resource', resource);
+  getSearchResults(query: string, resource?: string): Observable<any> {
+    let httpParams = new HttpParams().set('exactMatch', 'false');
+    if (query) {
+      httpParams = httpParams.set('query', query);
+    }
+    if (resource) {
+      httpParams = httpParams.set('resource', resource);
+    }
     return this.http.get('/search', { params: httpParams });
   }
 }

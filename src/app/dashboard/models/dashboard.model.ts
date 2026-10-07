@@ -10,7 +10,7 @@ export type DashboardTrendDirection = 'up' | 'down' | 'flat';
 
 export type DashboardAlertSeverity = 'critical' | 'high' | 'medium' | 'info';
 
-export type DashboardStateStatus = 'loading' | 'ready' | 'empty' | 'error';
+export type DashboardStateStatus = 'loading' | 'ready' | 'empty' | 'error' | 'unauthorized';
 
 export interface DashboardKpi {
   title: string;
@@ -25,12 +25,14 @@ export interface DashboardAlert {
   title: string;
   description: string;
   severity: DashboardAlertSeverity;
+  route?: string;
 }
 
 export interface DashboardTask {
   title: string;
   meta: string;
   priority: string;
+  route?: string;
 }
 
 export interface DashboardRecentLoan {
@@ -39,6 +41,7 @@ export interface DashboardRecentLoan {
   product: string;
   amount: string;
   status: string;
+  route?: string;
 }
 
 export interface DashboardMetricRow {

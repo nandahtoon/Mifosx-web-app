@@ -1,4 +1,33 @@
-<div class="alert-card" [class.critical]="alert.severity === 'critical'" [class.high]="alert.severity === 'high'" [class.medium]="alert.severity === 'medium'" [class.info]="alert.severity === 'info'">
+<!--
+  Copyright since 2025 Mifos Initiative
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
+<a
+  *ngIf="alert.route; else staticAlert"
+  [routerLink]="alert.route"
+  class="alert-card alert-card-link"
+  [class.critical]="alert.severity === 'critical'"
+  [class.high]="alert.severity === 'high'"
+  [class.medium]="alert.severity === 'medium'"
+  [class.info]="alert.severity === 'info'"
+>
   <strong>{{ alert.title }}</strong>
   <span>{{ alert.description }}</span>
-</div>
+</a>
+
+<ng-template #staticAlert>
+  <div
+    class="alert-card"
+    [class.critical]="alert.severity === 'critical'"
+    [class.high]="alert.severity === 'high'"
+    [class.medium]="alert.severity === 'medium'"
+    [class.info]="alert.severity === 'info'"
+  >
+    <strong>{{ alert.title }}</strong>
+    <span>{{ alert.description }}</span>
+  </div>
+</ng-template>

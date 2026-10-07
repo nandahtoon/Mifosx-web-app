@@ -1,24 +1,32 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 .enterprise-dashboard {
-  padding: 24px;
   background: #f7f9fc;
-  min-height: calc(100vh - 64px);
   color: #0f172a;
+  min-height: calc(100vh - 64px);
+  padding: 24px;
 }
 
 .dashboard-hero,
 .panel,
 .state-panel {
-  background: #ffffff;
+  background: #fff;
   border: 1px solid #dce4f0;
   border-radius: 16px;
 }
 
 .dashboard-hero {
   display: flex;
-  justify-content: space-between;
   gap: 24px;
-  padding: 24px;
+  justify-content: space-between;
   margin-bottom: 20px;
+  padding: 24px;
 }
 
 .eyebrow {
@@ -53,10 +61,10 @@ h2 {
 }
 
 .hero-actions {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  align-items: center;
 }
 
 .state-panel {
@@ -71,17 +79,21 @@ h2 {
   border-color: #fecaca;
 }
 
+.state-panel-warning {
+  border-color: #fde68a;
+}
+
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(160px, 1fr));
   gap: 16px;
+  grid-template-columns: repeat(6, minmax(160px, 1fr)); /* stylelint-disable-line unit-allowed-list */
   margin-bottom: 20px;
 }
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* stylelint-disable-line unit-allowed-list */
 }
 
 .panel {
@@ -94,8 +106,8 @@ h2 {
 
 .panel-header {
   display: flex;
-  justify-content: space-between;
   gap: 16px;
+  justify-content: space-between;
   margin-bottom: 18px;
 }
 
@@ -109,14 +121,14 @@ h2 {
   padding: 6px 10px;
 }
 
-@media (max-width: 1200px) {
+@media (width <= 1200px) {
   .kpi-grid,
   .dashboard-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* stylelint-disable-line unit-allowed-list */
   }
 }
 
-@media (max-width: 760px) {
+@media (width <= 760px) {
   .enterprise-dashboard {
     padding: 12px;
   }
@@ -125,7 +137,7 @@ h2 {
   .dashboard-grid,
   .kpi-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* stylelint-disable-line unit-allowed-list */
   }
 
   .panel-wide {

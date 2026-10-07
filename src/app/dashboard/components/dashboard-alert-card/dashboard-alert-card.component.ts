@@ -9,6 +9,9 @@
 /** Angular Imports */
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+/** Custom Modules */
+import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
+
 /** Custom Models */
 import { DashboardAlert } from '../../models/dashboard.model';
 
@@ -16,6 +19,7 @@ import { DashboardAlert } from '../../models/dashboard.model';
   selector: 'mifosx-dashboard-alert-card',
   templateUrl: './dashboard-alert-card.component.html',
   styleUrls: ['./dashboard-alert-card.component.scss'],
+  imports: [...STANDALONE_SHARED_IMPORTS],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardAlertCardComponent {

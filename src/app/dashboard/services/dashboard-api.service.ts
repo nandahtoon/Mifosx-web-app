@@ -23,10 +23,21 @@ export class DashboardApiService {
   runReport(reportName: string, params: DashboardRunReportParams = {}): Observable<DashboardRunReportResponse> {
     let httpParams = new HttpParams();
 
-    Object.entries(params).forEach(([key, value]) => {
-      httpParams = httpParams.set(key, String(value));
-    });
+    Object.entries(params).forEach(
+      ([
+        key,
+        value
+      ]) => {
+        httpParams = httpParams.set(key, String(value));
+      }
+    );
 
     return this.http.get<DashboardRunReportResponse>(`/runreports/${reportName}`, { params: httpParams });
+  }
+
+  getRecentLoans(limit: number = 5): Observable<any> {
+    const params = new HttpParams().set('limit', String(limit)).set('orderBy', 'id').set('sortOrder', 'DESC');
+
+    return this.http.get('/loans', { params });
   }
 }

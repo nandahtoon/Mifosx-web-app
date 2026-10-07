@@ -38,6 +38,12 @@
     <button mat-button type="button" (click)="reloadDashboard()">Retry</button>
   </section>
 
+  <section *ngIf="dashboardState.status === 'unauthorized'" class="state-panel state-panel-warning">
+    <h2>Authentication Required</h2>
+    <p>{{ dashboardState.message || 'Please log in to view operational workspace data.' }}</p>
+    <a mat-button routerLink="/login">Log In</a>
+  </section>
+
   <ng-container *ngIf="dashboardState.data as dashboard">
     <section *ngIf="dashboard.kpis.length > 0" class="kpi-grid" aria-label="Portfolio key performance indicators">
       <mifosx-dashboard-kpi-card *ngFor="let kpi of dashboard.kpis" [kpi]="kpi"></mifosx-dashboard-kpi-card>
