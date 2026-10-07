@@ -1,0 +1,1 @@
+import{jb as i}from"./chunk-FRQB46ED.js";import{ea as e,ja as r}from"./chunk-EG2AZ7OB.js";var m=(()=>{class t{constructor(){this.systemService=r(i)}resolve(){return this.systemService.getConfigurations()}static{this.\u0275fac=function(o){return new(o||t)}}static{this.\u0275prov=e({token:t,factory:t.\u0275fac,providedIn:"root"})}}return t})();export{m as a};
