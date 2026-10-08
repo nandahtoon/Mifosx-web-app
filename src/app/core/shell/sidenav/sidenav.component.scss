@@ -11,7 +11,7 @@
   .navigation-panel {
     width: 100%;
     height: 100%;
-    padding-top: 20%;
+    padding-top: 1rem;
     overflow-x: hidden;
   }
 
@@ -25,36 +25,38 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 15rem;
+    max-width: 16rem;
     z-index: 9999;
     cursor: pointer;
+    padding: 0.75rem 0.5rem;
 
     .app-logo {
       width: auto;
-      height: 42px;
-      margin-right: 8px;
+      height: 40px;
+      margin-bottom: 4px;
     }
 
     .app-logo-text {
       width: auto;
       height: auto;
-      font-size: 2rem;
-      font-weight: normal;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--mo-text-primary, #0f172a);
     }
   }
 
   .app-user {
     text-align: center;
     width: 100%;
-    padding: 1rem 0 0.4rem;
+    padding: 0.75rem 0 0.5rem;
 
     .app-user-photo {
-      width: 72px;
-      margin: 0 auto 8px;
-      height: 72px;
-      /* stylelint-disable-next-line color-function-notation */
-      border: 1px solid hsla(210deg, 8%, 51%, 13%);
-      padding: 4px;
+      width: 56px;
+      margin: 0 auto 6px;
+      height: 56px;
+      border: 2px solid var(--mo-border-subtle, #e2e8f0);
+      padding: 2px;
       border-radius: 50%;
     }
 
@@ -66,32 +68,52 @@
 
     .app-user-name {
       display: block;
-      font-size: 0.875rem;
-      font-weight: 300;
-      margin-left: -2px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--mo-text-secondary, #64748b);
     }
 
     .app-user-controls {
-      .mat-icon-button {
-        .xs-button {
-          height: 20px;
-          width: 20px;
-          line-height: 20px;
-          margin: 5px;
-        }
-      }
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-top: 0.25rem;
 
-      .text-muted {
-        color: rgba(0 0 0 / 54%);
+      .mat-icon-button {
+        height: 28px;
+        width: 28px;
+        line-height: 28px;
+        font-size: 0.875rem;
       }
     }
   }
 
   .nav-item-sep {
     span {
-      padding: 16px 0 0 16px;
+      padding: 12px 0 0 16px;
       display: block;
-      font-size: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .nav-section-header {
+    margin-top: 0.75rem;
+    margin-bottom: 0.25rem;
+
+    .mat-divider {
+      margin-bottom: 0.25rem;
+    }
+
+    .nav-section-title {
+      display: block;
+      padding: 0.25rem 1rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mo-text-secondary, #64748b);
     }
   }
 
@@ -120,20 +142,64 @@
       }
     }
 
-    .nav-item-sep {
-      padding: 0;
-      margin: 1rem 0;
-    }
-
-    .mat-nav-list {
+    .nav-list-section {
       margin: 0;
       padding: 0;
       list-style: none;
 
       .mat-list-item {
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        transition:
+          background-color 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+
+        &:hover {
+          background-color: var(--mo-surface-hover, rgb(0 0 0 / 4%));
+        }
+
+        &:focus-visible {
+          outline: 2px solid var(--mo-focus-outline, #0052cc);
+          outline-offset: -2px;
+        }
+
+        &.active-menu {
+          background-color: var(--mo-primary-light, rgb(0 82 204 / 8%)) !important;
+          color: var(--mo-primary, #0052cc) !important;
+          border-left: 3px solid var(--mo-primary, #0052cc);
+          font-weight: 500;
+
+          fa-icon {
+            color: var(--mo-primary, #0052cc);
+          }
+        }
+
         .mat-list-icon {
-          height: 30px;
-          font-size: 22px;
+          height: 24px;
+          font-size: 18px;
+          color: var(--mo-text-secondary, #64748b);
+        }
+      }
+    }
+
+    .group-chevron {
+      color: var(--mo-text-secondary, #64748b);
+      margin-right: 0.5rem;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-subitems {
+      background-color: rgb(0 0 0 / 2%);
+
+      .nav-subitem {
+        padding-left: 1.25rem;
+        height: 38px;
+        font-size: 0.8125rem;
+
+        .mat-list-icon {
+          height: 18px;
+          font-size: 14px;
         }
       }
     }
@@ -156,15 +222,33 @@
   }
 
   .app-sidenav {
-    .nav-item-sep {
-      span {
+    .nav-section-header {
+      .nav-section-title {
         display: none;
+      }
+    }
+
+    .nav-item-text,
+    .group-chevron,
+    .nav-subitems {
+      display: none !important;
+    }
+
+    .nav-list-section {
+      .mat-list-item {
+        justify-content: center;
+        padding: 0;
+
+        .mat-list-item-content {
+          justify-content: center;
+          padding: 0;
+        }
       }
     }
 
     .icon-menu {
       padding: 8px 0 0;
-      width: 4rem;
+      width: 4.25rem;
 
       .nav-item-sep {
         display: none;
@@ -179,7 +263,7 @@
 
 .sidebar-full {
   .navigation-panel {
-    padding-top: 5%;
+    padding-top: 1rem;
   }
 
   .app-sidenav {

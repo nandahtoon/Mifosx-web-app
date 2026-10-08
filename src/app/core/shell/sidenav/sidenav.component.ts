@@ -9,7 +9,9 @@
 /** Angular Imports */
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  DestroyRef,
   OnInit,
   Input,
   TemplateRef,
@@ -18,8 +20,10 @@ import {
   AfterViewInit,
   inject
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 /** Custom Components */
 import { KeyboardShortcutsDialogComponent } from 'app/shared/keyboard-shortcuts-dialog/keyboard-shortcuts-dialog.component';
@@ -76,6 +80,8 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   private configurationWizardService = inject(ConfigurationWizardService);
   private popoverService = inject(PopoverService);
   private documentationLinks = inject(DocumentationLinksService);
+  private cdr = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
   /** True if sidenav is in collapsed state. */
   @Input() sidenavCollapsed: boolean;
@@ -91,6 +97,9 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   frequentActivities: any[] = frequentActivities;
   /** Whether remittance feature is enabled */
   mifosRemittanceEnabled = remittanceConfig.isRemittanceEnabled;
+
+  /** Set of expanded navigation group IDs */
+  expandedGroups = new Set<string>();
 
   /* Refernce of logo */
   @ViewChild('logo') logo: ElementRef<any>;
@@ -110,7 +119,15 @@ export class SidenavComponent implements OnInit, AfterViewInit {
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor() {
-    this.userActivity = JSON.parse(localStorage.getItem('mifosXLocation'));
+    try {
+      const stored = localStorage.getItem('mifosXLocation');
+      this.userActivity = stored ? JSON.parse(stored) : [];
+      if (!Array.isArray(this.userActivity)) {
+        this.userActivity = [];
+      }
+    } catch {
+      this.userActivity = [];
+    }
   }
 
   /**
@@ -120,6 +137,115 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     const credentials = this.authenticationService.getCredentials();
     this.username = credentials.username;
     this.setMappedAcitivites();
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((event) => {
+        this.autoExpandActiveGroup(event.urlAfterRedirects || event.url);
+      });
+    this.autoExpandActiveGroup(this.router.url);
+  }
+
+  /**
+   * Toggles the expansion state of a navigation group.
+   */
+  toggleGroup(groupId: string): void {
+    if (this.expandedGroups.has(groupId)) {
+      this.expandedGroups.delete(groupId);
+    } else {
+      this.expandedGroups.add(groupId);
+    }
+    this.cdr.markForCheck();
+  }
+
+  isGroupExpanded(groupId: string): boolean {
+    return this.expandedGroups.has(groupId);
+  }
+
+  /**
+   * Returns true if any child route in the group is active.
+   */
+  isGroupActive(groupId: string): boolean {
+    const url = this.router.url;
+    if (!url) {
+      return false;
+    }
+    switch (groupId) {
+      case 'customers':
+        return url.startsWith('/clients') || url.startsWith('/groups') || url.startsWith('/centers');
+      case 'loans':
+        return (
+          url.startsWith('/checker-inbox-and-tasks/loan') ||
+          url.startsWith('/checker-inbox-and-tasks/reschedule') ||
+          url.startsWith('/products/loan-products')
+        );
+      case 'collections':
+        return url.startsWith('/collections');
+      case 'savings':
+        return (
+          url.startsWith('/products/saving-products') ||
+          url.startsWith('/products/fixed-deposit') ||
+          url.startsWith('/products/recurring-deposit')
+        );
+      case 'accounting':
+        return url.startsWith('/accounting');
+      case 'admin':
+        return (
+          url.startsWith('/appusers') ||
+          url.startsWith('/system') ||
+          url.startsWith('/products') ||
+          url.startsWith('/templates')
+        );
+      default:
+        return false;
+    }
+  }
+
+  /**
+   * Handles click on group item. If collapsed, navigates to default route; otherwise toggles expansion.
+   */
+  onGroupClick(groupId: string, defaultRoute?: string): void {
+    if (this.sidenavCollapsed && defaultRoute) {
+      this.router.navigate([defaultRoute]);
+    } else {
+      this.toggleGroup(groupId);
+    }
+  }
+
+  private autoExpandActiveGroup(url: string): void {
+    if (!url) {
+      return;
+    }
+    if (url.startsWith('/clients') || url.startsWith('/groups') || url.startsWith('/centers')) {
+      this.expandedGroups.add('customers');
+    } else if (
+      url.startsWith('/checker-inbox-and-tasks/loan') ||
+      url.startsWith('/checker-inbox-and-tasks/reschedule') ||
+      url.startsWith('/products/loan-products')
+    ) {
+      this.expandedGroups.add('loans');
+    } else if (url.startsWith('/collections')) {
+      this.expandedGroups.add('collections');
+    } else if (
+      url.startsWith('/products/saving-products') ||
+      url.startsWith('/products/fixed-deposit') ||
+      url.startsWith('/products/recurring-deposit')
+    ) {
+      this.expandedGroups.add('savings');
+    } else if (url.startsWith('/accounting')) {
+      this.expandedGroups.add('accounting');
+    } else if (
+      url.startsWith('/appusers') ||
+      url.startsWith('/system') ||
+      url.startsWith('/products') ||
+      url.startsWith('/templates')
+    ) {
+      this.expandedGroups.add('admin');
+    }
+    this.cdr.markForCheck();
   }
 
   /**
