@@ -87,6 +87,25 @@ export class ShellComponent implements OnInit, AfterViewInit {
       this.progressBarMode = mode;
       this.cdr.detectChanges();
     });
+
+    // Responsive shell behavior: desktop expanded, tablet compact/collapsed, mobile drawer
+    this.breakpointObserver
+      .observe([
+        '(min-width: 1280px)',
+        '(min-width: 768px) and (max-width: 1279.98px)',
+        Breakpoints.Handset
+      ])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((state) => {
+        if (state.breakpoints['(min-width: 1280px)']) {
+          this.sidenavCollapsed = false;
+        } else if (state.breakpoints['(min-width: 768px) and (max-width: 1279.98px)']) {
+          this.sidenavCollapsed = true;
+        } else if (state.matches) {
+          this.sidenavCollapsed = false;
+        }
+        this.cdr.markForCheck();
+      });
   }
 
   /**

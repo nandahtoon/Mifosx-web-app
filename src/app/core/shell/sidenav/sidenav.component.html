@@ -62,24 +62,534 @@
         }
       </div>
 
-      <div class="nav-item-sep">
+      <!-- SECTION 1: WORKSPACE -->
+      <div class="nav-section-header">
         <mat-divider></mat-divider>
-        <span class="text-muted">{{ 'labels.menus.Main Items' | translate }}</span>
+        <span class="nav-section-title">{{ 'labels.menus.My Workspace' | translate }}</span>
       </div>
 
-      <mat-nav-list>
+      <mat-nav-list class="nav-list-section">
         <mat-list-item
           [routerLink]="['/dashboard']"
           [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'tooltips.Dashboard' | translate }}"
+          matTooltip="{{ 'labels.menus.My Workspace' | translate }}"
           routerLinkActive="active-menu"
           [routerLinkActiveOptions]="{ exact: false }"
         >
           <mat-icon matListIcon>
             <fa-icon icon="tachometer-alt" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine #dashboard>{{ 'labels.menus.Dashboard' | translate }}</a>
+          <a matLine #dashboard class="nav-item-text">{{ 'labels.menus.My Workspace' | translate }}</a>
         </mat-list-item>
+      </mat-nav-list>
+
+      <!-- SECTION 2: OPERATIONS -->
+      <div class="nav-section-header">
+        <mat-divider></mat-divider>
+        <span class="nav-section-title">{{ 'labels.menus.Operations' | translate }}</span>
+      </div>
+
+      <mat-nav-list class="nav-list-section">
+        <!-- Customers Group -->
+        <mat-list-item
+          (click)="onGroupClick('customers', '/clients')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Customers' | translate }}"
+          [class.active-menu]="isGroupActive('customers')"
+          *mifosxHasPermission="['READ_CLIENT', 'READ_GROUP', 'READ_CENTER']"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="users" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Customers' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('customers') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('customers')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/clients']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Clients' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_CLIENT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="user" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Clients' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/groups']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Groups' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_GROUP'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="users" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Groups' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/centers']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Centers' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_CENTER'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="building" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Centers' | translate }}</a>
+            </mat-list-item>
+          </div>
+        }
+
+        <!-- Loans Group -->
+        <mat-list-item
+          (click)="onGroupClick('loans', '/checker-inbox-and-tasks/loan-approval')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Loans' | translate }}"
+          [class.active-menu]="isGroupActive('loans')"
+          *mifosxHasPermission="['READ_LOAN', 'RESCHEDULE_LOAN', 'READ_LOANPRODUCT']"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="hand-holding-usd" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Loans' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('loans') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('loans')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/checker-inbox-and-tasks/loan-approval']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Loan Approval' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_LOAN'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="check-circle" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Loan Approval' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/checker-inbox-and-tasks/loan-disbursal']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Loan Disbursal' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_LOAN'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="hand-holding-usd" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Loan Disbursal' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/checker-inbox-and-tasks/reschedule-loan']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Reschedule Loans' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'RESCHEDULE_LOAN'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="calendar-alt" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Reschedule Loans' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/products/loan-products']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Loan Products' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_LOANPRODUCT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="money-check-dollar" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Loan Products' | translate }}</a>
+            </mat-list-item>
+          </div>
+        }
+
+        <!-- Collections Group -->
+        <mat-list-item
+          (click)="onGroupClick('collections', '/collections/collection-sheet')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Collections' | translate }}"
+          [class.active-menu]="isGroupActive('collections')"
+          *mifosxHasPermission="'READ_COLLECTIONSHEET'"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="tasks" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Collections' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('collections') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('collections')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/collections/collection-sheet']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Collection Sheet' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_COLLECTIONSHEET'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="tasks" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Collection Sheet' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/collections/individual-collection-sheet']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Individual Collection Sheet' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_COLLECTIONSHEET'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="tasks" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Individual Collection Sheet' | translate }}</a>
+            </mat-list-item>
+          </div>
+        }
+
+        <!-- Savings Group -->
+        <mat-list-item
+          (click)="onGroupClick('savings', '/products/saving-products')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Savings' | translate }}"
+          [class.active-menu]="isGroupActive('savings')"
+          *mifosxHasPermission="['READ_SAVINGSPRODUCT', 'READ_FIXEDDEPOSITPRODUCT', 'READ_RECURRINGDEPOSITPRODUCT']"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="piggy-bank" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Savings' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('savings') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('savings')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/products/saving-products']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Saving Products' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_SAVINGSPRODUCT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="piggy-bank" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Saving Products' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/products/fixed-deposit-products']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Fixed Deposits' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_FIXEDDEPOSITPRODUCT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="briefcase" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Fixed Deposits' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/products/recurring-deposit-products']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Recurring Deposits' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_RECURRINGDEPOSITPRODUCT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="coins" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Recurring Deposits' | translate }}</a>
+            </mat-list-item>
+          </div>
+        }
+
+        <!-- Cash & Teller -->
+        <mat-list-item
+          [routerLink]="['/organization/tellers']"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Cash & Teller' | translate }}"
+          routerLinkActive="active-menu"
+          [routerLinkActiveOptions]="{ exact: false }"
+          *mifosxHasPermission="'READ_TELLER'"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="university" size="sm"></fa-icon>
+          </mat-icon>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Cash & Teller' | translate }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <!-- SECTION 3: FINANCE & REPORTING -->
+      <div class="nav-section-header">
+        <mat-divider></mat-divider>
+        <span class="nav-section-title">{{ 'labels.menus.Finance & Reporting' | translate }}</span>
+      </div>
+
+      <mat-nav-list class="nav-list-section">
+        <!-- Accounting Group -->
+        <mat-list-item
+          (click)="onGroupClick('accounting', '/accounting')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Accounting' | translate }}"
+          [class.active-menu]="isGroupActive('accounting')"
+          *mifosxHasPermission="[
+            'READ_JOURNALENTRY',
+            'READ_GLACCOUNT',
+            'READ_GLCLOSURE',
+            'READ_ACCOUNTINGRULE',
+            'READ_PROVISIONINGCRITERIA'
+          ]"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="book" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Accounting' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('accounting') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('accounting')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/accounting']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Accounting' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="[
+                'READ_JOURNALENTRY',
+                'READ_GLACCOUNT',
+                'READ_GLCLOSURE',
+                'READ_ACCOUNTINGRULE',
+                'READ_PROVISIONINGCRITERIA'
+              ]"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="book" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Accounting' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/accounting/chart-of-accounts']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'tooltips.Chart Of Accounts' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_GLACCOUNT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="sitemap" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine #chartOfAccounts class="nav-item-text">{{ 'labels.menus.Chart of Accounts' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/accounting/journal-entries/frequent-postings']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'tooltips.Frequent Postings' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'CREATE_JOURNALENTRY'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="sync" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine #frequentPostings class="nav-item-text">{{ 'labels.menus.Frequent Postings' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/accounting/journal-entries/create']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'tooltips.Create Journal Entry' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'CREATE_JOURNALENTRY'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="plus" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine #createJournalEntry class="nav-item-text">{{
+                'labels.menus.Create Journal Entry' | translate
+              }}</a>
+            </mat-list-item>
+          </div>
+        }
+
+        <!-- Reports -->
+        <mat-list-item
+          [routerLink]="['/reports']"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Reports' | translate }}"
+          routerLinkActive="active-menu"
+          [routerLinkActiveOptions]="{ exact: false }"
+          *mifosxHasPermission="'READ_REPORT'"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="chart-bar" size="sm"></fa-icon>
+          </mat-icon>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Reports' | translate }}</a>
+        </mat-list-item>
+      </mat-nav-list>
+
+      <!-- SECTION 4: MANAGEMENT -->
+      <div class="nav-section-header">
+        <mat-divider></mat-divider>
+        <span class="nav-section-title">{{ 'labels.menus.Management' | translate }}</span>
+      </div>
+
+      <mat-nav-list class="nav-list-section">
+        <!-- Organization -->
+        <mat-list-item
+          [routerLink]="['/organization']"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Organization' | translate }}"
+          routerLinkActive="active-menu"
+          [routerLinkActiveOptions]="{ exact: false }"
+          *mifosxHasPermission="'READ_OFFICE'"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="building" size="sm"></fa-icon>
+          </mat-icon>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Organization' | translate }}</a>
+        </mat-list-item>
+
+        <!-- Administration Group -->
+        <mat-list-item
+          (click)="onGroupClick('admin', '/appusers')"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Administration' | translate }}"
+          [class.active-menu]="isGroupActive('admin')"
+          *mifosxHasPermission="['READ_USER', 'READ_ROLE', 'READ_CONFIGURATION', 'READ_PRODUCT', 'READ_TEMPLATE']"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="cogs" size="sm"></fa-icon>
+          </mat-icon>
+          <span matLine class="nav-item-text layout-row align-center justify-between">
+            <span>{{ 'labels.menus.Administration' | translate }}</span>
+            <fa-icon
+              class="group-chevron"
+              [icon]="isGroupExpanded('admin') ? 'chevron-down' : 'chevron-right'"
+              size="xs"
+            ></fa-icon>
+          </span>
+        </mat-list-item>
+
+        @if (!sidenavCollapsed && isGroupExpanded('admin')) {
+          <div class="nav-subitems">
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/appusers']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Users' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_USER'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="user-shield" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Users' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/products']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Products' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_PRODUCT'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="briefcase" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Products' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/system']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.System' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_CONFIGURATION'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="cogs" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.System' | translate }}</a>
+            </mat-list-item>
+            <mat-list-item
+              class="nav-subitem"
+              [routerLink]="['/templates']"
+              [matTooltipPosition]="tooltipPosition"
+              matTooltip="{{ 'labels.menus.Templates' | translate }}"
+              routerLinkActive="active-menu"
+              *mifosxHasPermission="'READ_TEMPLATE'"
+            >
+              <mat-icon matListIcon>
+                <fa-icon icon="file-alt" size="xs"></fa-icon>
+              </mat-icon>
+              <a matLine class="nav-item-text">{{ 'labels.menus.Templates' | translate }}</a>
+            </mat-list-item>
+          </div>
+        }
+      </mat-nav-list>
+
+      <!-- SECTION 5: TOOLS & UTILITIES -->
+      <div class="nav-section-header">
+        <mat-divider></mat-divider>
+        <span class="nav-section-title">{{ 'labels.menus.Tools & Utilities' | translate }}</span>
+      </div>
+
+      <mat-nav-list class="nav-list-section">
         <mat-list-item
           [routerLink]="['/navigation']"
           [matTooltipPosition]="tooltipPosition"
@@ -91,8 +601,9 @@
           <mat-icon matListIcon>
             <fa-icon icon="location-arrow" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine #navigation>{{ 'labels.menus.Navigation' | translate }}</a>
+          <a matLine #navigation class="nav-item-text">{{ 'labels.menus.Navigation' | translate }}</a>
         </mat-list-item>
+
         <mat-list-item
           [routerLink]="['/checker-inbox-and-tasks/checker-inbox']"
           [matTooltipPosition]="tooltipPosition"
@@ -102,36 +613,11 @@
           *mifosxHasPermission="['ALL_FUNCTIONS_READ', 'READ_MAKERCHECKER', 'APPROVE_LOAN', 'APPROVE_LOAN_CHECKER']"
         >
           <mat-icon matListIcon>
-            <i class="fa fa-check"></i>
+            <fa-icon icon="check" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine>{{ 'labels.menus.Checker Inbox and Tasks' | translate }}</a>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Checker Inbox and Tasks' | translate }}</a>
         </mat-list-item>
-        <mat-list-item
-          [routerLink]="['/collections/collection-sheet']"
-          [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'labels.menus.Collection Sheet' | translate }}"
-          routerLinkActive="active-menu"
-          [routerLinkActiveOptions]="{ exact: false }"
-          *mifosxHasPermission="'READ_COLLECTIONSHEET'"
-        >
-          <mat-icon matListIcon>
-            <i class="fa fa-tasks"></i>
-          </mat-icon>
-          <a matLine>{{ 'labels.menus.Collection Sheet' | translate }}</a>
-        </mat-list-item>
-        <mat-list-item
-          [routerLink]="['/collections/individual-collection-sheet']"
-          [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'tooltips.Individual Collection Sheet' | translate }}"
-          routerLinkActive="active-menu"
-          [routerLinkActiveOptions]="{ exact: false }"
-          *mifosxHasPermission="'READ_COLLECTIONSHEET'"
-        >
-          <mat-icon matListIcon>
-            <i class="fa fa-tasks"></i>
-          </mat-icon>
-          <a matLine>{{ 'labels.menus.Individual Collection Sheet' | translate }}</a>
-        </mat-list-item>
+
         <mat-list-item
           *ngIf="mifosRemittanceEnabled"
           [routerLink]="['/remittances/process']"
@@ -143,8 +629,9 @@
           <mat-icon matListIcon>
             <fa-icon icon="money-bill-wave" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine>{{ 'labels.menus.Remittances' | translate }}</a>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Remittances' | translate }}</a>
         </mat-list-item>
+
         <mat-list-item
           [routerLink]="['/notifications']"
           [matTooltipPosition]="tooltipPosition"
@@ -156,47 +643,9 @@
           <mat-icon matListIcon>
             <fa-icon icon="bell" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine>{{ 'labels.menus.Notifications' | translate }}</a>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Notifications' | translate }}</a>
         </mat-list-item>
-        <mat-list-item
-          [routerLink]="['/accounting/journal-entries/frequent-postings']"
-          [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'tooltips.Frequent Postings' | translate }}"
-          routerLinkActive="active-menu"
-          [routerLinkActiveOptions]="{ exact: false }"
-          *mifosxHasPermission="'CREATE_JOURNALENTRY'"
-        >
-          <mat-icon matListIcon>
-            <fa-icon icon="sync" size="sm"></fa-icon>
-          </mat-icon>
-          <a matLine #frequentPostings>{{ 'labels.menus.Frequent Postings' | translate }}</a>
-        </mat-list-item>
-        <mat-list-item
-          [routerLink]="['/accounting/journal-entries/create']"
-          [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'tooltips.Create Journal Entry' | translate }}"
-          routerLinkActive="active-menu"
-          [routerLinkActiveOptions]="{ exact: false }"
-          *mifosxHasPermission="'CREATE_JOURNALENTRY'"
-        >
-          <mat-icon matListIcon>
-            <fa-icon icon="plus" size="sm"></fa-icon>
-          </mat-icon>
-          <a matLine #createJournalEntry>{{ 'labels.menus.Create Journal Entry' | translate }}</a>
-        </mat-list-item>
-        <mat-list-item
-          [routerLink]="['/accounting/chart-of-accounts']"
-          [matTooltipPosition]="tooltipPosition"
-          matTooltip="{{ 'tooltips.Chart Of Accounts' | translate }}"
-          routerLinkActive="active-menu"
-          [routerLinkActiveOptions]="{ exact: false }"
-          *mifosxHasPermission="'READ_GLACCOUNT'"
-        >
-          <mat-icon matListIcon>
-            <fa-icon icon="sitemap" size="sm"></fa-icon>
-          </mat-icon>
-          <a matLine #chartOfAccounts>{{ 'labels.menus.Chart of Accounts' | translate }}</a>
-        </mat-list-item>
+
         <mat-list-item
           (click)="showKeyboardShortcuts()"
           [matTooltipPosition]="tooltipPosition"
@@ -205,13 +654,18 @@
           <mat-icon matListIcon>
             <fa-icon icon="keyboard" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine>{{ 'labels.menus.Keyboard Shortcuts' | translate }}</a>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Keyboard Shortcuts' | translate }}</a>
         </mat-list-item>
-        <mat-list-item [matTooltipPosition]="tooltipPosition" matTooltip="{{ 'tooltips.Help' | translate }}">
-          <mat-icon matListIcon (click)="help()">
+
+        <mat-list-item
+          (click)="help()"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'tooltips.Help' | translate }}"
+        >
+          <mat-icon matListIcon>
             <fa-icon icon="question-circle" size="sm"></fa-icon>
           </mat-icon>
-          <a matLine>{{ 'labels.menus.Help' | translate }}</a>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Help' | translate }}</a>
         </mat-list-item>
       </mat-nav-list>
     </div>
