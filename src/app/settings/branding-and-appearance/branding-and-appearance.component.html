@@ -1,0 +1,319 @@
+<!--
+  Copyright since 2025 Mifos Initiative
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
+<div class="branding-studio-container">
+  <!-- Studio Header -->
+  <header class="studio-header">
+    <div class="header-navigation">
+      <button
+        mat-button
+        class="back-button"
+        [routerLink]="['/settings']"
+        matTooltip="{{ 'labels.buttons.Back' | translate }}"
+      >
+        <fa-icon icon="arrow-left" class="mr-05"></fa-icon>
+        {{ 'labels.menus.Settings' | translate }}
+      </button>
+    </div>
+    <div class="header-titles">
+      <h1 class="studio-title">
+        <fa-icon icon="palette" class="studio-title-icon"></fa-icon>
+        {{ 'labels.text.Branding & Appearance Studio' | translate }}
+      </h1>
+      <p class="studio-subtitle">
+        {{ 'labels.text.Branding Studio Description' | translate }}
+      </p>
+    </div>
+  </header>
+
+  <!-- Contract Governance Callout -->
+  <section class="governance-banner" aria-label="Backend Contract Governance Notice">
+    <div class="governance-badge">
+      <span class="badge-code">BLOCKED_BY_BACKEND_CONTRACT</span>
+    </div>
+    <div class="governance-content">
+      <h2 class="governance-title">
+        <fa-icon icon="info-circle" class="mr-05"></fa-icon>
+        {{ 'labels.text.Backend Contract Governance Notice' | translate }}
+      </h2>
+      <p class="governance-description">
+        {{ 'labels.text.Backend Contract Governance Description' | translate }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 1: 6 Canonical Theme Presets -->
+  <section class="studio-section" aria-labelledby="theme-presets-heading">
+    <div class="section-header">
+      <h2 id="theme-presets-heading" class="section-title">
+        {{ 'labels.text.Theme Presets' | translate }}
+      </h2>
+      <p class="section-description">
+        {{ 'labels.text.Theme Presets Description' | translate }}
+      </p>
+    </div>
+
+    <div class="presets-grid" role="radiogroup" aria-label="Theme Presets">
+      @for (preset of presets; track preset.id) {
+        <div
+          class="preset-card"
+          [class.active]="activePreset === preset.id"
+          role="radio"
+          tabindex="0"
+          [attr.aria-checked]="activePreset === preset.id"
+          [attr.aria-label]="preset.name"
+          (click)="selectPreset(preset.id)"
+          (keydown.enter)="selectPreset(preset.id)"
+          (keydown.space)="selectPreset(preset.id)"
+        >
+          <div class="preset-card-header">
+            <span class="preset-name">{{ preset.name }}</span>
+            @if (activePreset === preset.id) {
+              <span class="active-badge" aria-label="Selected">
+                <fa-icon icon="check" size="xs"></fa-icon>
+                Active
+              </span>
+            }
+          </div>
+
+          <p class="preset-description">{{ preset.description }}</p>
+
+          <div class="swatches-row">
+            <div class="swatch-group">
+              <span class="swatch-label">Light</span>
+              <div class="swatch-pair">
+                <span
+                  class="color-chip"
+                  [style.background-color]="preset.primaryLight"
+                  [matTooltip]="'Primary Light: ' + preset.primaryLight"
+                ></span>
+                <span
+                  class="color-chip"
+                  [style.background-color]="preset.accentLight"
+                  [matTooltip]="'Accent Light: ' + preset.accentLight"
+                ></span>
+              </div>
+            </div>
+
+            <div class="swatch-group">
+              <span class="swatch-label">Dark</span>
+              <div class="swatch-pair">
+                <span
+                  class="color-chip"
+                  [style.background-color]="preset.primaryDark"
+                  [matTooltip]="'Primary Dark: ' + preset.primaryDark"
+                ></span>
+                <span
+                  class="color-chip"
+                  [style.background-color]="preset.accentDark"
+                  [matTooltip]="'Accent Dark: ' + preset.accentDark"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Section 2: Mode Toggle (Light / Dark / System) -->
+  <section class="studio-section" aria-labelledby="appearance-mode-heading">
+    <div class="section-header">
+      <h2 id="appearance-mode-heading" class="section-title">
+        {{ 'labels.text.Appearance Mode' | translate }}
+      </h2>
+    </div>
+
+    <div class="mode-options-grid" role="radiogroup" aria-label="Appearance Mode">
+      @for (mode of modes; track mode.id) {
+        <button
+          type="button"
+          class="mode-card"
+          [class.active]="activeMode === mode.id"
+          role="radio"
+          [attr.aria-checked]="activeMode === mode.id"
+          (click)="selectMode(mode.id)"
+        >
+          <div class="mode-icon-wrapper">
+            <fa-icon [icon]="mode.icon" size="lg"></fa-icon>
+          </div>
+          <div class="mode-info">
+            <span class="mode-label">{{ mode.labelKey | translate }}</span>
+            <span class="mode-sub">{{ mode.descriptionKey | translate }}</span>
+          </div>
+          @if (activeMode === mode.id) {
+            <span class="mode-check">
+              <fa-icon icon="check"></fa-icon>
+            </span>
+          }
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- Section 3: Organization Identity -->
+  <section class="studio-section" aria-labelledby="org-identity-heading">
+    <div class="section-header">
+      <h2 id="org-identity-heading" class="section-title">
+        {{ 'labels.text.Organization Identity' | translate }}
+      </h2>
+      <p class="section-description">
+        {{ 'labels.text.Organization Identity Description' | translate }}
+      </p>
+    </div>
+
+    <div class="identity-layout">
+      <!-- Organization Display Name -->
+      <div class="identity-field">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'labels.text.Organization Display Name' | translate }}</mat-label>
+          <input matInput [formControl]="orgDisplayNameControl" placeholder="e.g. MicroOps Bank, BTK Microfinance" />
+          <mat-hint>{{ 'labels.text.Organization Display Name Hint' | translate }}</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Logo Management -->
+      <div class="logo-field">
+        <span class="logo-title">{{ 'labels.text.Organization Logo' | translate }}</span>
+        <div class="logo-controls">
+          <div class="logo-preview-box">
+            <img [src]="displayedLogoUrl" alt="Organization Brand Logo" class="logo-preview-image" />
+          </div>
+          <div class="logo-action-buttons">
+            <input
+              #fileInput
+              type="file"
+              accept="image/png,image/jpeg,image/svg+xml,image/webp"
+              class="hidden-file-input"
+              (change)="onLogoFileSelected($event)"
+            />
+            <button mat-stroked-button type="button" (click)="fileInput.click()" class="logo-upload-btn">
+              <fa-icon icon="upload" class="mr-05"></fa-icon>
+              {{ 'labels.text.Upload Custom Logo' | translate }}
+            </button>
+            @if (customLogoUrl) {
+              <button mat-button color="warn" type="button" (click)="removeCustomLogo()" class="logo-remove-btn">
+                <fa-icon icon="trash" class="mr-05"></fa-icon>
+                {{ 'labels.text.Remove Custom Logo' | translate }}
+              </button>
+            }
+            <span class="logo-hint">{{ 'labels.text.Logo Upload Hint' | translate }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Live Operational Experience Preview -->
+  <section class="studio-section" aria-labelledby="live-preview-heading">
+    <div class="section-header">
+      <h2 id="live-preview-heading" class="section-title">
+        {{ 'labels.text.Live Operational Preview' | translate }}
+      </h2>
+      <p class="section-description">
+        {{ 'labels.text.Live Operational Preview Description' | translate }}
+      </p>
+    </div>
+
+    <div class="live-preview-card">
+      <!-- Mini Mock Toolbar -->
+      <div class="mock-toolbar">
+        <div class="mock-brand">
+          <img [src]="displayedLogoUrl" alt="Brand Logo" class="mock-logo" />
+          <span class="mock-org-title">
+            {{ orgDisplayNameControl.value || 'MicroOps 360' }}
+          </span>
+        </div>
+        <div class="mock-status-pill">
+          <span class="pulse-dot"></span>
+          Operational
+        </div>
+        <div class="mock-user-profile">
+          <span class="mock-avatar">OP</span>
+        </div>
+      </div>
+
+      <!-- Mock Workspace Content -->
+      <div class="mock-content">
+        <!-- Metric Summary Tiles -->
+        <div class="mock-metrics-row">
+          <div class="mock-metric-tile">
+            <span class="metric-label">Active Portfolio</span>
+            <span class="metric-value">$14,820,500</span>
+            <span class="metric-sub text-success">+4.2% vs last cycle</span>
+          </div>
+          <div class="mock-metric-tile">
+            <span class="metric-label">Active Clients</span>
+            <span class="metric-value">3,420</span>
+            <span class="metric-sub text-info">98.6% On Time</span>
+          </div>
+          <div class="mock-metric-tile">
+            <span class="metric-label">PAR > 30 Days</span>
+            <span class="metric-value">1.8%</span>
+            <span class="metric-sub text-success">Healthy portfolio</span>
+          </div>
+        </div>
+
+        <!-- Interactive Button Controls -->
+        <div class="mock-actions-row">
+          <button mat-raised-button color="primary">Primary Action</button>
+          <button mat-raised-button color="accent">Accent Action</button>
+          <button mat-stroked-button>Stroked Action</button>
+          <button mat-button color="warn">Warning Action</button>
+        </div>
+
+        <!-- Token Contract Legend Chips -->
+        <div class="token-legend">
+          <span class="token-chip token-primary">
+            <span class="chip-dot"></span>
+            --ops-primary
+          </span>
+          <span class="token-chip token-accent">
+            <span class="chip-dot"></span>
+            --ops-accent
+          </span>
+          <span class="token-chip token-surface">
+            <span class="chip-dot"></span>
+            --ops-surface-card
+          </span>
+          <span class="token-chip token-status-success">
+            <span class="chip-dot"></span>
+            --ops-status-success
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky / Bottom Action Bar -->
+  <footer class="studio-actions-footer">
+    <div class="footer-left">
+      <button mat-button type="button" (click)="resetToDefaults()" class="reset-button">
+        <fa-icon icon="undo" class="mr-05"></fa-icon>
+        {{ 'labels.text.Reset to Defaults' | translate }}
+      </button>
+    </div>
+
+    <div class="footer-right">
+      <button mat-button type="button" [routerLink]="['/settings']" class="cancel-button">
+        {{ 'labels.buttons.Cancel' | translate }}
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="!hasUnsavedChanges"
+        (click)="saveBranding()"
+        class="save-button"
+      >
+        <fa-icon icon="save" class="mr-05"></fa-icon>
+        {{ 'labels.text.Save Branding Settings' | translate }}
+      </button>
+    </div>
+  </footer>
+</div>
