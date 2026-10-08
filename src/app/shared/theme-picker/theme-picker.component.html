@@ -6,21 +6,21 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 -->
 
-<button mat-icon-button [matMenuTriggerFor]="themeMenu" matTooltip="{{ 'tooltips.Color Schemes' | translate }}">
+<button mat-icon-button [matMenuTriggerFor]="themeMenu" [matTooltip]="'tooltips.Color Schemes' | translate">
   <fa-icon icon="fill-drip" size="lg"></fa-icon>
 </button>
 
 <mat-menu class="mifosx-theme-picker-menu" #themeMenu="matMenu" x-position="before">
   <mat-grid-list cols="2">
-    @for (theme of themes; track theme) {
+    @for (preset of presets; track preset.id) {
       <mat-grid-tile>
-        <div mat-menu-item (click)="installTheme(theme)">
-          <div class="mifosx-theme-picker-swatch">
-            @if (currentTheme.href === theme.href) {
+        <div mat-menu-item (click)="selectPreset(preset)">
+          <div class="mifosx-theme-picker-swatch" [matTooltip]="preset.name">
+            @if (activePreset === preset.id) {
               <fa-icon class="mifosx-theme-chosen-icon" icon="check-circle" size="lg"></fa-icon>
             }
-            <div class="mifosx-theme-picker-primary" [style.background]="theme.primary"></div>
-            <div class="mifosx-theme-picker-accent" [style.background]="theme.accent"></div>
+            <div class="mifosx-theme-picker-primary" [style.background]="preset.primaryLight"></div>
+            <div class="mifosx-theme-picker-accent" [style.background]="preset.accentLight"></div>
           </div>
         </div>
       </mat-grid-tile>
