@@ -647,6 +647,19 @@
         </mat-list-item>
 
         <mat-list-item
+          [routerLink]="['/settings/branding-and-appearance']"
+          [matTooltipPosition]="tooltipPosition"
+          matTooltip="{{ 'labels.menus.Branding & Appearance' | translate }}"
+          routerLinkActive="active-menu"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <mat-icon matListIcon>
+            <fa-icon icon="palette" size="sm"></fa-icon>
+          </mat-icon>
+          <a matLine class="nav-item-text">{{ 'labels.menus.Branding & Appearance' | translate }}</a>
+        </mat-list-item>
+
+        <mat-list-item
           (click)="showKeyboardShortcuts()"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'tooltips.Keyboard Shortcuts' | translate }}"

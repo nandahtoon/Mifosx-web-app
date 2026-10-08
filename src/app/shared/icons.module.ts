@@ -145,7 +145,12 @@ import {
   faPercent,
   faMoneyCheckDollar,
   faSackDollar,
-  faCheckDouble
+  faCheckDouble,
+  faPalette,
+  faSun,
+  faMoon,
+  faDesktop,
+  faImage
 } from '@fortawesome/free-solid-svg-icons';
 
 /**
@@ -298,7 +303,12 @@ export class IconsModule {
       faReceipt,
       faTableCells,
       faSave,
-      faUnlink
+      faUnlink,
+      faPalette,
+      faSun,
+      faMoon,
+      faDesktop,
+      faImage
     );
   }
 }

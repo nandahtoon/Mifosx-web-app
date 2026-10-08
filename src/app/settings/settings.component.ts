@@ -25,6 +25,7 @@ import {
 import { FileUploadComponent } from '../shared/file-upload/file-upload.component';
 import { ThemePickerComponent } from '../shared/theme-picker/theme-picker.component';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector.component';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
 /**
@@ -42,7 +43,8 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     MatExpansionPanelTitle,
     FileUploadComponent,
     ThemePickerComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    FaIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

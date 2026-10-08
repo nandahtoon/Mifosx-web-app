@@ -6,6 +6,54 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+.mr-05 {
+  margin-right: 8px;
+}
+
+.text-primary {
+  color: var(--ops-primary, #0e6251);
+}
+
+.branding-card-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--ops-surface-card, #fff);
+  border: 1px solid var(--ops-border, #e2e8f0);
+  border-left: 4px solid var(--ops-primary, #0e6251);
+  border-radius: var(--ops-radius-md, 8px);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--ops-shadow-xs, 0 1px 2px rgb(15 23 42 / 5%));
+
+  .banner-info {
+    .banner-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ops-text-primary, #0f172a);
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .banner-desc {
+      font-size: 0.85rem;
+      color: var(--ops-text-secondary, #475569);
+      line-height: 1.4;
+    }
+  }
+
+  .banner-action-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+.branding-quick-link {
+  margin: 12px 0 16px;
+}
+
 .header {
   font-weight: 500;
 }

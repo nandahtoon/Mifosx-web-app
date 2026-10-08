@@ -15,6 +15,7 @@ import { Route } from '../core/route/route.service';
 
 /** Custom Components */
 import { SettingsComponent } from './settings.component';
+import { BrandingAndAppearanceComponent } from './branding-and-appearance/branding-and-appearance.component';
 
 /** Settings Routes */
 const routes: Routes = [
@@ -23,6 +24,11 @@ const routes: Routes = [
       path: '',
       component: SettingsComponent,
       data: { title: 'Settings', breadcrumb: 'Settings' }
+    },
+    {
+      path: 'branding-and-appearance',
+      component: BrandingAndAppearanceComponent,
+      data: { title: 'Branding & Appearance', breadcrumb: 'Branding & Appearance' }
     }
   ])
 ];

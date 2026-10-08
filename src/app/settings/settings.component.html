@@ -10,6 +10,21 @@
 
 <!-- Global Web App Configuration Settings -->
 <div class="container">
+  <div class="branding-card-banner">
+    <div class="banner-info">
+      <div class="banner-title">
+        <fa-icon icon="palette" class="mr-05 text-primary"></fa-icon>
+        {{ 'labels.text.Branding & Appearance Studio' | translate }}
+      </div>
+      <div class="banner-desc">
+        {{ 'labels.text.Branding Studio Description' | translate }}
+      </div>
+    </div>
+    <a mat-raised-button color="primary" [routerLink]="['/settings/branding-and-appearance']" class="banner-action-btn">
+      {{ 'labels.buttons.Customize Appearance' | translate }}
+    </a>
+  </div>
+
   <mat-accordion>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -88,6 +103,13 @@
       <div class="layout-column">
         <span class="header">{{ 'labels.inputs.Theme' | translate }}</span>
         <mifosx-theme-picker></mifosx-theme-picker>
+
+        <div class="branding-quick-link">
+          <a mat-stroked-button color="primary" [routerLink]="['/settings/branding-and-appearance']">
+            <fa-icon icon="palette" class="mr-05"></fa-icon>
+            {{ 'labels.buttons.Open Branding Studio' | translate }}
+          </a>
+        </div>
 
         <mat-form-field>
           <mat-label>{{ 'labels.inputs.Default Font' | translate }}</mat-label>
