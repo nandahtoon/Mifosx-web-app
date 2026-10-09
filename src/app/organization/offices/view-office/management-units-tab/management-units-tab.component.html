@@ -1,0 +1,376 @@
+<!--
+  Copyright since 2025 Mifos Initiative
+
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+-->
+
+<div class="management-units-container">
+  @if (!isDemoMode) {
+    <!-- Case: Live Mode (Unconfigured Truthful State) -->
+    <div class="surface-card unconfigured-card">
+      <div class="card-header">
+        <div class="header-title-group">
+          <fa-icon icon="sitemap" class="header-icon"></fa-icon>
+          <span class="card-title">{{ 'labels.officeView.managementUnits' | translate }}</span>
+        </div>
+        <span class="badge badge-unconfigured">{{ 'labels.officeView.notConfigured' | translate }}</span>
+      </div>
+
+      <div class="card-body empty-state">
+        <div class="empty-icon-wrap">
+          <fa-icon icon="sitemap" class="empty-icon"></fa-icon>
+        </div>
+        <h3 class="empty-title">{{ 'labels.officeView.noUnitsConfigured' | translate }}</h3>
+        <p class="empty-description">
+          {{ 'labels.officeView.noUnitsConfiguredDesc' | translate }}
+        </p>
+        <div class="demo-invite">
+          <button mat-stroked-button color="primary" class="demo-btn" (click)="enableDemoMode()">
+            <fa-icon icon="play" class="m-r-5"></fa-icon>
+            {{ 'labels.officeView.enableDemoPreview' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <!-- Case: Demo Mode (Canonical Synthetic Preview Fixture) -->
+    <!-- Provenance & Governance Banner -->
+    <div class="governance-banner">
+      <div class="banner-title-group">
+        <fa-icon icon="info-circle" class="banner-icon"></fa-icon>
+        <span class="banner-badge">{{ 'labels.officeView.syntheticBannerBadge' | translate }}</span>
+        <span class="banner-text">{{ 'labels.officeView.syntheticBannerText' | translate }}</span>
+      </div>
+      <span class="advisory-pill">{{ 'labels.officeView.advisoryOnlyEnforcementDisabled' | translate }}</span>
+    </div>
+
+    <!-- Case 1: Head Office Notice (Corporate Tier Notice in Demo Mode) -->
+    @if (isHeadOffice && !selectedUnit()) {
+      <div class="surface-card info-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <fa-icon icon="building" class="header-icon"></fa-icon>
+            <span class="card-title">{{ 'labels.officeView.scopeNoticeTitle' | translate }}</span>
+          </div>
+          <span class="type-pill type-head">{{ 'labels.officeView.headOffice' | translate }}</span>
+        </div>
+
+        <div class="card-body">
+          <p class="scope-description">
+            {{ 'labels.officeView.corporateNoticeThisOffice' | translate }} (<strong>{{
+              officeData.name || ('labels.officeView.headOffice' | translate)
+            }}</strong
+            >) {{ 'labels.officeView.corporateNoticeDesc' | translate }}
+          </p>
+        </div>
+      </div>
+    }
+
+    <!-- Case 2: Branch Office with 0 Demo Units -->
+    @if (isBranchOffice && branchUnits.length === 0 && !showAllUnits() && !selectedUnit()) {
+      <div class="surface-card empty-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <fa-icon icon="sitemap" class="header-icon"></fa-icon>
+            <span class="card-title">{{ 'labels.officeView.managementUnits' | translate }}</span>
+          </div>
+          <span class="badge badge-unconfigured">{{ 'labels.officeView.notConfigured' | translate }}</span>
+        </div>
+        <div class="card-body empty-state">
+          <div class="empty-icon-wrap">
+            <fa-icon icon="sitemap" class="empty-icon"></fa-icon>
+          </div>
+          <h3 class="empty-title">{{ 'labels.officeView.noBranchDemoUnits' | translate }}</h3>
+          <p class="empty-description">{{ 'labels.officeView.noBranchDemoUnitsDesc' | translate }}</p>
+          <div class="demo-invite">
+            <button mat-stroked-button color="primary" class="demo-btn" (click)="toggleShowAllUnits()">
+              <fa-icon icon="list" class="m-r-5"></fa-icon>
+              {{ 'labels.officeView.inspectCompleteRoster' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Case 3: Display Unit List (Head Office, showAllUnits, or multiple branch units) -->
+    @if (
+      (showAllUnits() || (isHeadOffice && !selectedUnit()) || (isBranchOffice && branchUnits.length > 1)) &&
+      !selectedUnit()
+    ) {
+      <div class="surface-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <fa-icon icon="sitemap" class="header-icon"></fa-icon>
+            <span class="card-title">
+              {{
+                (showAllUnits() || isHeadOffice
+                  ? 'labels.officeView.completeOrgUnits'
+                  : 'labels.officeView.branchManagementUnits'
+                ) | translate
+              }}
+            </span>
+          </div>
+          @if (showAllUnits() && isBranchOffice) {
+            <button mat-button color="primary" (click)="toggleShowAllUnits()">
+              {{ 'labels.officeView.returnToOfficeScope' | translate }}
+            </button>
+          }
+        </div>
+
+        <div class="card-body no-padding">
+          <div class="table-responsive">
+            <table class="mifosx-table">
+              <thead>
+                <tr>
+                  <th>{{ 'labels.officeView.tableColUnitNameKey' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColBranch' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColStatus' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColStaffing' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColUnitManager' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColAdvisorySeverity' | translate }}</th>
+                  <th>{{ 'labels.officeView.tableColActions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (unit of showAllUnits() || isHeadOffice ? allUnits : branchUnits; track unit.unitKey) {
+                  <tr>
+                    <td>
+                      <div class="unit-title-cell">
+                        <span class="unit-name">{{ unit.name }}</span>
+                        <span class="unit-key font-mono">{{ unit.unitKey }}</span>
+                      </div>
+                    </td>
+                    <td>{{ unit.branchName }}</td>
+                    <td>
+                      <span
+                        class="badge badge-status"
+                        [class.badge-planned]="unit.status === 'PLANNED'"
+                        [class.badge-active]="unit.status === 'ACTIVE'"
+                      >
+                        {{ unit.status }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="staffing-count"
+                        >{{ unit.staffedLoanOfficerPositions }} / {{ unit.targetLoanOfficerPositions }}</span
+                      >
+                    </td>
+                    <td>
+                      <div class="manager-cell">
+                        <span class="manager-name">{{ unit.manager.name }}</span>
+                        <span class="manager-id font-mono">{{ unit.manager.staffExternalId }}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge badge-normal">{{ unit.capacityMetrics.advisoryStatus }}</span>
+                    </td>
+                    <td>
+                      <button mat-stroked-button color="primary" class="inspect-btn" (click)="selectUnit(unit)">
+                        {{ 'labels.officeView.inspectDetail' | translate }}
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Case 3: Selected Unit Detail View -->
+    @if (selectedUnit(); as currentUnit) {
+      <div class="unit-detail-surface">
+        <!-- Detail Header / Navigation -->
+        <div class="detail-header-bar">
+          @if (branchUnits.length > 1 || showAllUnits() || isHeadOffice) {
+            <button mat-stroked-button class="back-btn" (click)="clearSelectedUnit()">
+              <fa-icon icon="arrow-left" class="m-r-5"></fa-icon>
+              {{ 'labels.officeView.backToUnitList' | translate }}
+            </button>
+          } @else {
+            <button mat-stroked-button class="all-units-btn" (click)="toggleShowAllUnits()">
+              <fa-icon icon="list" class="m-r-5"></fa-icon>
+              {{ 'labels.officeView.inspectCompleteRoster' | translate }}
+            </button>
+          }
+          <div class="unit-headline">
+            <span class="unit-title">{{ currentUnit.name }}</span>
+            <span class="unit-subtitle font-mono">{{ currentUnit.unitKey }}</span>
+          </div>
+          <div class="status-group">
+            <span class="badge badge-planned">{{ currentUnit.status }}</span>
+            <span class="badge badge-normal">{{ currentUnit.capacityMetrics.advisoryStatus }}</span>
+          </div>
+        </div>
+
+        <!-- Unit Metadata Grid -->
+        <div class="surface-card">
+          <div class="card-header">
+            <div class="header-title-group">
+              <fa-icon icon="building" class="header-icon"></fa-icon>
+              <span class="card-title">{{ 'labels.officeView.unitIdentityGovernance' | translate }}</span>
+            </div>
+            <span class="policy-pill"
+              >{{ 'labels.officeView.policyPrefix' | translate }} {{ currentUnit.capacityPolicyRef }}</span
+            >
+          </div>
+          <div class="card-body">
+            <div class="detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.branchOffice' | translate }}</span>
+                <span class="detail-value">{{ currentUnit.branchName }} ({{ currentUnit.branchKey }})</span>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.tableColStatus' | translate }}</span>
+                <span class="detail-value">
+                  <span class="badge badge-planned">{{ currentUnit.status }}</span>
+                </span>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.loanOfficerStaffing' | translate }}</span>
+                <span class="detail-value"
+                  >{{ currentUnit.staffedLoanOfficerPositions }}
+                  {{ 'labels.officeView.staffedTargetRatio' | translate }} {{ currentUnit.targetLoanOfficerPositions }}
+                  {{ 'labels.officeView.staffedTargetSuffix' | translate }}</span
+                >
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.effectiveBaselineDate' | translate }}</span>
+                <span class="detail-value font-mono">{{ currentUnit.validFrom }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unit Manager Card -->
+        <div class="surface-card">
+          <div class="card-header">
+            <div class="header-title-group">
+              <fa-icon icon="user-tie" class="header-icon"></fa-icon>
+              <span class="card-title">{{ 'labels.officeView.unitManagerRosterBinding' | translate }}</span>
+            </div>
+            <span class="badge badge-configured">{{ 'labels.officeView.permanentPosting' | translate }}</span>
+          </div>
+          <div class="card-body">
+            <div class="manager-detail-grid">
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.designationName' | translate }}</span>
+                <span class="detail-value"
+                  ><strong>{{ currentUnit.manager.name }}</strong></span
+                >
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.staffExternalId' | translate }}</span>
+                <span class="detail-value font-mono">{{ currentUnit.manager.staffExternalId }}</span>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.positionKey' | translate }}</span>
+                <span class="detail-value font-mono">{{ currentUnit.manager.positionKey }}</span>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-label">{{ 'labels.officeView.postingReason' | translate }}</span>
+                <span class="detail-value">{{ currentUnit.manager.reason }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loan Officers Roster Table -->
+        <div class="surface-card">
+          <div class="card-header">
+            <div class="header-title-group">
+              <fa-icon icon="users" class="header-icon"></fa-icon>
+              <span class="card-title"
+                >{{ 'labels.officeView.loanOfficersRoster' | translate }} ({{ currentUnit.loanOfficers.length }}
+                {{ 'labels.officeView.positionsSuffix' | translate }})</span
+              >
+            </div>
+            <span class="badge badge-configured">{{ 'labels.officeView.staffed100' | translate }}</span>
+          </div>
+          <div class="card-body no-padding">
+            <div class="table-responsive">
+              <table class="mifosx-table">
+                <thead>
+                  <tr>
+                    <th>{{ 'labels.officeView.positionKey' | translate }}</th>
+                    <th>{{ 'labels.officeView.staffExternalId' | translate }}</th>
+                    <th>{{ 'labels.officeView.designationName' | translate }}</th>
+                    <th>{{ 'labels.officeView.role' | translate }}</th>
+                    <th>{{ 'labels.officeView.assignmentType' | translate }}</th>
+                    <th>{{ 'labels.officeView.effectiveDate' | translate }}</th>
+                    <th>{{ 'labels.officeView.tableColStatus' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (lo of currentUnit.loanOfficers; track lo.positionKey) {
+                    <tr>
+                      <td class="font-mono">{{ lo.positionKey }}</td>
+                      <td class="font-mono">
+                        <strong>{{ lo.staffExternalId }}</strong>
+                      </td>
+                      <td>{{ lo.name }}</td>
+                      <td>
+                        <span class="role-pill">LOAN OFFICER</span>
+                      </td>
+                      <td>
+                        <span class="assignment-pill">{{ lo.assignmentType }}</span>
+                      </td>
+                      <td class="font-mono">{{ lo.validFrom }}</td>
+                      <td>
+                        <span class="badge badge-configured">{{ lo.status }}</span>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advisory Capacity Signals -->
+        <div class="surface-card">
+          <div class="card-header">
+            <div class="header-title-group">
+              <fa-icon icon="tasks" class="header-icon"></fa-icon>
+              <span class="card-title">{{ 'labels.officeView.advisoryCapacitySignals' | translate }}</span>
+            </div>
+            <span class="advisory-pill">{{ 'labels.officeView.advisoryOnlyEnforcementDisabled' | translate }}</span>
+          </div>
+          <div class="card-body">
+            <div class="capacity-metrics-grid">
+              <div class="metric-card">
+                <span class="metric-number">{{ currentUnit.capacityMetrics.activeClients }}</span>
+                <span class="metric-label">{{ 'labels.officeView.activeClientsBenchmark' | translate }}</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-number">{{ currentUnit.capacityMetrics.activeGroups }}</span>
+                <span class="metric-label">{{ 'labels.officeView.activeGroups' | translate }}</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-number">{{ currentUnit.capacityMetrics.activeCenters }}</span>
+                <span class="metric-label">{{ 'labels.officeView.activeCenters' | translate }}</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-status-text text-healthy">{{ currentUnit.capacityMetrics.portfolioSignal }}</span>
+                <span class="metric-label">{{ 'labels.officeView.portfolioReviewSignal' | translate }}</span>
+              </div>
+            </div>
+            <div class="governance-footnote">
+              <fa-icon icon="info-circle" class="footnote-icon"></fa-icon>
+              <span>{{ 'labels.officeView.capacityPolicyFootnote' | translate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</div>

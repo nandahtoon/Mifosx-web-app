@@ -19,9 +19,9 @@ const { HttpsProxyAgent } = require('https-proxy-agent');
 const proxyConfig = [
   {
     context: ['/fineract-provider'],
-    target: 'https://demo.mifos.community',
+    target: process.env.FINERACT_API_URL || 'https://demo.mifos.community',
     changeOrigin: true,
-    secure: true,
+    secure: !process.env.FINERACT_API_URL || process.env.FINERACT_API_URL.startsWith('https:'),
     logLevel: 'debug',
     onProxyReq: function (proxyReq, req, res) {
       console.log('[Proxy] Proxying:', req.method, req.url, '->', this.target + req.url);

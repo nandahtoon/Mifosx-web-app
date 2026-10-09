@@ -6,48 +6,321 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 -->
 
-<div class="office-card-wrapper">
-  <div class="card-header">
-    <span class="card-title">
-      {{ 'labels.heading.General' | translate }}
-    </span>
+<div class="office-master-surface">
+  <!-- Section 1: Core Office Identity & Hierarchy (Fineract Native) -->
+  <div class="surface-card">
+    <div class="card-header">
+      <div class="header-title-group">
+        <fa-icon icon="building" class="header-icon"></fa-icon>
+        <span class="card-title">{{ 'labels.officeView.generalAndHierarchy' | translate }}</span>
+      </div>
+      <span class="type-pill" [class.type-head]="isHeadOffice" [class.type-subordinate]="!isHeadOffice">
+        {{ (isHeadOffice ? 'labels.officeView.headOffice' : 'labels.officeView.subordinateOffice') | translate }}
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.inputs.Parent Office' | translate }}</span>
+          <span class="detail-value">{{
+            officeData.parentName
+              ? officeData.parentName
+              : isHeadOffice
+                ? ('labels.officeView.noneRoot' | translate)
+                : 'N/A'
+          }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.inputs.Opened On' | translate }}</span>
+          <span class="detail-value">{{
+            officeData.openingDate
+              ? (officeData.openingDate | dateFormat)
+              : ('labels.officeView.unassigned' | translate)
+          }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.inputs.Name Decorated' | translate }}</span>
+          <span class="detail-value">{{
+            officeData.nameDecorated
+              ? officeData.nameDecorated
+              : officeData.name || ('labels.officeView.unassigned' | translate)
+          }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.inputs.External Id' | translate }}</span>
+          <span class="detail-value">
+            @if (officeData.externalId) {
+              <mifosx-external-identifier [externalId]="officeData.externalId"></mifosx-external-identifier>
+            } @else {
+              <span class="muted-text">{{ 'labels.inputs.Unassigned' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item full-width">
+          <span class="detail-label">{{ 'labels.officeView.hierarchyPath' | translate }}</span>
+          <span class="detail-value font-mono">{{ officeData.hierarchy || '.' }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="tab-container mat-typography compact-view">
-    <div class="layout-row-wrap responsive-column compact-details condensed">...</div>
+  <!-- Section 2: Administrative Geography (Post-v0.1.0 M01 / Issue #123) -->
+  <div class="surface-card">
+    <div class="card-header">
+      <div class="header-title-group">
+        <fa-icon icon="globe" class="header-icon"></fa-icon>
+        <span class="card-title">{{ 'labels.officeView.administrativeGeography' | translate }}</span>
+      </div>
+      <span class="status-indicator">
+        @if (country || stateProvince || township || pcode) {
+          <span class="badge badge-configured">{{ 'labels.officeView.configured' | translate }}</span>
+        } @else {
+          <span class="badge badge-unconfigured">{{ 'labels.officeView.notConfigured' | translate }}</span>
+        }
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.country' | translate }}</span>
+          <span class="detail-value">
+            @if (country) {
+              <span>{{ country }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.stateRegion' | translate }}</span>
+          <span class="detail-value">
+            @if (stateProvince) {
+              <span>{{ stateProvince }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.districtTownship' | translate }}</span>
+          <span class="detail-value">
+            @if (township) {
+              <span>{{ township }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.mimuPcode' | translate }}</span>
+          <span class="detail-value">
+            @if (pcode) {
+              <span class="font-mono">{{ pcode }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+      </div>
+      <div class="governance-footnote">
+        <fa-icon icon="info-circle" class="footnote-icon"></fa-icon>
+        <span>{{ 'labels.officeView.mimuGovernanceFootnote' | translate }}</span>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="tab-container mat-typography compact-view">
-  <div class="layout-row-wrap responsive-column compact-details condensed">
-    <div class="flex-45 mat-body-strong left">{{ 'labels.inputs.Parent Office' | translate }}</div>
-    <div class="flex-50 right">
-      {{ officeData.parentName ? officeData.parentName : 'N/A' }}
-    </div>
-    <hr class="section-divider" />
-
-    <div class="flex-45 mat-body-strong left">{{ 'labels.inputs.Opened On' | translate }}</div>
-    <div class="flex-50 right">
-      {{ officeData.openingDate ? (officeData.openingDate | dateFormat) : 'Unassigned' }}
-    </div>
-    <hr class="section-divider" />
-
-    <div class="flex-45 mat-body-strong left">{{ 'labels.inputs.Name Decorated' | translate }}</div>
-    <div class="flex-50 right">
-      {{ officeData.nameDecorated ? officeData.nameDecorated : 'Unassigned' }}
-    </div>
-    <hr class="section-divider" />
-
-    <div class="flex-45 mat-body-strong left">{{ 'labels.inputs.External Id' | translate }}</div>
-    @if (officeData.externalId) {
-      <div class="flex-50 right">
-        <mifosx-external-identifier externalId="{{ officeData.externalId }}"></mifosx-external-identifier>
+  <!-- Section 3: Physical & Contact Address (Issue #123) -->
+  <div class="surface-card">
+    <div class="card-header">
+      <div class="header-title-group">
+        <fa-icon icon="map-marker-alt" class="header-icon"></fa-icon>
+        <span class="card-title">{{ 'labels.officeView.physicalAndContactAddress' | translate }}</span>
       </div>
-    }
-    @if (!officeData.externalId) {
-      <div class="flex-50 right">
-        {{ 'labels.inputs.Unassigned' | translate }}
+      <span class="status-indicator">
+        @if (addressLine1 || city) {
+          <span class="badge badge-configured">{{ 'labels.officeView.configured' | translate }}</span>
+        } @else {
+          <span class="badge badge-unavailable">{{ 'labels.officeView.unavailable' | translate }}</span>
+        }
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.addressLine1' | translate }}</span>
+          <span class="detail-value">
+            @if (addressLine1) {
+              <span>{{ addressLine1 }}</span>
+            } @else {
+              <span class="unavailable-placeholder">{{ 'labels.officeView.unavailable' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.addressLine2' | translate }}</span>
+          <span class="detail-value">
+            @if (addressLine2) {
+              <span>{{ addressLine2 }}</span>
+            } @else {
+              <span class="unavailable-placeholder">{{ 'labels.officeView.unavailable' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.city' | translate }}</span>
+          <span class="detail-value">
+            @if (city) {
+              <span>{{ city }}</span>
+            } @else {
+              <span class="unavailable-placeholder">{{ 'labels.officeView.unavailable' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.postalCode' | translate }}</span>
+          <span class="detail-value">
+            @if (postalCode) {
+              <span>{{ postalCode }}</span>
+            } @else {
+              <span class="unavailable-placeholder">{{ 'labels.officeView.unavailable' | translate }}</span>
+            }
+          </span>
+        </div>
       </div>
-    }
+    </div>
+  </div>
+
+  <!-- Section 4: Geolocation & Map Coordinates (Issue #123) -->
+  <div class="surface-card">
+    <div class="card-header">
+      <div class="header-title-group">
+        <fa-icon icon="location-arrow" class="header-icon"></fa-icon>
+        <span class="card-title">{{ 'labels.officeView.mapCoordinatesAndGeolocation' | translate }}</span>
+      </div>
+      <span class="status-indicator">
+        @if (latitude !== null && longitude !== null) {
+          <span class="badge badge-configured">{{ 'labels.officeView.configured' | translate }}</span>
+        } @else {
+          <span class="badge badge-unconfigured">{{ 'labels.officeView.notConfigured' | translate }}</span>
+        }
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.latitude' | translate }}</span>
+          <span class="detail-value">
+            @if (latitude !== null) {
+              <span class="font-mono">{{ latitude }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.longitude' | translate }}</span>
+          <span class="detail-value">
+            @if (longitude !== null) {
+              <span class="font-mono">{{ longitude }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item full-width">
+          <span class="detail-label">{{ 'labels.officeView.geolocationPrecision' | translate }}</span>
+          <span class="detail-value">
+            @if (geolocationPrecision) {
+              <span>{{ geolocationPrecision }}</span>
+            } @else {
+              <span class="unavailable-placeholder">{{
+                'labels.officeView.unavailableNotConfigured' | translate
+              }}</span>
+            }
+          </span>
+        </div>
+      </div>
+      <div class="governance-footnote">
+        <fa-icon icon="info-circle" class="footnote-icon"></fa-icon>
+        <span>{{ 'labels.officeView.coordinatesFootnote' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Branch Service Area & Operating Policy (Issue #123 & #124) -->
+  <div class="surface-card">
+    <div class="card-header">
+      <div class="header-title-group">
+        <fa-icon icon="tasks" class="header-icon"></fa-icon>
+        <span class="card-title">{{ 'labels.officeView.serviceAreaAndPolicy' | translate }}</span>
+      </div>
+      <span class="status-indicator">
+        <span class="badge badge-unavailable">{{ 'labels.officeView.draftUnavailable' | translate }}</span>
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.homeTownship' | translate }}</span>
+          <span class="detail-value">
+            @if (homeTownship) {
+              <span>{{ homeTownship }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.catchmentLocalities' | translate }}</span>
+          <span class="detail-value">{{ 'labels.officeView.catchmentDraft' | translate }}</span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.bookingPolicy' | translate }}</span>
+          <span class="detail-value">
+            @if (bookingEnabled !== null) {
+              <span
+                class="badge"
+                [class.badge-configured]="bookingEnabled"
+                [class.badge-unconfigured]="!bookingEnabled"
+              >
+                {{ (bookingEnabled ? 'labels.officeView.enabled' : 'labels.officeView.disabled') | translate }}
+              </span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">{{ 'labels.officeView.capacityPolicyRef' | translate }}</span>
+          <span class="detail-value">
+            @if (capacityPolicyRef) {
+              <span class="font-mono">{{ capacityPolicyRef }}</span>
+            } @else {
+              <span class="unconfigured-placeholder">{{ 'labels.officeView.notConfigured' | translate }}</span>
+            }
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

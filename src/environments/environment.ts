@@ -26,24 +26,25 @@ export const environment = {
   production: false,
   version: env.mifos_x.version,
   hash: env.mifos_x.hash,
+  // Demo mode flag for synthetic preview data (e.g. Program #124 units fixture). Default: false.
+  demoMode: parseBoolean(loadedEnv['demoMode'], false),
   // For connecting to server running elsewhere update the tenant identifier
   fineractPlatformTenantId: loadedEnv['fineractPlatformTenantId'] || 'default',
   fineractPlatformTenantIds: loadedEnv['fineractPlatformTenantIds'] || 'default',
   // For connecting to others servers running elsewhere update the base API URL
   baseApiUrls:
     loadedEnv['fineractApiUrls'] ||
-    'https://demo.mifos.community,https://localhost:8443,' +
-      (typeof window !== 'undefined' ? window.location.origin : ''),
+    (typeof window !== 'undefined' && window.location?.origin ? window.location.origin : 'http://localhost:4200'),
   // For connecting to server running elsewhere set the base API URL
   baseApiUrl:
     loadedEnv['fineractApiUrl'] ||
     (loadedEnv['fineractApiUrls']?.length > 0
       ? loadedEnv['fineractApiUrls'].split(',')[0]
-      : typeof window !== 'undefined'
+      : typeof window !== 'undefined' && window.location?.origin
         ? window.location.origin
-        : ''),
+        : 'http://localhost:4200'),
   oauthServerUrl: loadedEnv['oauthServerUrl'] ?? (base && provider ? `${base}${provider}` : ''),
-  allowServerSwitch: parseBoolean(loadedEnv['allowServerSwitch'], true) ? 'true' : 'false',
+  allowServerSwitch: parseBoolean(loadedEnv['allowServerSwitch'], false) ? 'true' : 'false',
   apiProvider: loadedEnv['apiProvider'] || '/fineract-provider/api',
   apiVersion: loadedEnv['apiVersion'] || '/v1',
   apiActuator: loadedEnv['apiActuator'] || '/fineract-provider',
