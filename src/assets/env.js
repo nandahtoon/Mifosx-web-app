@@ -20,6 +20,9 @@
   window["env"]["fineractPlatformTenantId"] = '';
   window["env"]["fineractPlatformTenantIds"] = '';
 
+  // Demo mode flag for synthetic preview data (defaults to false)
+  window['env']['demoMode'] = false;
+
   window['env']['tenantLogoUrl'] = '';
   window['env']['tenantLogoUrlDark'] = '';
 

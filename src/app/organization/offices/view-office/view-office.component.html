@@ -6,7 +6,7 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 -->
 
-<div class="container narrow-container extra-small">
+<div class="container narrow-container">
   <div class="action-bar">
     <button
       mat-raised-button
@@ -32,6 +32,17 @@
           class="compact-tab"
         >
           {{ 'labels.inputs.General' | translate }}
+        </a>
+        <a
+          mat-tab-link
+          [routerLink]="['./units']"
+          routerLinkActive
+          #units="routerLinkActive"
+          [active]="units.isActive"
+          class="compact-tab"
+        >
+          <fa-icon icon="sitemap" class="m-r-5"></fa-icon>
+          {{ 'labels.officeView.managementUnits' | translate }}
         </a>
         @for (officeDatatable of officeDatatables; track officeDatatable) {
           <span>
