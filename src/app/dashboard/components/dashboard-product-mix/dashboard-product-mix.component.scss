@@ -1,3 +1,11 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 :host {
   display: block;
 }
@@ -6,7 +14,7 @@
   align-items: center;
   background: #2563eb;
   border-radius: 50%;
-  color: #ffffff;
+  color: #fff;
   display: flex;
   font-size: 28px;
   font-weight: 800;
@@ -32,6 +40,14 @@
   width: 10px;
 }
 
-.primary { background: #2563eb; }
-.success { background: #10b981; }
-.warning { background: #f59e0b; }
+.primary {
+  background: #2563eb;
+}
+
+.success {
+  background: #10b981;
+}
+
+.warning {
+  background: #f59e0b;
+}

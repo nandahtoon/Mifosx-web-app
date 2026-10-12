@@ -10,26 +10,26 @@ Initial connector search did not return reliable shell or sidenav file hits for 
 
 ## Verified Completed Branding Areas
 
-| Area | Status |
-| --- | --- |
-| Root README title and overview | Done |
-| Dashboard eyebrow | Done |
-| Browser title | Done |
-| Login hero title | Done |
-| Login logo alt text | Done |
-| Login version label | Done |
-| Login resources branding | Done |
-| Sidenav visible app brand text | Done |
+| Area                           | Status |
+| ------------------------------ | ------ |
+| Root README title and overview | Done   |
+| Dashboard eyebrow              | Done   |
+| Browser title                  | Done   |
+| Login hero title               | Done   |
+| Login logo alt text            | Done   |
+| Login version label            | Done   |
+| Login resources branding       | Done   |
+| Sidenav visible app brand text | Done   |
 
 ## Verified Shell/Header Areas
 
-| Area | Finding | Decision |
-| --- | --- | --- |
-| Sidenav app brand | Visible text now uses `MicroOps 360 Web` | Complete |
-| Toolbar visible labels | No visible inherited product name found in the inspected toolbar template | No UI copy patch needed |
-| Toolbar technical identifiers | `mifosx-*` selectors and `mifosx-toolbar` ID remain technical implementation identifiers | Do not rename without a technical migration plan |
-| Shell footer outlet | Shell template renders `<mifosx-footer [styleClass]="'main-page'"></mifosx-footer>` | Inspect footer implementation before any copy patch |
-| Footer locator search | Direct `footer` and `mifosx-footer` connector searches did not resolve a file; the guessed `src/app/core/shell/footer/footer.component.html` path returned 404 | Do not guess footer edits |
+| Area                          | Finding                                                                                                                                                        | Decision                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| Sidenav app brand             | Visible text now uses `MicroOps 360 Web`                                                                                                                       | Complete                                            |
+| Toolbar visible labels        | No visible inherited product name found in the inspected toolbar template                                                                                      | No UI copy patch needed                             |
+| Toolbar technical identifiers | `mifosx-*` selectors and `mifosx-toolbar` ID remain technical implementation identifiers                                                                       | Do not rename without a technical migration plan    |
+| Shell footer outlet           | Shell template renders `<mifosx-footer [styleClass]="'main-page'"></mifosx-footer>`                                                                            | Inspect footer implementation before any copy patch |
+| Footer locator search         | Direct `footer` and `mifosx-footer` connector searches did not resolve a file; the guessed `src/app/core/shell/footer/footer.component.html` path returned 404 | Do not guess footer edits                           |
 
 ## Shell Branding Risk Rules
 

@@ -6,25 +6,25 @@ Track visible product naming migration from inherited Mifos X labels to MicroOps
 
 ## Current Verified State
 
-| Area | Current state | Status |
-| --- | --- | --- |
-| Root README title | `MicroOps 360 Web` | Done |
-| Root README overview | MicroOps 360 Web by Bhone Theinkha LLC with Apache Fineract-compatible integration | Done |
-| Dashboard eyebrow | `MicroOps 360` | Done |
-| Browser title | `MicroOps 360 Web` | Done |
-| Login hero title | `MicroOps 360` | Done |
-| Login logo alt text | `MicroOps 360 Logo` | Done |
-| Login version label | `MicroOps 360 Web` | Done |
-| Login resources branding | `MicroOps 360 Web` | Done |
-| App manifest name | `MicroOps 360 Web` | Done |
-| App manifest short name | `MicroOps 360` | Done |
-| App manifest description | MicroOps 360 Web microfinance operations copy | Done |
-| Shell sidenav visible app brand | `MicroOps 360 Web` | Done |
-| Footer visible app labels | `MicroOps 360 Web` | Done |
-| Shell branding audit docs | `docs/microops360/SHELL_BRANDING_AUDIT.md` | Done |
-| Repository branding search report | `docs/microops360/REPOSITORY_BRANDING_SEARCH_REPORT.md` | Done |
-| Product identity doc | `docs/microops360/PRODUCT_IDENTITY.md` | Done |
-| README positioning guide | `docs/microops360/README_POSITIONING.md` | Done |
+| Area                              | Current state                                                                      | Status |
+| --------------------------------- | ---------------------------------------------------------------------------------- | ------ |
+| Root README title                 | `MicroOps 360 Web`                                                                 | Done   |
+| Root README overview              | MicroOps 360 Web by Bhone Theinkha LLC with Apache Fineract-compatible integration | Done   |
+| Dashboard eyebrow                 | `MicroOps 360`                                                                     | Done   |
+| Browser title                     | `MicroOps 360 Web`                                                                 | Done   |
+| Login hero title                  | `MicroOps 360`                                                                     | Done   |
+| Login logo alt text               | `MicroOps 360 Logo`                                                                | Done   |
+| Login version label               | `MicroOps 360 Web`                                                                 | Done   |
+| Login resources branding          | `MicroOps 360 Web`                                                                 | Done   |
+| App manifest name                 | `MicroOps 360 Web`                                                                 | Done   |
+| App manifest short name           | `MicroOps 360`                                                                     | Done   |
+| App manifest description          | MicroOps 360 Web microfinance operations copy                                      | Done   |
+| Shell sidenav visible app brand   | `MicroOps 360 Web`                                                                 | Done   |
+| Footer visible app labels         | `MicroOps 360 Web`                                                                 | Done   |
+| Shell branding audit docs         | `docs/microops360/SHELL_BRANDING_AUDIT.md`                                         | Done   |
+| Repository branding search report | `docs/microops360/REPOSITORY_BRANDING_SEARCH_REPORT.md`                            | Done   |
+| Product identity doc              | `docs/microops360/PRODUCT_IDENTITY.md`                                             | Done   |
+| README positioning guide          | `docs/microops360/README_POSITIONING.md`                                           | Done   |
 
 ## Known Intentional Legacy References
 
@@ -42,19 +42,19 @@ These references should not be renamed blindly because they may refer to:
 
 ## Completed Branding Slices
 
-| PR | Area | Scope |
-| --- | --- | --- |
-| #16 | Browser title | `src/index.html` title only |
-| #17 | Login page product branding | Login hero title and logo alt text only |
-| #18 | Login version label | Login version info label only |
-| #19 | Login resources branding | Login resources branding text only |
-| #20 | Branding audit progress | Audit documentation only |
-| #21 | Shell branding audit | Shell/header/sidenav audit documentation only |
-| #22 | Repository branding search report | Search-first branding report only |
-| #23 | App manifest name branding | Manifest `name` and `short_name` only |
-| #24 | App manifest description branding | Manifest `description` only |
-| #29 | Sidenav visible app brand | Sidenav visible app brand text only |
-| #33 | Footer visible app labels | Footer app labels only; version values unchanged |
+| PR  | Area                              | Scope                                            |
+| --- | --------------------------------- | ------------------------------------------------ |
+| #16 | Browser title                     | `src/index.html` title only                      |
+| #17 | Login page product branding       | Login hero title and logo alt text only          |
+| #18 | Login version label               | Login version info label only                    |
+| #19 | Login resources branding          | Login resources branding text only               |
+| #20 | Branding audit progress           | Audit documentation only                         |
+| #21 | Shell branding audit              | Shell/header/sidenav audit documentation only    |
+| #22 | Repository branding search report | Search-first branding report only                |
+| #23 | App manifest name branding        | Manifest `name` and `short_name` only            |
+| #24 | App manifest description branding | Manifest `description` only                      |
+| #29 | Sidenav visible app brand         | Sidenav visible app brand text only              |
+| #33 | Footer visible app labels         | Footer app labels only; version values unchanged |
 
 ## Branding Migration Rules
 

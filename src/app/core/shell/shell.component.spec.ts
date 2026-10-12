@@ -8,7 +8,8 @@
 
 import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -27,6 +28,7 @@ import { ShellComponent } from './shell.component';
 })
 class MockSidenavComponent {
   @Input() sidenavCollapsed = false;
+  @Output() expand = new EventEmitter<void>();
 }
 
 @Component({
@@ -156,5 +158,14 @@ describe('ShellComponent', () => {
 
     component.toggleCollapse(true);
     expect(component.sidenavCollapsed).toBe(true);
+  });
+
+  it('should expand the shell when a compact navigation group requests it', () => {
+    component.toggleCollapse(true);
+    const sidenav = fixture.debugElement.query(By.directive(MockSidenavComponent)).componentInstance;
+    sidenav.expand.emit();
+    fixture.detectChanges();
+    expect(component.sidenavCollapsed).toBe(false);
+    expect(sidenav.sidenavCollapsed).toBe(false);
   });
 });

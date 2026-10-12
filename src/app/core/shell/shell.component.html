@@ -20,7 +20,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <mifosx-sidenav [sidenavCollapsed]="sidenavCollapsed"></mifosx-sidenav>
+    <mifosx-sidenav [sidenavCollapsed]="sidenavCollapsed" (expand)="toggleCollapse(false)"></mifosx-sidenav>
   </mat-sidenav>
 
   <!-- Content -->

@@ -9,7 +9,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { NavigationEnd, Router, provideRouter } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, provideRouter } from '@angular/router';
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
@@ -21,6 +22,7 @@ import { IconsModule } from 'app/shared/icons.module';
 import { PopoverService } from '../../../configuration-wizard/popover/popover.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { SidenavComponent } from './sidenav.component';
+import { environment } from '../../../../environments/environment';
 
 describe('SidenavComponent', () => {
   let component: SidenavComponent;
@@ -126,18 +128,49 @@ describe('SidenavComponent', () => {
     expect(component.isGroupExpanded('customers')).toBe(true);
   });
 
-  it('should navigate to defaultRoute on group click when sidenav is collapsed', () => {
+  it('should reveal a collapsed group without navigating to a fixed route', () => {
     component.sidenavCollapsed = true;
-    component.onGroupClick('customers', '/clients');
+    const expandSpy = jest.spyOn(component.expand, 'emit');
+    component.onGroupClick('customers');
 
-    expect(router.navigate).toHaveBeenCalledWith(['/clients']);
+    expect(router.navigate).not.toHaveBeenCalled();
+    expect(expandSpy).toHaveBeenCalled();
+    expect(component.isGroupExpanded('customers')).toBe(true);
   });
 
   it('should toggle group expansion on group click when sidenav is expanded', () => {
     component.sidenavCollapsed = false;
     expect(component.isGroupExpanded('customers')).toBe(false);
 
-    component.onGroupClick('customers', '/clients');
+    component.onGroupClick('customers');
     expect(component.isGroupExpanded('customers')).toBe(true);
+  });
+
+  it('should expose only permitted children after expanding for a group-only reader', () => {
+    const previousRBAC = environment.productionModeEnableRBAC;
+    try {
+      environment.productionModeEnableRBAC = true;
+      const auth = TestBed.inject(AuthenticationService);
+      jest
+        .spyOn(auth, 'getCredentials')
+        .mockReturnValue({ username: 'group-reader', permissions: ['READ_GROUP'] } as any);
+      const restrictedFixture = TestBed.createComponent(SidenavComponent);
+      restrictedFixture.componentInstance.sidenavCollapsed = true;
+      restrictedFixture.detectChanges();
+      restrictedFixture.componentInstance.expand.subscribe(() => {
+        restrictedFixture.componentRef.setInput('sidenavCollapsed', false);
+      });
+      restrictedFixture.componentInstance.onGroupClick('customers');
+      restrictedFixture.detectChanges();
+      const links = restrictedFixture.debugElement
+        .queryAll(By.directive(RouterLink))
+        .map((element) => router.serializeUrl(element.injector.get(RouterLink).urlTree));
+      expect(links).toContain('/groups');
+      expect(links).not.toContain('/clients');
+      expect(router.navigate).not.toHaveBeenCalled();
+      restrictedFixture.destroy();
+    } finally {
+      environment.productionModeEnableRBAC = previousRBAC;
+    }
   });
 });

@@ -57,13 +57,13 @@ The dashboard must help MFI users understand portfolio health, collection status
 
 ## Human Approval Gates
 
-| Gate | Review Item | Decision |
-|---|---|---|
-| H1 | Dashboard route and layout | Approve or revise |
-| H2 | KPI list and labels | Approve or revise |
-| H3 | Component structure | Approve or revise |
-| H4 | First Angular shell | Approve or request changes |
-| H5 | Visual UAT | Approve or revise |
+| Gate | Review Item                | Decision                   |
+| ---- | -------------------------- | -------------------------- |
+| H1   | Dashboard route and layout | Approve or revise          |
+| H2   | KPI list and labels        | Approve or revise          |
+| H3   | Component structure        | Approve or revise          |
+| H4   | First Angular shell        | Approve or request changes |
+| H5   | Visual UAT                 | Approve or revise          |
 
 ## First PR Scope
 

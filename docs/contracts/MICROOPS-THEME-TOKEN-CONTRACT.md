@@ -32,7 +32,7 @@ This contract defines:
                                     v
 +-----------------------------------------------------------------------------------+
 |  Browser Local Storage: Tenant-Scoped User Settings                               |
-|  - microopsThemePreset | microopsThemeMode | microopsOrgDisplayName | microopsOrgLogo  |
+|  - microopsThemePreset | microopsThemeMode | microopsBranding (name + logo)           |
 +-----------------------------------------------------------------------------------+
                                     |
                                     x BLOCKED_BY_BACKEND_CONTRACT
@@ -179,13 +179,16 @@ Apache Fineract core exposes REST endpoints for financial configuration, loan pr
 
 When users configure appearance preferences in the **Branding & Appearance Studio** (`/settings/branding-and-appearance`), preferences are safely isolated in browser local storage:
 
-| Storage Key              | Type                            | Fallback Default                                       | Description                                          |
-| :----------------------- | :------------------------------ | :----------------------------------------------------- | :--------------------------------------------------- |
-| `microopsThemePreset`    | `string`                        | `'microops-signature'`                                 | Active canonical theme preset ID                     |
-| `microopsThemeMode`      | `'light' \| 'dark' \| 'system'` | `'system'`                                             | Active appearance mode                               |
-| `microopsOrgDisplayName` | `string`                        | Tenant Identifier (`SettingsService.tenantIdentifier`) | Institutional title displayed on toolbar and reports |
-| `microopsOrgLogo`        | `string` (Data URL)             | `'assets/images/mifos-logo-flat.png'`                  | Custom brand logo                                    |
-| `mifosXThemeDarkEnabled` | `boolean`                       | Computed boolean                                       | Backward-compatibility mirror for legacy components  |
+All keys below are suffixed with `:` and the URI-encoded JSON array `[backendUrl, tenantIdentifier]`. Changing backend or tenant through SettingsService reloads that scope's preferences immediately. Unscoped legacy preferences are ignored because their owning tenant is unknown; users must reselect them once. These settings remain local to this browser and are not institution-wide configuration.
+
+Organization name and logo are stored together in one `microopsBranding` JSON record, so a failed write cannot partially update the identity. Failed saves or resets show an error and retain unsaved edits. The identity is shown in the studio preview; the application shell and reports do not currently consume this record. Financial figures in the preview are explicitly labeled DEMO DATA.
+
+| Storage Key              | Type                                     | Fallback Default                   | Description                                         |
+| :----------------------- | :--------------------------------------- | :--------------------------------- | :-------------------------------------------------- |
+| `microopsThemePreset`    | `string`                                 | `'microops-signature'`             | Active canonical theme preset ID                    |
+| `microopsThemeMode`      | `'light' \| 'dark' \| 'system'`          | `'system'`                         | Active appearance mode                              |
+| `microopsBranding`       | `{ name: string, logo: string \| null }` | Tenant identifier and default logo | Organization identity in the studio preview         |
+| `mifosXThemeDarkEnabled` | `boolean`                                | Computed boolean                   | Backward-compatibility mirror for legacy components |
 
 ### 4.3 Future Server Synchronization Path
 
