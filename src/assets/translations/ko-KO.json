@@ -428,6 +428,57 @@
     "validation.mustBePositive": "{{field}}은(는) 양수여야 합니다."
   },
   "labels": {
+    "branding": {
+      "scopeTitle": "Appearance on this browser",
+      "scopeDescription": "These settings apply to this browser profile for the selected server and tenant. They remain after sign-out and may be shared by accounts using this browser profile. They do not change institution-wide settings or sync to other devices. Clearing browser data removes them.",
+      "active": "Active",
+      "light": "Light",
+      "dark": "Dark",
+      "primaryLight": "Primary light",
+      "accentLight": "Accent light",
+      "primaryDark": "Primary dark",
+      "accentDark": "Accent dark",
+      "portfolio": "Sample active portfolio",
+      "clients": "Sample active clients",
+      "par": "Sample PAR over 30 days",
+      "sampleGrowth": "+4.2% versus sample previous cycle",
+      "sampleOnTime": "98.6% on time (sample)",
+      "healthy": "Healthy portfolio (sample)",
+      "primaryAction": "Primary action",
+      "accentAction": "Accent action",
+      "outlinedAction": "Outlined action",
+      "warningAction": "Warning action",
+      "primary": "Primary",
+      "accent": "Accent",
+      "surface": "Surface",
+      "success": "Success",
+      "presets": {
+        "microops-signature": {
+          "name": "MicroOps Signature",
+          "description": "Balanced teal and cyan"
+        },
+        "ocean-corporate": {
+          "name": "Ocean Corporate",
+          "description": "Institutional ocean blue"
+        },
+        "rich-purple": {
+          "name": "Rich Purple",
+          "description": "Royal purple and violet"
+        },
+        "corporate-navy": {
+          "name": "Corporate Navy",
+          "description": "Classic midnight navy"
+        },
+        "calm-productivity": {
+          "name": "Calm Productivity",
+          "description": "Slate and neutral tones"
+        },
+        "emerald-banking": {
+          "name": "Emerald Banking",
+          "description": "Emerald and botanical green"
+        }
+      }
+    },
     "Mifos Reporting Plugin for Eclipse Birt": "Mifos Reporting Plugin for Eclipse Birt",
     "version": {
       "Tenant": "임차인",
@@ -1588,7 +1639,7 @@
       "Pause Timeline": "일시중지 타임라인"
     },
     "inputs": {
-      "Breach Actions": "위반 행위",
+      "Breach Actions": "위반 작업",
       "# Remittance": "# 송금",
       "# Senders": "# 송금인",
       "ACCOUNTING": "회계",
@@ -3148,7 +3199,6 @@
       "to": "에게",
       "valid": "유효한",
       "Active Pause": "활성 일시중지",
-      "Breach Actions": "위반 작업",
       "days": "일",
       "Duration": "기간",
       "Expired": "만료됨",
@@ -4127,7 +4177,10 @@
       "withoutCategory": "카테고리 없음",
       "Maker-Checker principle requires every tasks": "원칙은 오류와 오용 가능성을 줄이기 위해 모든 작업을 두 사람이 완료하도록 요구합니다. 한 사람이 프로세스를 시작하고 두 번째 사람이 프로세스를 완료합니다.",
       "Breach Actions": "위반 작업",
-      "“Maker-Checker” principle requires every tasks": "\"Maker-Checker\" 원칙은 오류와 오용 가능성을 줄이기 위해 모든 작업을 두 사람이 완료하도록 요구합니다. 한 사람이 프로세스를 시작하고 두 번째 사람이 프로세스를 완료합니다."
+      "“Maker-Checker” principle requires every tasks": "\"Maker-Checker\" 원칙은 오류와 오용 가능성을 줄이기 위해 모든 작업을 두 사람이 완료하도록 요구합니다. 한 사람이 프로세스를 시작하고 두 번째 사람이 프로세스를 완료합니다.",
+      "Branding Studio Description": "Choose a theme, display name, and logo for this browser.",
+      "Organization Identity Description": "Preview your display name and logo, then save them for the login page on this browser.",
+      "Branding & Appearance": "Branding & Appearance"
     },
     "permissions": {
       "actions": {

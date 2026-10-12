@@ -3,7 +3,7 @@
 **Version:** 1.0.0 (WEB-365)  
 **Status:** CANONICAL BASELINE  
 **Classification:** Frontend Experience Architecture & Governance Contract  
-**Governing Standard:** WCAG 2.1 AA / Material Design 3 Token Integration
+**Governing Standard:** Angular Material M2 theming with CSS tokens; WCAG 2.1 AA verification targets
 
 ---
 
@@ -13,10 +13,10 @@ The **MicroOps Experience Foundation** transforms the Mifos X web client present
 
 This contract defines:
 
-1. **Three-layer design token hierarchy** decoupling brand aesthetics from operational semantics.
+1. **Four-layer design token hierarchy** decoupling brand aesthetics from operational semantics.
 2. **6 Canonical theme presets** covering microfinance, digital banking, cooperative, and enterprise institutional palettes.
-3. **WCAG 2.1 AA contrast guarantees** across daylight, low-glare dark, and system-adaptive modes.
-4. **Backend Contract Status**: Formally documents the absence of an upstream Apache Fineract tenant branding endpoint (`BLOCKED_BY_BACKEND_CONTRACT`) and specifies client-side tenant persistence guarantees.
+3. **Component-specific WCAG 2.1 AA contrast verification targets** across daylight, low-glare dark, and system-adaptive modes.
+4. **Backend Contract Status**: No approved server branding contract is integrated in this client (`BLOCKED_BY_BACKEND_CONTRACT`). Browser preference scope and retention are documented below.
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -24,27 +24,27 @@ This contract defines:
 +-----------------------------------------------------------------------------------+
 |  Layer A: Theme Presets (6 Canonical Palettes: Primary, Accent, Containers)       |
 |  Layer B: Fixed System Semantic Status Tokens (Success, Warning, Error, Critical) |
-|  Layer C: Financial Multi-Color Visualization Palette (8 High-Contrast Series)    |
+|  Layer C: Financial Multi-Color Visualization Palette (8 Series Requiring Contextual Verification)    |
 |  Layer D: Surface, Elevation, Radius & Spacing Hierarchy                          |
 +-----------------------------------------------------------------------------------+
                                     |
                                     | Client Persistence (ThemingService)
                                     v
 +-----------------------------------------------------------------------------------+
-|  Browser Local Storage: Tenant-Scoped User Settings                               |
+|  Browser Local Storage: Backend/Tenant Preferences (Not User-Isolated)                               |
 |  - microopsThemePreset | microopsThemeMode | microopsBranding (name + logo)           |
 +-----------------------------------------------------------------------------------+
                                     |
                                     x BLOCKED_BY_BACKEND_CONTRACT
                                     v
 +-----------------------------------------------------------------------------------+
-|  Apache Fineract Core REST Backend (No native tenant branding/theme endpoint)     |
+|  Apache Fineract Core REST Backend (No approved branding endpoint integrated)     |
 +-----------------------------------------------------------------------------------+
 ```
 
 ---
 
-## 2. Three-Layer Token Architecture
+## 2. Four-Layer Token Architecture
 
 ### 2.1 Layer A: Brand / Theme Presets
 
@@ -53,7 +53,7 @@ Theme presets define the ambient primary, accent, and interactive container hues
 | Preset Identifier    | Display Name           | Light Primary               | Light Accent              | Dark Primary             | Dark Accent                | Target Institution                 |
 | :------------------- | :--------------------- | :-------------------------- | :------------------------ | :----------------------- | :------------------------- | :--------------------------------- |
 | `microops-signature` | **MicroOps Signature** | `#0e6251` (Petrol Teal)     | `#0f766e` (Cyan Teal)     | `#2ec4b6` (Mint Teal)    | `#14b8a6` (Teal Accent)    | Default MicroOps 360 operations    |
-| `ocean-corporate`    | **Ocean Corporate**    | `#0284c7` (Ocean Azure)     | `#0369a1` (Deep Azure)    | `#38bdf8` (Sky Dark)     | `#0284c7` (Ocean Accent)   | Commercial & Tier-1 Microfinance   |
+| `ocean-corporate`    | **Ocean Corporate**    | `#0369a1` (Deep Azure)      | `#0369a1` (Deep Azure)    | `#38bdf8` (Sky Dark)     | `#0284c7` (Ocean Accent)   | Commercial & Tier-1 Microfinance   |
 | `rich-purple`        | **Rich Purple**        | `#6d28d9` (Royal Purple)    | `#7c3aed` (Violet)        | `#a78bfa` (Light Purple) | `#8b5cf6` (Soft Violet)    | Fintechs & Digital Neobanks        |
 | `corporate-navy`     | **Corporate Navy**     | `#1e40af` (Midnight Navy)   | `#1d4ed8` (Royal Blue)    | `#60a5fa` (Blue Light)   | `#3b82f6` (Cobalt Blue)    | Apex Banks & Regulatory Bodies     |
 | `calm-productivity`  | **Calm Productivity**  | `#475569` (Slate Steel)     | `#334155` (Deep Slate)    | `#94a3b8` (Light Slate)  | `#64748b` (Medium Slate)   | High-volume Back-Office & Auditing |
@@ -94,7 +94,7 @@ System semantic tokens represent immutable operational conditions. **Their meani
 
 Charts, portfolio distribution diagrams, and multi-series financial graphs require distinguishable, high-contrast hues that remain accessible against both light and dark card surfaces.
 
-| Token           | Semantic Financial Assignment              | Hex Value | Accessible Contrast Surface       |
+| Token           | Semantic Financial Assignment              | Hex Value | Surface to Verify                 |
 | :-------------- | :----------------------------------------- | :-------- | :-------------------------------- |
 | `--ops-chart-1` | Outstanding Principal / Active Portfolio   | `#0284c7` | Card Surface (`#fff` / `#1e293b`) |
 | `--ops-chart-2` | Collections / Repayments / Inflow          | `#10b981` | Card Surface (`#fff` / `#1e293b`) |
@@ -125,7 +125,7 @@ In MicroOps 360, **pure `#FFFFFF` and pure `#000000` are strictly disallowed as 
 --ops-shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 8%), 0 4px 6px -4px rgb(15 23 42 / 4%);
 ```
 
-#### 8px Spacing Grid & Border Radii
+#### 8px Layout Rhythm, Existing 4px Subgrid & Border Radii
 
 ```css
 --ops-space-1: 4px;
@@ -155,9 +155,9 @@ The theming engine supports three distinct operational modes managed via `Themin
 2. **Dark Mode (`dark`)**: Comfortable low-glare dark appearance for back-office operators and extended shifts.
 3. **System Mode (`system`)**: Dynamically binds to the operating system's color preference using `window.matchMedia('(prefers-color-scheme: dark)')`. The client listens reactively to OS scheme changes and updates the active CSS class list on `document.body` without requiring a page reload.
 
-### Contrast Guarantees (WCAG 2.1 AA)
+### Contrast Verification Targets (WCAG 2.1 AA)
 
-All foreground-to-background combinations in the canonical presets meet or exceed:
+Measure actual rendered foreground/background pairs in each relevant state. The following are targets, not a blanket certification:
 
 - **Normal text (< 18pt / < 14pt bold):** Minimum contrast ratio of **4.5:1**.
 - **Large text (>= 18pt / >= 14pt bold):** Minimum contrast ratio of **3.0:1**.
@@ -169,15 +169,15 @@ All foreground-to-background combinations in the canonical presets meet or excee
 
 ### 4.1 Fineract REST Contract Analysis
 
-Apache Fineract core exposes REST endpoints for financial configuration, loan products, offices, users, and reports (`/fineract-provider/api/v1/*`). **It does not expose an API endpoint for tenant visual theming or custom logo/branding storage.**
+Apache Fineract core exposes REST endpoints for financial configuration, loan products, offices, users, and reports (`/fineract-provider/api/v1/*`). **This client has no approved server contract for visual theming or custom logo storage. This is not an exhaustive claim about all Fineract versions or extensions.**
 
 - Status: `BLOCKED_BY_BACKEND_CONTRACT`
-- Upstream Missing Resource: `/fineract-provider/api/v1/branding` or `/fineract-provider/api/v1/tenants/{tenantId}/branding`
+- Unapproved example resource paths (do not call): `/fineract-provider/api/v1/branding` or `/fineract-provider/api/v1/tenants/{tenantId}/branding`
 - Architecture Strategy: **Graceful Client-Side Tenant Storage with Fail-Safe Defaults.**
 
 ### 4.2 Client Persistence Specification
 
-When users configure appearance preferences in the **Branding & Appearance Studio** (`/settings/branding-and-appearance`), preferences are safely isolated in browser local storage:
+When users configure appearance preferences in the **Branding & Appearance Studio** (`/settings/branding-and-appearance`), preferences are stored in origin-local browser storage with backend and tenant keys:
 
 All keys below are suffixed with `:` and the URI-encoded JSON array `[backendUrl, tenantIdentifier]`. Changing backend or tenant through SettingsService reloads that scope's preferences immediately. Unscoped legacy preferences are ignored because their owning tenant is unknown; users must reselect them once. These settings remain local to this browser and are not institution-wide configuration.
 
@@ -198,7 +198,7 @@ Container startup transports `MIFOS_BRAND_NAME` as UTF-8 base64 before template 
 
 ### 4.3 Future Server Synchronization Path
 
-If upstream Apache Fineract or a MicroOps API Gateway introduces a tenant branding endpoint in a future release, `ThemingService` and `BrandingAndAppearanceComponent` are pre-structured to bridge these exact data fields without breaking the client-side presentation contract.
+Server synchronization requires an approved API, authorization rules, failure behavior, migration design, and separate implementation. Current browser storage does not provide that contract.
 
 ---
 
@@ -219,10 +219,12 @@ If upstream Apache Fineract or a MicroOps API Gateway introduces a tenant brandi
 
 ---
 
-## 6. Verification & Quality Assurance Summary
+## 6. Verification and Limits
 
-1. **Unit Testing:** 100% pass across `theming.service.spec.ts` (14 tests), `theme-toggle.component.spec.ts`, and `branding-and-appearance.component.spec.ts` (9 tests).
-2. **Stylelint Validation:** Zero syntax errors; strictly compliant with `.stylelintrc` unit rules (`px`, `%`, `em`, `rem`, `vw`).
-3. **Prettier Formatting:** All SCSS, TypeScript, HTML, and Markdown files comply with project code formatting.
-4. **License Compliance:** All files verified against MPL-2.0 headers.
-5. **Continuous Integration:** Passed all exact-head CI gates (`Single Commit Check`, `Validate MPL-2.0 Headers`, `Run Lint, Test and Build`, `Playwright E2E`).
+The implementation uses Angular Material M2 theming APIs, with four CSS token layers A–D. M3 migration is not part of this contract. Use an 8px layout rhythm and reuse the existing 4px subgrid tokens for compact spacing (4px, 12px, 20px); these are explicit fork tokens rather than arbitrary additions.
+
+Browser origin/profile and the exact backend URL plus tenant identifier determine the preference namespace. There is no user identifier. Signing out removes authentication state but retains appearance preferences, so accounts sharing that browser profile and scope share preferences. This is not an RBAC boundary. URL spelling changes, clearing browser data, blocked storage, and different devices can change availability.
+
+Static chart swatches #10b981 and #f59e0b against white measure approximately 2.54:1 and 2.15:1. They do not meet 3:1 where a graphical object requires that contrast. Review the actual chart background, outlines, labels, and non-color encoding before classifying a rendered chart. Decorative and disabled elements require separate classification. No universal AA guarantee is made.
+
+Exact commit checks and browser evidence belong to each delivery report. Historical test counts and CI outcomes are not certification of later commits. Unit runtime remains HOLD.
