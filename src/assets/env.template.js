@@ -24,6 +24,7 @@
 
   window['env']['fineractPlatformTenantIds'] = '$FINERACT_PLATFORM_TENANTS_IDENTIFIER';
 
+  window['env']['brandName'] = '$MIFOS_BRAND_NAME';
   window['env']['tenantLogoUrl'] = '$TENANT_LOGO_URL';
   window['env']['tenantLogoUrlDark'] = '$TENANT_LOGO_URL_DARK';
 

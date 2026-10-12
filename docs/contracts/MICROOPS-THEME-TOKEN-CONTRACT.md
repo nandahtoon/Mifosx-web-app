@@ -181,14 +181,18 @@ When users configure appearance preferences in the **Branding & Appearance Studi
 
 All keys below are suffixed with `:` and the URI-encoded JSON array `[backendUrl, tenantIdentifier]`. Changing backend or tenant through SettingsService reloads that scope's preferences immediately. Unscoped legacy preferences are ignored because their owning tenant is unknown; users must reselect them once. These settings remain local to this browser and are not institution-wide configuration.
 
-Organization name and logo are stored together in one `microopsBranding` JSON record, so a failed write cannot partially update the identity. Failed saves or resets show an error and retain unsaved edits. The identity is shown in the studio preview; the application shell and reports do not currently consume this record. Financial figures in the preview are explicitly labeled DEMO DATA.
+Organization name and logo are stored together in one `microopsBranding` JSON record, so a failed write cannot partially update the identity. Failed saves or resets show an error and retain unsaved edits. The studio preview and login page consume this record through `BrandingService`; the application shell and reports do not currently consume it. Financial figures in the preview are explicitly labeled DEMO DATA.
 
-| Storage Key              | Type                                     | Fallback Default                   | Description                                         |
-| :----------------------- | :--------------------------------------- | :--------------------------------- | :-------------------------------------------------- |
-| `microopsThemePreset`    | `string`                                 | `'microops-signature'`             | Active canonical theme preset ID                    |
-| `microopsThemeMode`      | `'light' \| 'dark' \| 'system'`          | `'system'`                         | Active appearance mode                              |
-| `microopsBranding`       | `{ name: string, logo: string \| null }` | Tenant identifier and default logo | Organization identity in the studio preview         |
-| `mifosXThemeDarkEnabled` | `boolean`                                | Computed boolean                   | Backward-compatibility mirror for legacy components |
+Login defaults to **MifosOps**, configured centrally through `MIFOS_BRAND_NAME` (`window.env.brandName`). Deployment logos continue to use `TENANT_LOGO_URL` and `TENANT_LOGO_URL_DARK`; existing logo assets are retained. A saved name/logo in **Settings → Branding & Appearance** takes precedence for the active backend and tenant in this browser, including after logout and page refresh. Reset restores deployment defaults. Other browsers/devices use deployment defaults until configured locally; institution-wide branding synchronization remains `BLOCKED_BY_BACKEND_CONTRACT`.
+
+Login colors follow the active theme preset and light/dark/system mode. Entering login does not replace System mode. Switching backend or tenant reloads the corresponding branding and theme preferences without carrying another tenant's identity across scopes.
+
+| Storage Key              | Type                                     | Fallback Default               | Description                                           |
+| :----------------------- | :--------------------------------------- | :----------------------------- | :---------------------------------------------------- |
+| `microopsThemePreset`    | `string`                                 | `'microops-signature'`         | Active canonical theme preset ID                      |
+| `microopsThemeMode`      | `'light' \| 'dark' \| 'system'`          | `'system'`                     | Active appearance mode                                |
+| `microopsBranding`       | `{ name: string, logo: string \| null }` | Configured brand name and logo | Organization identity in the studio preview and login |
+| `mifosXThemeDarkEnabled` | `boolean`                                | Computed boolean               | Backward-compatibility mirror for legacy components   |
 
 ### 4.3 Future Server Synchronization Path
 
