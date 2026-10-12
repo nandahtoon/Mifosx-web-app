@@ -21,6 +21,8 @@
   window["env"]["fineractPlatformTenantIds"] = '';
 
   window['env']['brandName'] = '';
+  // Demo mode flag for synthetic preview data (defaults to false)
+  window['env']['demoMode'] = false;
   window['env']['tenantLogoUrl'] = '';
   window['env']['tenantLogoUrlDark'] = '';
 
