@@ -31,17 +31,17 @@ DashboardComponent
 
 ## Candidate Data Sources
 
-| Dashboard Section | Candidate Source | Notes |
-|---|---|---|
-| Total Portfolio | runreports / portfolio report | Prefer existing report if available |
-| Active Loans | loans endpoint or report | Needs paging-safe aggregation |
-| Collections Today | transactions / collection report | Filter by business date |
-| PAR over 30 days | aging / arrears report | Must match accounting/risk definition |
-| Pending Approvals | checker inbox / tasks endpoints | Reuse maker-checker flow |
-| Cash Balance | accounting / cash report | Only show if reliable and permissioned |
-| Recent Loans | loans search/report | Start with limited recent list |
-| Product Mix | product-level portfolio report | Avoid client-side full portfolio scan |
-| Portfolio Trend | report snapshot / time series | Prefer report output, not heavy live query |
+| Dashboard Section | Candidate Source                 | Notes                                      |
+| ----------------- | -------------------------------- | ------------------------------------------ |
+| Total Portfolio   | runreports / portfolio report    | Prefer existing report if available        |
+| Active Loans      | loans endpoint or report         | Needs paging-safe aggregation              |
+| Collections Today | transactions / collection report | Filter by business date                    |
+| PAR over 30 days  | aging / arrears report           | Must match accounting/risk definition      |
+| Pending Approvals | checker inbox / tasks endpoints  | Reuse maker-checker flow                   |
+| Cash Balance      | accounting / cash report         | Only show if reliable and permissioned     |
+| Recent Loans      | loans search/report              | Start with limited recent list             |
+| Product Mix       | product-level portfolio report   | Avoid client-side full portfolio scan      |
+| Portfolio Trend   | report snapshot / time series    | Prefer report output, not heavy live query |
 
 ## Implementation Rules
 

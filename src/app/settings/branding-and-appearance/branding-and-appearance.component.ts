@@ -25,9 +25,9 @@ import { SettingsService } from 'app/settings/settings.service';
 import { AlertService } from 'app/core/alert/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
+import { AppearanceStorageService } from 'app/shared/theme-toggle/appearance-storage.service';
 
-export const ORG_DISPLAY_NAME_STORAGE_KEY = 'microopsOrgDisplayName';
-export const ORG_LOGO_STORAGE_KEY = 'microopsOrgLogo';
+export const BRANDING_STORAGE_KEY = 'microopsBranding';
 
 export interface ThemeModeItem {
   id: ThemeMode;
@@ -63,6 +63,7 @@ export class BrandingAndAppearanceComponent implements OnInit {
   private translateService = inject(TranslateService);
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
+  private appearanceStorage = inject(AppearanceStorageService);
 
   presets: ThemePresetOption[] = THEME_PRESETS;
   activePreset: ThemePreset = 'microops-signature';
@@ -119,15 +120,11 @@ export class BrandingAndAppearanceComponent implements OnInit {
       this.cdr.markForCheck();
     });
 
-    // 3. Load organization display name
-    const storedName = this.readStorage(ORG_DISPLAY_NAME_STORAGE_KEY);
-    const defaultName = storedName || this.settingsService.tenantIdentifier || 'MicroOps 360';
-    this.initialDisplayName = defaultName;
-    this.orgDisplayNameControl.setValue(defaultName, { emitEvent: false });
-
-    // 4. Load custom logo
-    this.customLogoUrl = this.readStorage(ORG_LOGO_STORAGE_KEY);
-    this.initialLogoUrl = this.customLogoUrl;
+    this.loadBranding();
+    this.appearanceStorage.scopeChanges$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.loadBranding();
+      this.cdr.markForCheck();
+    });
 
     // 5. Track changes
     this.orgDisplayNameControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
@@ -178,23 +175,16 @@ export class BrandingAndAppearanceComponent implements OnInit {
 
   saveBranding(): void {
     const nameVal = (this.orgDisplayNameControl.value ?? '').trim();
-    if (nameVal) {
-      this.writeStorage(ORG_DISPLAY_NAME_STORAGE_KEY, nameVal);
-      this.initialDisplayName = nameVal;
-    } else {
-      this.removeStorage(ORG_DISPLAY_NAME_STORAGE_KEY);
-      this.initialDisplayName = this.settingsService.tenantIdentifier || 'MicroOps 360';
-      this.orgDisplayNameControl.setValue(this.initialDisplayName, { emitEvent: false });
+    // A single write keeps name and logo consistent if browser storage is full.
+    if (
+      !this.appearanceStorage.setItem(BRANDING_STORAGE_KEY, JSON.stringify({ name: nameVal, logo: this.customLogoUrl }))
+    ) {
+      this.showStorageError();
+      return;
     }
-
-    if (this.customLogoUrl) {
-      this.writeStorage(ORG_LOGO_STORAGE_KEY, this.customLogoUrl);
-      this.initialLogoUrl = this.customLogoUrl;
-    } else {
-      this.removeStorage(ORG_LOGO_STORAGE_KEY);
-      this.initialLogoUrl = null;
-    }
-
+    this.initialDisplayName = nameVal || this.settingsService.tenantIdentifier || 'MicroOps 360';
+    this.initialLogoUrl = this.customLogoUrl;
+    this.orgDisplayNameControl.setValue(this.initialDisplayName, { emitEvent: false });
     this.hasUnsavedChanges = false;
     this.alertService.alert({
       type: 'Branding Updated',
@@ -204,11 +194,13 @@ export class BrandingAndAppearanceComponent implements OnInit {
   }
 
   resetToDefaults(): void {
+    if (!this.appearanceStorage.removeItem(BRANDING_STORAGE_KEY)) {
+      this.showStorageError();
+      return;
+    }
     this.themingService.setPreset('microops-signature');
     this.themingService.setMode('system');
     this.customLogoUrl = null;
-    this.removeStorage(ORG_LOGO_STORAGE_KEY);
-    this.removeStorage(ORG_DISPLAY_NAME_STORAGE_KEY);
 
     const defaultName = this.settingsService.tenantIdentifier || 'MicroOps 360';
     this.initialDisplayName = defaultName;
@@ -231,36 +223,27 @@ export class BrandingAndAppearanceComponent implements OnInit {
     return this.presets.find((p) => p.id === this.activePreset) || this.presets[0];
   }
 
-  private readStorage(key: string): string | null {
-    if (typeof localStorage === 'undefined') {
-      return null;
-    }
+  private loadBranding(): void {
+    let branding: { name?: string; logo?: string } = {};
     try {
-      return localStorage.getItem(key);
+      branding = JSON.parse(this.appearanceStorage.getItem(BRANDING_STORAGE_KEY) || '{}') || {};
     } catch {
-      return null;
+      // Invalid preferences fall back to the current tenant's defaults.
     }
+    this.initialDisplayName =
+      (typeof branding.name === 'string' && branding.name) || this.settingsService.tenantIdentifier || 'MicroOps 360';
+    this.customLogoUrl = typeof branding.logo === 'string' ? branding.logo : null;
+    this.initialLogoUrl = this.customLogoUrl;
+    this.orgDisplayNameControl.setValue(this.initialDisplayName, { emitEvent: false });
+    this.hasUnsavedChanges = false;
   }
 
-  private writeStorage(key: string, value: string): void {
-    if (typeof localStorage === 'undefined') {
-      return;
-    }
-    try {
-      localStorage.setItem(key, value);
-    } catch {
-      // Storage unavailable
-    }
-  }
-
-  private removeStorage(key: string): void {
-    if (typeof localStorage === 'undefined') {
-      return;
-    }
-    try {
-      localStorage.removeItem(key);
-    } catch {
-      // Storage unavailable
-    }
+  private showStorageError(): void {
+    this.hasUnsavedChanges = true;
+    this.alertService.alert({
+      type: this.translateService.instant('labels.text.Branding save failed'),
+      message: this.translateService.instant('labels.text.Branding storage unavailable')
+    });
+    this.cdr.markForCheck();
   }
 }

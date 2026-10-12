@@ -25,14 +25,11 @@ import {
   faUndo
 } from '@fortawesome/free-solid-svg-icons';
 
-import {
-  BrandingAndAppearanceComponent,
-  ORG_DISPLAY_NAME_STORAGE_KEY,
-  ORG_LOGO_STORAGE_KEY
-} from './branding-and-appearance.component';
+import { BrandingAndAppearanceComponent, BRANDING_STORAGE_KEY } from './branding-and-appearance.component';
 import { ThemingService, ThemePreset, ThemeMode } from 'app/shared/theme-toggle/theming.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { AlertService } from 'app/core/alert/alert.service';
+import { AppearanceStorageService } from 'app/shared/theme-toggle/appearance-storage.service';
 
 describe('BrandingAndAppearanceComponent', () => {
   let component: BrandingAndAppearanceComponent;
@@ -41,9 +38,11 @@ describe('BrandingAndAppearanceComponent', () => {
   let alertService: jest.Mocked<AlertService>;
   let settingsService: Partial<SettingsService>;
   let store: Record<string, string> = {};
+  let appearanceStorage: AppearanceStorageService;
 
   beforeEach(async () => {
     store = {};
+    store['mifosXTenantIdentifier'] = 'test-tenant';
     jest.spyOn(localStorage, 'getItem').mockImplementation((key: string) => store[key] ?? null);
     jest.spyOn(localStorage, 'setItem').mockImplementation((key: string, val: string) => {
       store[key] = val;
@@ -100,6 +99,7 @@ describe('BrandingAndAppearanceComponent', () => {
     themingService = TestBed.inject(ThemingService);
     alertService = TestBed.inject(AlertService) as jest.Mocked<AlertService>;
     settingsService = TestBed.inject(SettingsService);
+    appearanceStorage = TestBed.inject(AppearanceStorageService);
 
     fixture = TestBed.createComponent(BrandingAndAppearanceComponent);
     component = fixture.componentInstance;
@@ -108,6 +108,7 @@ describe('BrandingAndAppearanceComponent', () => {
 
   afterEach(() => {
     localStorage.clear();
+    jest.restoreAllMocks();
   });
 
   it('should create the component', () => {
@@ -163,8 +164,10 @@ describe('BrandingAndAppearanceComponent', () => {
 
     component.saveBranding();
 
-    expect(localStorage.getItem(ORG_DISPLAY_NAME_STORAGE_KEY)).toBe('Apex Financial');
-    expect(localStorage.getItem(ORG_LOGO_STORAGE_KEY)).toBe('data:image/png;base64,mockLogoData');
+    expect(JSON.parse(appearanceStorage.getItem(BRANDING_STORAGE_KEY))).toEqual({
+      name: 'Apex Financial',
+      logo: 'data:image/png;base64,mockLogoData'
+    });
     expect(component.hasUnsavedChanges).toBe(false);
     expect(alertService.alert).toHaveBeenCalledWith(expect.objectContaining({ type: 'Branding Updated' }));
   });
@@ -182,18 +185,69 @@ describe('BrandingAndAppearanceComponent', () => {
     const setPresetSpy = jest.spyOn(themingService, 'setPreset');
     const setModeSpy = jest.spyOn(themingService, 'setMode');
 
-    localStorage.setItem(ORG_DISPLAY_NAME_STORAGE_KEY, 'Custom Bank');
-    localStorage.setItem(ORG_LOGO_STORAGE_KEY, 'custom-logo.png');
+    appearanceStorage.setItem(BRANDING_STORAGE_KEY, JSON.stringify({ name: 'Custom Bank', logo: 'custom-logo.png' }));
 
     component.resetToDefaults();
 
     expect(setPresetSpy).toHaveBeenCalledWith('microops-signature');
     expect(setModeSpy).toHaveBeenCalledWith('system');
-    expect(localStorage.getItem(ORG_DISPLAY_NAME_STORAGE_KEY)).toBeNull();
-    expect(localStorage.getItem(ORG_LOGO_STORAGE_KEY)).toBeNull();
+    expect(appearanceStorage.getItem(BRANDING_STORAGE_KEY)).toBeNull();
     expect(component.customLogoUrl).toBeNull();
     expect(component.orgDisplayNameControl.value).toBe('test-tenant');
     expect(component.hasUnsavedChanges).toBe(false);
     expect(alertService.alert).toHaveBeenCalledWith(expect.objectContaining({ type: 'Branding Reset' }));
+  });
+
+  it('should preserve edits and stored branding when quota prevents saving', () => {
+    appearanceStorage.setItem(BRANDING_STORAGE_KEY, JSON.stringify({ name: 'Original Bank', logo: null }));
+    component.orgDisplayNameControl.setValue('Updated Bank');
+    component.customLogoUrl = 'data:image/png;base64,newLogo';
+    jest.spyOn(localStorage, 'setItem').mockImplementation(() => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError');
+    });
+    component.saveBranding();
+    expect(component.hasUnsavedChanges).toBe(true);
+    expect(component.orgDisplayNameControl.value).toBe('Updated Bank');
+    expect(JSON.parse(appearanceStorage.getItem(BRANDING_STORAGE_KEY)).name).toBe('Original Bank');
+    expect(alertService.alert).not.toHaveBeenCalledWith(expect.objectContaining({ type: 'Branding Updated' }));
+    expect(alertService.alert).toHaveBeenCalledWith(
+      expect.objectContaining({ type: 'labels.text.Branding save failed' })
+    );
+  });
+
+  it('should not announce a reset when storage removal fails', () => {
+    jest.spyOn(localStorage, 'removeItem').mockImplementation(() => {
+      throw new Error('Storage blocked');
+    });
+    component.resetToDefaults();
+    expect(component.hasUnsavedChanges).toBe(true);
+    expect(alertService.alert).not.toHaveBeenCalledWith(expect.objectContaining({ type: 'Branding Reset' }));
+  });
+
+  it('should restore only the active tenant branding after switching tenants', () => {
+    component.orgDisplayNameControl.setValue('Tenant A Bank');
+    component.customLogoUrl = 'data:image/png;base64,tenantA';
+    component.saveBranding();
+    localStorage.setItem('mifosXTenantIdentifier', 'tenant-b');
+    Object.defineProperty(settingsService, 'tenantIdentifier', { value: 'tenant-b', configurable: true });
+    appearanceStorage.notifyScopeChanged();
+    expect(component.orgDisplayNameControl.value).toBe('tenant-b');
+    expect(component.customLogoUrl).toBeNull();
+    component.orgDisplayNameControl.setValue('Tenant B Bank');
+    component.saveBranding();
+    localStorage.setItem('mifosXTenantIdentifier', 'test-tenant');
+    Object.defineProperty(settingsService, 'tenantIdentifier', { value: 'test-tenant', configurable: true });
+    appearanceStorage.notifyScopeChanged();
+    expect(component.orgDisplayNameControl.value).toBe('Tenant A Bank');
+    expect(component.customLogoUrl).toBe('data:image/png;base64,tenantA');
+  });
+
+  it('should label the sample financial preview as demo data', () => {
+    expect(fixture.nativeElement.querySelector('#live-preview-heading').textContent).toContain(
+      'labels.text.Demo Appearance Preview'
+    );
+    expect(fixture.nativeElement.querySelector('.mock-status-pill').textContent).toContain(
+      'labels.text.Demo Appearance Badge'
+    );
   });
 });

@@ -92,7 +92,7 @@
       <mat-nav-list class="nav-list-section">
         <!-- Customers Group -->
         <mat-list-item
-          (click)="onGroupClick('customers', '/clients')"
+          (click)="onGroupClick('customers')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Customers' | translate }}"
           [class.active-menu]="isGroupActive('customers')"
@@ -157,7 +157,7 @@
 
         <!-- Loans Group -->
         <mat-list-item
-          (click)="onGroupClick('loans', '/checker-inbox-and-tasks/loan-approval')"
+          (click)="onGroupClick('loans')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Loans' | translate }}"
           [class.active-menu]="isGroupActive('loans')"
@@ -235,7 +235,7 @@
 
         <!-- Collections Group -->
         <mat-list-item
-          (click)="onGroupClick('collections', '/collections/collection-sheet')"
+          (click)="onGroupClick('collections')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Collections' | translate }}"
           [class.active-menu]="isGroupActive('collections')"
@@ -287,7 +287,7 @@
 
         <!-- Savings Group -->
         <mat-list-item
-          (click)="onGroupClick('savings', '/products/saving-products')"
+          (click)="onGroupClick('savings')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Savings' | translate }}"
           [class.active-menu]="isGroupActive('savings')"
@@ -375,7 +375,7 @@
       <mat-nav-list class="nav-list-section">
         <!-- Accounting Group -->
         <mat-list-item
-          (click)="onGroupClick('accounting', '/accounting')"
+          (click)="onGroupClick('accounting')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Accounting' | translate }}"
           [class.active-menu]="isGroupActive('accounting')"
@@ -384,7 +384,8 @@
             'READ_GLACCOUNT',
             'READ_GLCLOSURE',
             'READ_ACCOUNTINGRULE',
-            'READ_PROVISIONINGCRITERIA'
+            'READ_PROVISIONINGCRITERIA',
+            'CREATE_JOURNALENTRY'
           ]"
         >
           <mat-icon matListIcon>
@@ -506,7 +507,7 @@
 
         <!-- Administration Group -->
         <mat-list-item
-          (click)="onGroupClick('admin', '/appusers')"
+          (click)="onGroupClick('admin')"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Administration' | translate }}"
           [class.active-menu]="isGroupActive('admin')"

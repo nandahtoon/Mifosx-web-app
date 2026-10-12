@@ -14,6 +14,8 @@ import {
   DestroyRef,
   OnInit,
   Input,
+  Output,
+  EventEmitter,
   TemplateRef,
   ElementRef,
   ViewChild,
@@ -85,6 +87,7 @@ export class SidenavComponent implements OnInit, AfterViewInit {
 
   /** True if sidenav is in collapsed state. */
   @Input() sidenavCollapsed: boolean;
+  @Output() expand = new EventEmitter<void>();
   /** Tooltip position */
   tooltipPosition = 'after';
   /** Username of authenticated user. */
@@ -205,11 +208,13 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Handles click on group item. If collapsed, navigates to default route; otherwise toggles expansion.
+   * Reveal permitted child links instead of navigating to a possibly forbidden default route.
    */
-  onGroupClick(groupId: string, defaultRoute?: string): void {
-    if (this.sidenavCollapsed && defaultRoute) {
-      this.router.navigate([defaultRoute]);
+  onGroupClick(groupId: string): void {
+    if (this.sidenavCollapsed) {
+      this.expandedGroups.add(groupId);
+      this.expand.emit();
+      this.cdr.markForCheck();
     } else {
       this.toggleGroup(groupId);
     }

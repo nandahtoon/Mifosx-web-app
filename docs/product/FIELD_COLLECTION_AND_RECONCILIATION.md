@@ -10,13 +10,13 @@ It is a **product and control specification**, not evidence that every workflow 
 
 ## Immutable sources
 
-| Source | Commit | Accepted material |
-|---|---|---|
-| `nandahtoon/RiskOps/docs/field-officer-app.md` | `78cd1ed654202274fd990a726130a1f09bf65d52` | Field route, customer, collection, receipt, offline-command, evidence, and day-end screen requirements |
-| `nandahtoon/RiskOps/docs/reconciliation-workflow.md` | `4a99f4d8d947468933bcf0db5e5bae05cf663cd2` | Morning control, cashier verification, variance, audit-event, risk-flag, and status proposals |
-| `nandahtoon/RiskOps/docs/product-scope.md` | `6828e52505bdcd486403e535e9a222ddbdef0b8b` | Traceability, maker/checker, audit, idempotency, and explainability constraints |
-| `nandahtoon/RiskOps/docs/architecture.md` | `6d0605f090b19bddb1578333d77344dd5bb37034` | API/adaptor boundaries, offline command identity, server-side controls, and audit principles |
-| `nandahtoon/RiskOps/docs/backlog.md` | `f468f140bbdf387447af8eb244df3d7b5a25134e` | Candidate screens and work areas, reclassified below |
+| Source                                               | Commit                                     | Accepted material                                                                                      |
+| ---------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `nandahtoon/RiskOps/docs/field-officer-app.md`       | `78cd1ed654202274fd990a726130a1f09bf65d52` | Field route, customer, collection, receipt, offline-command, evidence, and day-end screen requirements |
+| `nandahtoon/RiskOps/docs/reconciliation-workflow.md` | `4a99f4d8d947468933bcf0db5e5bae05cf663cd2` | Morning control, cashier verification, variance, audit-event, risk-flag, and status proposals          |
+| `nandahtoon/RiskOps/docs/product-scope.md`           | `6828e52505bdcd486403e535e9a222ddbdef0b8b` | Traceability, maker/checker, audit, idempotency, and explainability constraints                        |
+| `nandahtoon/RiskOps/docs/architecture.md`            | `6d0605f090b19bddb1578333d77344dd5bb37034` | API/adaptor boundaries, offline command identity, server-side controls, and audit principles           |
+| `nandahtoon/RiskOps/docs/backlog.md`                 | `f468f140bbdf387447af8eb244df3d7b5a25134e` | Candidate screens and work areas, reclassified below                                                   |
 
 The original files mixed MicroOps transaction authority with FinSentry risk intelligence. This specification separates those responsibilities.
 

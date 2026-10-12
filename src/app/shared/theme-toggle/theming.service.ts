@@ -7,7 +7,9 @@
  */
 
 import { ApplicationRef, Injectable, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AppearanceStorageService } from './appearance-storage.service';
 
 export type ThemePreset =
   | 'microops-signature'
@@ -95,6 +97,7 @@ const LEGACY_STORAGE_KEY = 'mifosXThemeDarkEnabled';
 })
 export class ThemingService {
   private ref = inject(ApplicationRef, { optional: true });
+  private appearanceStorage = inject(AppearanceStorageService);
 
   private currentPreset: ThemePreset = 'microops-signature';
   private currentMode: ThemeMode = 'system';
@@ -115,6 +118,7 @@ export class ThemingService {
   constructor() {
     this.initTheme();
     this.setupSystemListener();
+    this.appearanceStorage.scopeChanges$.pipe(takeUntilDestroyed()).subscribe(() => this.initTheme());
   }
 
   private initTheme(): void {
@@ -278,7 +282,7 @@ export class ThemingService {
       return null;
     }
     try {
-      const val = localStorage.getItem(key);
+      const val = this.appearanceStorage.getItem(key);
       if (val === null) {
         return null;
       }
@@ -298,9 +302,9 @@ export class ThemingService {
     }
     try {
       if (typeof value === 'string') {
-        localStorage.setItem(key, value);
+        this.appearanceStorage.setItem(key, value);
       } else {
-        localStorage.setItem(key, JSON.stringify(value));
+        this.appearanceStorage.setItem(key, JSON.stringify(value));
       }
     } catch {
       // Storage unavailable or disabled

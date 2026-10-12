@@ -81,12 +81,7 @@
           @if (!themeDarkEnabled) {
             <img [src]="logoPath" (error)="onLogoError()" alt="MicroOps 360 Logo" class="logo-image" />
           } @else {
-            <img
-              [src]="logoPathDark"
-              (error)="onLogoErrorDark()"
-              alt="MicroOps 360 Logo"
-              class="logo-image"
-            />
+            <img [src]="logoPathDark" (error)="onLogoErrorDark()" alt="MicroOps 360 Logo" class="logo-image" />
           }
         </div>
 

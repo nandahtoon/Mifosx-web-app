@@ -6,18 +6,18 @@ Close the PR #16 through PR #25 branding sequence with a concise verification no
 
 ## Completed Sequence
 
-| PR | Result |
-| --- | --- |
-| #16 | Browser title branding merged |
-| #17 | Login page product branding merged |
-| #18 | Login version label branding merged |
-| #19 | Login resources branding merged |
-| #20 | Branding audit progress merged |
-| #21 | Shell branding audit docs merged |
+| PR  | Result                                   |
+| --- | ---------------------------------------- |
+| #16 | Browser title branding merged            |
+| #17 | Login page product branding merged       |
+| #18 | Login version label branding merged      |
+| #19 | Login resources branding merged          |
+| #20 | Branding audit progress merged           |
+| #21 | Shell branding audit docs merged         |
 | #22 | Repository branding search report merged |
-| #23 | App manifest name branding merged |
+| #23 | App manifest name branding merged        |
 | #24 | App manifest description branding merged |
-| #25 | Branding audit update merged |
+| #25 | Branding audit update merged             |
 
 ## Verified Product Identity
 

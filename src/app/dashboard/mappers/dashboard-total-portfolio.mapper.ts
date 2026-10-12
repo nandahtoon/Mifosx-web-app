@@ -21,7 +21,8 @@ export function mapTotalPortfolioValue(response: DashboardRunReportResponse): st
     return firstValue ? String(firstValue) : null;
   }
 
-  const portfolioValue = firstRow['totalPortfolio'] ?? firstRow['portfolio'] ?? firstRow['outstanding'] ?? firstRow['amount'];
+  const portfolioValue =
+    firstRow['totalPortfolio'] ?? firstRow['portfolio'] ?? firstRow['outstanding'] ?? firstRow['amount'];
 
   return portfolioValue !== null && portfolioValue !== undefined ? String(portfolioValue) : null;
 }

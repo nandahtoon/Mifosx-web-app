@@ -10,6 +10,7 @@
 import { Injectable, inject } from '@angular/core';
 import { AlertService } from 'app/core/alert/alert.service';
 import { Dates } from 'app/core/utils/dates';
+import { AppearanceStorageService } from 'app/shared/theme-toggle/appearance-storage.service';
 
 /** Environment Imports */
 import { environment } from '../../environments/environment';
@@ -23,6 +24,7 @@ import { environment } from '../../environments/environment';
 export class SettingsService {
   private alertService = inject(AlertService);
   private dateUtils = inject(Dates);
+  private appearanceStorage = inject(AppearanceStorageService);
 
   public static businessDateFormat = 'yyyy-MM-dd';
   public static businessDateConfigName = 'enable-business-date';
@@ -73,6 +75,7 @@ export class SettingsService {
    */
   setServer(url: string) {
     localStorage.setItem('mifosXServerURL', url);
+    this.appearanceStorage.notifyScopeChanged();
   }
 
   /**
@@ -97,6 +100,7 @@ export class SettingsService {
    */
   setTenantIdentifier(tenantIdentifier: string) {
     localStorage.setItem('mifosXTenantIdentifier', tenantIdentifier);
+    this.appearanceStorage.notifyScopeChanged();
   }
 
   /**
@@ -293,10 +297,10 @@ export class SettingsService {
   }
 
   setThemeDarkEnabled(enabled: boolean) {
-    localStorage.setItem('mifosXThemeDarkEnabled', JSON.stringify(enabled));
+    this.appearanceStorage.setItem('mifosXThemeDarkEnabled', JSON.stringify(enabled));
   }
 
   get themeDarkEnabled(): boolean {
-    return JSON.parse(localStorage.getItem('mifosXThemeDarkEnabled'));
+    return JSON.parse(this.appearanceStorage.getItem('mifosXThemeDarkEnabled'));
   }
 }

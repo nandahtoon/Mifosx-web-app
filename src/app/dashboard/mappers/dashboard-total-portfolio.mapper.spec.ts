@@ -16,7 +16,12 @@ describe('mapTotalPortfolioValue', () => {
   });
 
   it('should map first non-empty array row value', () => {
-    expect(mapTotalPortfolioValue({ data: [{ row: ['', 'MMK 200M'] }] })).toBe('MMK 200M');
+    expect(
+      mapTotalPortfolioValue({ data: [{ row: [
+              '',
+              'MMK 200M'
+            ] }] })
+    ).toBe('MMK 200M');
   });
 
   it('should return null when response has no usable value', () => {

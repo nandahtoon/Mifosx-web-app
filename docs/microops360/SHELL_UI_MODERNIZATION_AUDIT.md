@@ -6,11 +6,11 @@ Prepare the next MicroOps 360 UI modernization phase for the authenticated appli
 
 ## Verified Shell Composition
 
-| Area | Verified path | Notes |
-| --- | --- | --- |
-| Shell container | `src/app/core/shell/shell.component.html` | Hosts sidenav, toolbar, breadcrumb, content, footer, and optional copilot host. |
-| Sidenav | `src/app/core/shell/sidenav/sidenav.component.html` | Holds app brand, user panel, frequently accessed actions, and main navigation items. |
-| Toolbar | `src/app/core/shell/toolbar/toolbar.component.html` | Holds top navigation tabs, search, language selector, notifications, theme toggle, and user menu trigger. |
+| Area            | Verified path                                       | Notes                                                                                                     |
+| --------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Shell container | `src/app/core/shell/shell.component.html`           | Hosts sidenav, toolbar, breadcrumb, content, footer, and optional copilot host.                           |
+| Sidenav         | `src/app/core/shell/sidenav/sidenav.component.html` | Holds app brand, user panel, frequently accessed actions, and main navigation items.                      |
+| Toolbar         | `src/app/core/shell/toolbar/toolbar.component.html` | Holds top navigation tabs, search, language selector, notifications, theme toggle, and user menu trigger. |
 
 ## Current Observations
 
