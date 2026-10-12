@@ -8,7 +8,16 @@
 
 /* eslint-disable @angular-eslint/prefer-inject */
 /** Angular Imports */
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Subscription, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -56,7 +65,8 @@ export class DashboardEngineComponent implements OnInit, OnChanges, OnDestroy {
     private formBuilder: UntypedFormBuilder,
     private authenticationService: AuthenticationService,
     private analyticsDataSourceService: AnalyticsDataSourceService,
-    private analyticsVisibilityService: AnalyticsVisibilityService
+    private analyticsVisibilityService: AnalyticsVisibilityService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
   get metricWidgets(): AnalyticsWidgetDefinition[] {
     return this.visibleWidgets.filter((widget) => widget.type === 'metric');
@@ -136,6 +146,7 @@ export class DashboardEngineComponent implements OnInit, OnChanges, OnDestroy {
       }),
       {}
     );
+    this.changeDetectorRef.markForCheck();
 
     this.loadSubscription = forkJoin(
       this.visibleWidgets.map((widget) =>
@@ -155,6 +166,7 @@ export class DashboardEngineComponent implements OnInit, OnChanges, OnDestroy {
           }),
           {}
         );
+        this.changeDetectorRef.markForCheck();
       },
       error: () => {
         this.widgetStateMap = this.visibleWidgets.reduce(
@@ -167,6 +179,7 @@ export class DashboardEngineComponent implements OnInit, OnChanges, OnDestroy {
           }),
           {}
         );
+        this.changeDetectorRef.markForCheck();
       }
     });
   }
