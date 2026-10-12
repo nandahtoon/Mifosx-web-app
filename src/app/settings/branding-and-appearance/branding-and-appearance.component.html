@@ -172,7 +172,7 @@
       <div class="identity-field">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>{{ 'labels.text.Organization Display Name' | translate }}</mat-label>
-          <input matInput [formControl]="orgDisplayNameControl" placeholder="e.g. MicroOps Bank, BTK Microfinance" />
+          <input matInput [formControl]="orgDisplayNameControl" [placeholder]="defaultDisplayName" />
           <mat-hint>{{ 'labels.text.Organization Display Name Hint' | translate }}</mat-hint>
         </mat-form-field>
       </div>
@@ -226,7 +226,7 @@
         <div class="mock-brand">
           <img [src]="displayedLogoUrl" alt="Brand Logo" class="mock-logo" />
           <span class="mock-org-title">
-            {{ orgDisplayNameControl.value || 'MicroOps 360' }}
+            {{ orgDisplayNameControl.value || defaultDisplayName }}
           </span>
         </div>
         <div class="mock-status-pill">

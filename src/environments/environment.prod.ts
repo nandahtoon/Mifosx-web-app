@@ -74,6 +74,7 @@ export const environment = {
   displayTenantSelector: parseBoolean(loadedEnv['displayTenantSelector'], true) ? 'true' : 'false',
   /** Production mode - when true, shows minimal hero with only branding at bottom */
   productionMode: parseBoolean(loadedEnv['productionMode'], false),
+  brandName: loadedEnv['brandName']?.trim() || 'MifosOps',
   tenantLogoUrl: loadedEnv['tenantLogoUrl'] || 'assets/images/default_home.png',
   tenantLogoUrlDark: loadedEnv['tenantLogoUrlDark'] || 'assets/images/white-mifos.png',
   documentationBaseUrl: loadedEnv['documentationBaseUrl'] || 'https://mifosforge.jira.com/wiki',

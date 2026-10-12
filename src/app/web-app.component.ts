@@ -155,7 +155,6 @@ export class WebAppComponent implements OnInit, OnDestroy {
       this.cssClass = value;
     });
     this.themingService.setInitialDarkMode();
-    this.themingService.setDarkMode(!!this.settingsService.themeDarkEnabled);
 
     // Setup logger
     if (environment.production) {

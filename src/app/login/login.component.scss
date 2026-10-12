@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright since 2025 Mifos Initiative
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,10 +18,10 @@
 
 .version-info-container {
   width: 100%;
-  background: var(--md-sys-color-surface-container, #f3f3f6);
+  background: var(--ops-surface-alt);
   border-radius: 12px;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--md-sys-color-outline-variant, #c4c6d0);
+  border: 1px solid var(--ops-border);
 }
 
 .version-item {
@@ -29,7 +29,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant, #e0e0e0);
+  border-bottom: 1px solid var(--ops-border);
 
   &:last-child {
     border-bottom: none;
@@ -39,14 +39,14 @@
 .version-label {
   font-weight: 500;
   font-size: 0.75rem;
-  color: var(--md-sys-color-on-surface-variant, #44474e);
+  color: var(--ops-text-secondary);
   flex-shrink: 0;
 }
 
 .version-value {
   font-weight: 400;
   font-size: 0.75rem;
-  color: var(--md-sys-color-on-surface, #1a1c1e);
+  color: var(--ops-text-primary);
   text-align: right;
   word-break: break-word;
   max-width: 60%;
@@ -59,11 +59,11 @@
 
   .branding-text {
     font-size: 0.8rem;
-    color: var(--md-sys-color-on-surface-variant, #44474e);
+    color: var(--ops-text-secondary);
     font-weight: 400;
 
     a {
-      color: var(--md-sys-color-primary, #1074b9);
+      color: var(--ops-primary);
       text-decoration: none;
       font-weight: 500;
 
@@ -78,34 +78,34 @@
 :host-context(.dark-theme),
 :host-context([data-theme='dark']) {
   .version-info-container {
-    background: var(--md-sys-color-surface-container-low, #2a2a2a);
-    border-color: var(--md-sys-color-outline-variant, #3d3d3d);
+    background: var(--ops-surface-card);
+    border-color: var(--ops-border);
   }
 
   .version-item {
-    border-bottom-color: var(--md-sys-color-outline-variant, #3d3d3d);
+    border-bottom-color: var(--ops-border);
   }
 
   .version-label {
-    color: var(--md-sys-color-on-surface-variant, #c4c6cf);
+    color: var(--ops-text-secondary);
   }
 
   .version-value {
-    color: var(--md-sys-color-on-surface, #e2e2e5);
+    color: var(--ops-text-primary);
   }
 
   .resources-branding {
     .branding-text {
-      color: var(--md-sys-color-on-surface-variant, #c4c6cf);
+      color: var(--ops-text-secondary);
 
       a {
-        color: var(--md-sys-color-primary, #a8c8ff);
+        color: var(--ops-primary);
       }
     }
   }
 
   .resource-button {
-    color: var(--md-sys-color-primary, #a8c8ff);
+    color: var(--ops-primary);
 
     &:hover {
       background: rgb(168 200 255 / 12%);
@@ -113,19 +113,19 @@
   }
 
   .login-card {
-    border: 1px solid var(--md-sys-color-outline-variant, #3d3d3d);
+    border: 1px solid var(--ops-border);
   }
 
   .login-header {
     ::ng-deep mifosx-theme-toggle button,
     ::ng-deep mifosx-server-selector,
     ::ng-deep mifosx-language-selector {
-      color: var(--md-sys-color-on-surface, #e2e2e5);
+      color: var(--ops-text-primary);
     }
   }
 
   .logo-section {
-    border-bottom-color: var(--md-sys-color-outline-variant, #3d3d3d);
+    border-bottom-color: var(--ops-border);
   }
 }
 
@@ -156,19 +156,19 @@
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  background: var(--md-sys-color-background, #fafafa);
+  background: var(--ops-bg-app);
   overflow-x: hidden;
 }
 
 // ===== Hero Panel (Left Side) =====
 .hero-panel {
-  flex: 0 0 70%;
+  flex: 1 1 50%;
   position: relative;
   background: url('../../assets/images/cover_image_resized.webp') no-repeat center center;
   background-size: cover;
   overflow: hidden;
 
-  // Overlay removed for clean image view
+  // Keep hero text readable across the retained cover image.
   .hero-overlay {
     position: absolute;
     /* stylelint-disable declaration-block-no-redundant-longhand-properties -- Safari compatibility */
@@ -177,7 +177,7 @@
     bottom: 0;
     left: 0;
     /* stylelint-enable declaration-block-no-redundant-longhand-properties */
-    background: transparent;
+    background: linear-gradient(135deg, rgb(15 23 42 / 32%), rgb(15 23 42 / 72%));
     z-index: 1;
   }
 
@@ -193,13 +193,13 @@
   }
 
   .hero-text {
-    max-width: 550px;
+    max-width: 560px;
     color: #fff;
     animation: fade-in-up 0.8s ease-out;
     flex: 0 1 auto;
-    // Minimal backdrop - more image visibility
+    // Neutral backdrop keeps the configurable identity readable.
     background: rgb(0 0 0 / 35%);
-    border-radius: 20px;
+    border-radius: var(--ops-space-6);
     padding: 2rem;
     border: 1px solid rgb(255 255 255 / 15%);
     box-shadow: 0 4px 24px rgb(0 0 0 / 20%);
@@ -265,7 +265,7 @@
 
   .hero-highlight {
     font-weight: 600;
-    color: #b4d575;
+    color: var(--ops-on-primary, #fff);
     text-shadow: 0 1px 2px rgb(0 0 0 / 30%);
   }
 
@@ -292,7 +292,7 @@
 
   .feature-icon {
     font-size: 1.25rem;
-    color: #b4d575;
+    color: var(--ops-on-primary, #fff);
     filter: drop-shadow(0 1px 2px rgb(0 0 0 / 30%));
   }
 
@@ -340,6 +340,11 @@
     }
   }
 
+  // The legacy dark theme forces blue on links; hero links require light text on the photo.
+  .hero-link:any-link {
+    color: #fff !important;
+  }
+
   // ===== Production Mode Styles =====
   &.production-mode {
     .hero-content {
@@ -370,10 +375,11 @@
 
 // ===== Login Panel (Right Side) =====
 .login-panel {
-  flex: 1;
+  flex: 1 1 50%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  background: var(--md-sys-color-surface, #fff);
+  background: var(--ops-bg-app);
   position: relative;
   min-height: -webkit-fill-available; // Safari fix: use available height
   min-height: 100vh;
@@ -387,9 +393,9 @@
   padding: 0.75rem 1rem;
   background: transparent;
   flex-shrink: 0; // Safari fix: prevent header from growing
-  max-height: 76px; // Safari fix: constrain header height
-  flex-wrap: nowrap;
-  overflow: hidden;
+  min-height: 64px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 
   .header-control {
     opacity: 0.8;
@@ -407,12 +413,12 @@
   // Theme Toggle Button Styles
   ::ng-deep mifosx-theme-toggle {
     button {
-      color: var(--md-sys-color-on-surface, #1a1c1e);
+      color: var(--ops-text-primary);
       transition: all 0.3s ease;
 
       &:hover {
-        background: #1074b914;
-        color: var(--md-sys-color-primary, #1074b9);
+        background: color-mix(in srgb, var(--ops-primary) 8%, transparent);
+        color: var(--ops-primary);
       }
 
       mat-icon {
@@ -505,7 +511,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; // Safari fix: avoid center calculation issues
-  padding: 0 1rem 1rem;
+  padding: var(--ops-space-6);
   min-height: 0; // Safari fix: allows flex item to shrink below content size
   animation: fade-in 0.6s ease-out;
 }
@@ -513,8 +519,11 @@
 .login-card {
   width: 100%;
   max-width: 480px;
-  background: var(--md-sys-color-surface-container-low, #fff);
-  border-radius: 28px;
+  box-sizing: border-box;
+  border: 1px solid var(--ops-border);
+  box-shadow: var(--ops-shadow-lg);
+  background: var(--ops-surface-card);
+  border-radius: var(--ops-space-6);
   padding: 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -535,13 +544,15 @@
   text-align: center;
   margin-bottom: 0.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant, #e8eaed);
+  border-bottom: 1px solid var(--ops-border);
   flex-shrink: 0;
   animation: fade-in 0.5s ease-out 0.1s both;
 }
 
 .logo-image {
-  height: 130px;
+  height: 96px;
+  max-width: 100%;
+  object-fit: contain;
   width: auto;
   margin: 8px 24px;
   opacity: 0.95;
@@ -550,6 +561,15 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.login-brand-name {
+  margin: 0 0 var(--ops-space-6);
+  color: var(--ops-text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 // ===== Form Section =====
@@ -597,7 +617,7 @@
 
 .resource-button {
   font-size: 0.875rem;
-  color: var(--md-sys-color-primary, #1074b9);
+  color: var(--ops-primary);
   transition: all 0.2s ease;
 
   fa-icon {
@@ -606,7 +626,7 @@
   }
 
   &:hover {
-    background: #1074b914;
+    background: color-mix(in srgb, var(--ops-primary) 8%, transparent);
 
     fa-icon {
       opacity: 1;
@@ -654,7 +674,7 @@
 
     .menu-icon {
       margin-right: 0.75rem;
-      color: var(--md-sys-color-primary, #1074b9);
+      color: var(--ops-primary);
       opacity: 0.7;
     }
 
@@ -729,18 +749,18 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: var(--ops-space-6);
+    box-sizing: border-box;
     width: 100%;
-    height: 100%;
   }
 
   .login-card {
-    flex: 1;
+    flex: 0 1 auto;
     width: 100%;
-    max-width: 100%;
-    border-radius: 0;
+    max-width: 480px;
+    border-radius: var(--ops-space-6);
     padding: 1.5rem 2rem;
-    margin: 0;
+    margin: auto 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -784,10 +804,10 @@
   }
 
   .login-card-container {
-    padding: 0 1rem 1rem;
+    padding: var(--ops-space-6);
     justify-content: center;
     height: auto;
-    min-height: calc(100vh - 56px); // 56px for header
+    min-height: 0;
   }
 
   .login-header {
@@ -869,7 +889,7 @@
     }
 
     .reload-button {
-      color: var(--md-sys-color-on-surface-variant, #c4c6d0);
+      color: var(--ops-text-secondary);
       border: none;
       margin-top: 0.5rem;
     }
@@ -885,7 +905,7 @@
   }
 
   .login-card-container {
-    padding: 0 0.5rem 0.5rem;
+    padding: var(--ops-space-4);
     justify-content: center;
   }
 
@@ -930,5 +950,23 @@
   /* stylelint-disable-next-line media-feature-range-notation -- Safari compatibility */
   @media (max-width: 1024px) {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-text,
+  .hero-branding-bottom,
+  .login-card-container,
+  .logo-section,
+  .form-section,
+  .resources-section,
+  .login-card,
+  .logo-image,
+  .header-control,
+  .resource-button,
+  .hero-link,
+  .feature-item {
+    animation: none !important;
+    transition: none !important;
   }
 }
