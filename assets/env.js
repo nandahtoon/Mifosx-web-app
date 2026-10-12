@@ -20,6 +20,7 @@
   window["env"]["fineractPlatformTenantId"] = '';
   window["env"]["fineractPlatformTenantIds"] = '';
 
+  window['env']['brandName'] = '';
   window['env']['tenantLogoUrl'] = '';
   window['env']['tenantLogoUrlDark'] = '';
 

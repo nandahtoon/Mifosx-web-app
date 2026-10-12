@@ -3406,7 +3406,7 @@
       "Organization Identity": "Organization Identity",
       "Organization Identity Description": "Customize your institution display title and brand logo.",
       "Organization Display Name": "Organization Display Name",
-      "Organization Display Name Hint": "Displayed across navigation headers and operational summaries.",
+      "Organization Display Name Hint": "Used on login and in this preview for the selected backend and tenant in this browser.",
       "Organization Logo": "Organization Logo",
       "Upload Custom Logo": "Upload Custom Logo",
       "Remove Custom Logo": "Remove Custom Logo",
