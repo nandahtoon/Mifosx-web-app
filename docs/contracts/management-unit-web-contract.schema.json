@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://microops-360.net/schemas/management-unit-web-contract.schema.json",
+  "title": "ManagementUnitWebContract",
+  "description": "Reconciled Web Operator Interface DTO contract between AG1 (Domain/Backend) and AG2 (Angular Web UI) for Management Units",
+  "type": "object",
+  "required": [
+    "unitKey",
+    "name",
+    "branchKey",
+    "branchName",
+    "status",
+    "capacityPolicyRef",
+    "validFrom",
+    "validTo",
+    "targetLoanOfficerPositions",
+    "staffedLoanOfficerPositions",
+    "manager",
+    "loanOfficers",
+    "capacityMetrics"
+  ],
+  "properties": {
+    "unitKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "branchKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "branchName": {
+      "type": "string",
+      "minLength": 3
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PLANNED",
+        "ACTIVE",
+        "SUSPENDED",
+        "CLOSED"
+      ]
+    },
+    "capacityPolicyRef": {
+      "type": "string"
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date"
+    },
+    "validTo": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "targetLoanOfficerPositions": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "staffedLoanOfficerPositions": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "activeLoanOfficerCount": {
+      "type": "integer",
+      "description": "Optional alias for staffedLoanOfficerPositions"
+    },
+    "hasTemporaryOverlay": {
+      "type": "boolean",
+      "description": "Optional indicator of active overlay assignments"
+    },
+    "manager": {
+      "type": "object",
+      "required": [
+        "positionKey",
+        "staffExternalId",
+        "name",
+        "assignmentType",
+        "status",
+        "validFrom"
+      ],
+      "properties": {
+        "positionKey": {
+          "type": "string"
+        },
+        "staffExternalId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Optional alias for name"
+        },
+        "assignmentType": {
+          "type": "string",
+          "enum": [
+            "PERMANENT",
+            "TEMPORARY",
+            "ACTING"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "PENDING",
+            "COMPLETED",
+            "REVOKED"
+          ]
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date"
+        },
+        "validTo": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "isSimulated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "loanOfficers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "positionKey",
+          "staffExternalId",
+          "name",
+          "assignmentType",
+          "status",
+          "validFrom",
+          "isLoanOfficer"
+        ],
+        "properties": {
+          "positionKey": {
+            "type": "string"
+          },
+          "staffExternalId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Optional alias for name"
+          },
+          "assignmentType": {
+            "type": "string",
+            "enum": [
+              "PERMANENT",
+              "TEMPORARY",
+              "ACTING"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PENDING",
+              "COMPLETED",
+              "REVOKED"
+            ]
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "validTo": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "isLoanOfficer": {
+            "type": "boolean"
+          },
+          "isSimulated": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "capacityMetrics": {
+      "type": "object",
+      "required": [
+        "activeClients",
+        "activeGroups",
+        "activeCenters",
+        "portfolioSignal",
+        "advisoryStatus"
+      ],
+      "properties": {
+        "activeClients": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "activeGroups": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "activeCenters": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "portfolioSignal": {
+          "type": "string",
+          "enum": [
+            "HEALTHY",
+            "WARNING",
+            "BREACH"
+          ]
+        },
+        "advisoryStatus": {
+          "type": "string",
+          "enum": [
+            "NORMAL / TARGET",
+            "WARNING",
+            "HARD BREACH"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

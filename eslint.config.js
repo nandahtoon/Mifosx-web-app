@@ -23,7 +23,8 @@ module.exports = [
       '.angular/**/*',
       'node_modules/**/*',
       'playwright-report/**/*',
-      'test-results/**/*'
+      'test-results/**/*',
+      'coverage/**/*'
     ]
   },
 

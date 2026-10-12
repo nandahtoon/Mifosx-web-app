@@ -11,6 +11,7 @@ import { ChangeDetectionStrategy, Component, inject, DestroyRef } from '@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { MatTabNav, MatTabLink, MatTabNavPanel } from '@angular/material/tabs';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
 /**
@@ -26,7 +27,8 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     MatTabLink,
     RouterLinkActive,
     MatTabNavPanel,
-    RouterOutlet
+    RouterOutlet,
+    FaIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
