@@ -29,6 +29,7 @@ import { BrandingAndAppearanceComponent, BRANDING_STORAGE_KEY } from './branding
 import { ThemingService, ThemePreset, ThemeMode } from 'app/shared/theme-toggle/theming.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { AlertService } from 'app/core/alert/alert.service';
+import { environment } from '../../../environments/environment';
 import { AppearanceStorageService } from 'app/shared/theme-toggle/appearance-storage.service';
 
 describe('BrandingAndAppearanceComponent', () => {
@@ -116,8 +117,8 @@ describe('BrandingAndAppearanceComponent', () => {
   });
 
   it('should initialize with default tenant display name and default logo', () => {
-    expect(component.orgDisplayNameControl.value).toBe('test-tenant');
-    expect(component.displayedLogoUrl).toBe('assets/images/mifos-logo-flat.png');
+    expect(component.orgDisplayNameControl.value).toBe(environment.brandName);
+    expect(component.displayedLogoUrl).toBe(environment.tenantLogoUrl);
     expect(component.hasUnsavedChanges).toBe(false);
   });
 
@@ -154,7 +155,7 @@ describe('BrandingAndAppearanceComponent', () => {
     component.orgDisplayNameControl.setValue('Custom Bank Ltd');
     expect(component.hasUnsavedChanges).toBe(true);
 
-    component.orgDisplayNameControl.setValue('test-tenant');
+    component.orgDisplayNameControl.setValue(environment.brandName);
     expect(component.hasUnsavedChanges).toBe(false);
   });
 
@@ -178,7 +179,7 @@ describe('BrandingAndAppearanceComponent', () => {
 
     expect(component.customLogoUrl).toBeNull();
     expect(component.hasUnsavedChanges).toBe(true);
-    expect(component.displayedLogoUrl).toBe('assets/images/mifos-logo-flat.png');
+    expect(component.displayedLogoUrl).toBe(environment.tenantLogoUrl);
   });
 
   it('should reset appearance to defaults', () => {
@@ -193,7 +194,7 @@ describe('BrandingAndAppearanceComponent', () => {
     expect(setModeSpy).toHaveBeenCalledWith('system');
     expect(appearanceStorage.getItem(BRANDING_STORAGE_KEY)).toBeNull();
     expect(component.customLogoUrl).toBeNull();
-    expect(component.orgDisplayNameControl.value).toBe('test-tenant');
+    expect(component.orgDisplayNameControl.value).toBe(environment.brandName);
     expect(component.hasUnsavedChanges).toBe(false);
     expect(alertService.alert).toHaveBeenCalledWith(expect.objectContaining({ type: 'Branding Reset' }));
   });
@@ -231,7 +232,7 @@ describe('BrandingAndAppearanceComponent', () => {
     localStorage.setItem('mifosXTenantIdentifier', 'tenant-b');
     Object.defineProperty(settingsService, 'tenantIdentifier', { value: 'tenant-b', configurable: true });
     appearanceStorage.notifyScopeChanged();
-    expect(component.orgDisplayNameControl.value).toBe('tenant-b');
+    expect(component.orgDisplayNameControl.value).toBe(environment.brandName);
     expect(component.customLogoUrl).toBeNull();
     component.orgDisplayNameControl.setValue('Tenant B Bank');
     component.saveBranding();

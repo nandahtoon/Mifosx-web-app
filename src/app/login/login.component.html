@@ -14,7 +14,7 @@
       <!-- Default Mode: Full content -->
       @if (!productionMode) {
         <div class="hero-text">
-          <h1 class="hero-title">MicroOps 360</h1>
+          <h1 class="hero-title">{{ brandName }}</h1>
           <p class="hero-subtitle">
             {{ 'labels.text.A' | translate }}
             <span class="hero-highlight">{{ 'labels.text.global community' | translate }}</span>
@@ -54,7 +54,7 @@
       <!-- Production Mode: Minimal branding at bottom -->
       @if (productionMode) {
         <div class="hero-branding-bottom">
-          <h1 class="hero-title-minimal">MicroOps 360</h1>
+          <h1 class="hero-title-minimal">{{ brandName }}</h1>
         </div>
       }
     </div>
@@ -75,15 +75,16 @@
 
     <!-- Main Login Card -->
     <div class="login-card-container">
-      <div class="login-card">
+      <mat-card class="login-card">
         <!-- Logo Section -->
         <div class="logo-section">
           @if (!themeDarkEnabled) {
-            <img [src]="logoPath" (error)="onLogoError()" alt="MicroOps 360 Logo" class="logo-image" />
+            <img [src]="logoPath" (error)="onLogoError()" [alt]="brandName" class="logo-image" />
           } @else {
-            <img [src]="logoPathDark" (error)="onLogoErrorDark()" alt="MicroOps 360 Logo" class="logo-image" />
+            <img [src]="logoPathDark" (error)="onLogoErrorDark()" [alt]="brandName" class="logo-image" />
           }
         </div>
+        <h2 class="login-brand-name">{{ brandName }}</h2>
 
         <!-- Form Section -->
         <div class="form-section">
@@ -116,7 +117,7 @@
               <span class="version-value">{{ tenantDisplayName }}</span>
             </div>
             <div class="version-item">
-              <span class="version-label">MicroOps 360 Web</span>
+              <span class="version-label">{{ brandName }}</span>
               <span class="version-value">{{ versions?.mifos }}</span>
             </div>
             <div class="version-item">
@@ -134,7 +135,7 @@
         @if (!productionMode) {
           <div class="resources-section">
             <div class="resources-branding">
-              <span class="branding-text">MicroOps 360 Web</span>
+              <span class="branding-text">{{ brandName }}</span>
             </div>
             <div class="resources-links">
               <button mat-button [matMenuTriggerFor]="resourcesMenu" class="resource-button">
@@ -152,7 +153,7 @@
             </div>
           </div>
         }
-      </div>
+      </mat-card>
 
       <!-- Footer -->
       <div class="login-footer">

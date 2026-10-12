@@ -7,7 +7,7 @@
  */
 
 /** Angular Imports */
-import { ChangeDetectionStrategy, Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
@@ -28,6 +28,8 @@ import { Alert } from '../core/alert/alert.model';
 /** Custom Services */
 import { AlertService } from '../core/alert/alert.service';
 import { ThemingService } from '../shared/theme-toggle/theming.service';
+import { BrandingService } from '../shared/theme-toggle/branding.service';
+import { AppearanceStorageService } from '../shared/theme-toggle/appearance-storage.service';
 import { TranslateService } from '@ngx-translate/core';
 
 /** Environment Imports */
@@ -86,6 +88,9 @@ export class LoginComponent implements OnInit {
   private versionService = inject(VersionService);
   private translateService = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+  private brandingService = inject(BrandingService);
+  private appearanceStorage = inject(AppearanceStorageService);
+  private cdr = inject(ChangeDetectorRef);
 
   public environment = environment;
 
@@ -104,8 +109,9 @@ export class LoginComponent implements OnInit {
   resetPassword = false;
   /** True if user requires two factor authentication. */
   twoFactorAuthenticationRequired = false;
-  logoPath = 'assets/images/default_home.png';
-  logoPathDark = 'assets/images/white-mifos.png';
+  brandName = this.brandingService.defaultName;
+  logoPath = this.brandingService.defaultLogo;
+  logoPathDark = this.brandingService.defaultDarkLogo;
 
   themeDarkEnabled: boolean = false;
 
@@ -115,14 +121,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.showTenantSelector = this.calculateTenantSelectorVisibility();
     this.updateLogo();
-    this.themeDarkEnabled = this.settingsService.themeDarkEnabled;
-    // Subscribe to theme changes
-    this.themingService.theme.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.themeDarkEnabled = this.settingsService.themeDarkEnabled;
+    this.themingService.isDark$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((dark) => {
+      this.themeDarkEnabled = dark;
+      this.cdr.markForCheck();
     });
-
-    // Initialize theme based on settings
-    this.themingService.setDarkMode(!!this.settingsService.themeDarkEnabled);
+    this.appearanceStorage.scopeChanges$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.updateLogo();
+      this.cdr.markForCheck();
+    });
 
     // Subscribe to alerts
     this.alertService.alertEvent.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((alertEvent: Alert) => {
@@ -202,22 +208,10 @@ export class LoginComponent implements OnInit {
   }
 
   updateLogo(): void {
-    const tenant = this.settingsService.tenantIdentifier;
-    const isTenantSpecific = tenant && tenant !== 'default';
-
-    // Set light mode logo (env override takes priority)
-    if (environment.tenantLogoUrl && environment.tenantLogoUrl.trim() !== '') {
-      this.logoPath = environment.tenantLogoUrl;
-    } else {
-      this.logoPath = isTenantSpecific ? `assets/images/${tenant}_home.png` : 'assets/images/default_home.png';
-    }
-
-    // Set dark mode logo (env override takes priority)
-    if (environment.tenantLogoUrlDark && environment.tenantLogoUrlDark.trim() !== '') {
-      this.logoPathDark = environment.tenantLogoUrlDark;
-    } else {
-      this.logoPathDark = isTenantSpecific ? `assets/images/${tenant}_home_dark.png` : 'assets/images/white-mifos.png';
-    }
+    const branding = this.brandingService.read();
+    this.brandName = branding.name;
+    this.logoPath = branding.logo || this.brandingService.defaultLogo;
+    this.logoPathDark = branding.logo || this.brandingService.defaultDarkLogo;
   }
 
   onLogoError(): void {

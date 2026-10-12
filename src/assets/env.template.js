@@ -24,6 +24,9 @@
 
   window['env']['fineractPlatformTenantIds'] = '$FINERACT_PLATFORM_TENANTS_IDENTIFIER';
 
+  window['env']['brandName'] = new TextDecoder().decode(
+    Uint8Array.from(atob('$MIFOS_BRAND_NAME_BASE64'), (character) => character.charCodeAt(0))
+  );
   window['env']['tenantLogoUrl'] = '$TENANT_LOGO_URL';
   window['env']['tenantLogoUrlDark'] = '$TENANT_LOGO_URL_DARK';
 

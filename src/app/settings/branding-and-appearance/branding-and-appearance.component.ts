@@ -21,13 +21,13 @@ import {
   ThemePresetOption,
   THEME_PRESETS
 } from 'app/shared/theme-toggle/theming.service';
-import { SettingsService } from 'app/settings/settings.service';
 import { AlertService } from 'app/core/alert/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 import { AppearanceStorageService } from 'app/shared/theme-toggle/appearance-storage.service';
+import { BrandingService, BRANDING_STORAGE_KEY } from 'app/shared/theme-toggle/branding.service';
 
-export const BRANDING_STORAGE_KEY = 'microopsBranding';
+export { BRANDING_STORAGE_KEY } from 'app/shared/theme-toggle/branding.service';
 
 export interface ThemeModeItem {
   id: ThemeMode;
@@ -58,7 +58,7 @@ export interface ThemeModeItem {
 })
 export class BrandingAndAppearanceComponent implements OnInit {
   private themingService = inject(ThemingService);
-  private settingsService = inject(SettingsService);
+  private brandingService = inject(BrandingService);
   private alertService = inject(AlertService);
   private translateService = inject(TranslateService);
   private cdr = inject(ChangeDetectorRef);
@@ -93,7 +93,13 @@ export class BrandingAndAppearanceComponent implements OnInit {
 
   orgDisplayNameControl = new FormControl<string>('');
   customLogoUrl: string | null = null;
-  readonly defaultLogoUrl = 'assets/images/mifos-logo-flat.png';
+  get defaultDisplayName(): string {
+    return this.brandingService.defaultName;
+  }
+
+  get defaultLogoUrl(): string {
+    return this.isDark ? this.brandingService.defaultDarkLogo : this.brandingService.defaultLogo;
+  }
 
   hasUnsavedChanges = false;
   private initialDisplayName = '';
@@ -182,7 +188,7 @@ export class BrandingAndAppearanceComponent implements OnInit {
       this.showStorageError();
       return;
     }
-    this.initialDisplayName = nameVal || this.settingsService.tenantIdentifier || 'MicroOps 360';
+    this.initialDisplayName = nameVal || this.brandingService.defaultName;
     this.initialLogoUrl = this.customLogoUrl;
     this.orgDisplayNameControl.setValue(this.initialDisplayName, { emitEvent: false });
     this.hasUnsavedChanges = false;
@@ -202,7 +208,7 @@ export class BrandingAndAppearanceComponent implements OnInit {
     this.themingService.setMode('system');
     this.customLogoUrl = null;
 
-    const defaultName = this.settingsService.tenantIdentifier || 'MicroOps 360';
+    const defaultName = this.brandingService.defaultName;
     this.initialDisplayName = defaultName;
     this.initialLogoUrl = null;
     this.orgDisplayNameControl.setValue(defaultName, { emitEvent: false });
@@ -224,15 +230,9 @@ export class BrandingAndAppearanceComponent implements OnInit {
   }
 
   private loadBranding(): void {
-    let branding: { name?: string; logo?: string } = {};
-    try {
-      branding = JSON.parse(this.appearanceStorage.getItem(BRANDING_STORAGE_KEY) || '{}') || {};
-    } catch {
-      // Invalid preferences fall back to the current tenant's defaults.
-    }
-    this.initialDisplayName =
-      (typeof branding.name === 'string' && branding.name) || this.settingsService.tenantIdentifier || 'MicroOps 360';
-    this.customLogoUrl = typeof branding.logo === 'string' ? branding.logo : null;
+    const branding = this.brandingService.read();
+    this.initialDisplayName = branding.name;
+    this.customLogoUrl = branding.logo;
     this.initialLogoUrl = this.customLogoUrl;
     this.orgDisplayNameControl.setValue(this.initialDisplayName, { emitEvent: false });
     this.hasUnsavedChanges = false;
