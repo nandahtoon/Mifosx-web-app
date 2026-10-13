@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - 'skills/**'
+      - '.github/workflows/scan-skills.yml'
   pull_request:
     paths:
       - 'skills/**'
+      - '.github/workflows/scan-skills.yml'
 
 jobs:
   scan:
@@ -17,3 +19,4 @@ jobs:
     permissions:
       security-events: write
       contents: read
+      actions: read
