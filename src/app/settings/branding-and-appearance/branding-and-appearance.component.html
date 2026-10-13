@@ -31,18 +31,15 @@
     </div>
   </header>
 
-  <!-- Contract Governance Callout -->
-  <section class="governance-banner" aria-label="Backend Contract Governance Notice">
-    <div class="governance-badge">
-      <span class="badge-code">BLOCKED_BY_BACKEND_CONTRACT</span>
-    </div>
+  <!-- Browser preference scope -->
+  <section class="governance-banner" [attr.aria-label]="'labels.branding.scopeTitle' | translate">
     <div class="governance-content">
       <h2 class="governance-title">
         <fa-icon icon="info-circle" class="mr-05"></fa-icon>
-        {{ 'labels.text.Backend Contract Governance Notice' | translate }}
+        {{ 'labels.branding.scopeTitle' | translate }}
       </h2>
       <p class="governance-description">
-        {{ 'labels.text.Backend Contract Governance Description' | translate }}
+        {{ 'labels.branding.scopeDescription' | translate }}
       </p>
     </div>
   </section>
@@ -58,65 +55,63 @@
       </p>
     </div>
 
-    <div class="presets-grid" role="radiogroup" aria-label="Theme Presets">
+    <div class="presets-grid" role="group" [attr.aria-label]="'labels.text.Theme Presets' | translate">
       @for (preset of presets; track preset.id) {
-        <div
+        <button
+          mat-button
+          type="button"
           class="preset-card"
           [class.active]="activePreset === preset.id"
-          role="radio"
-          tabindex="0"
-          [attr.aria-checked]="activePreset === preset.id"
-          [attr.aria-label]="preset.name"
+          [attr.aria-pressed]="activePreset === preset.id"
+          [attr.aria-label]="'labels.branding.presets.' + preset.id + '.name' | translate"
           (click)="selectPreset(preset.id)"
-          (keydown.enter)="selectPreset(preset.id)"
-          (keydown.space)="selectPreset(preset.id)"
         >
           <div class="preset-card-header">
-            <span class="preset-name">{{ preset.name }}</span>
+            <span class="preset-name">{{ 'labels.branding.presets.' + preset.id + '.name' | translate }}</span>
             @if (activePreset === preset.id) {
-              <span class="active-badge" aria-label="Selected">
+              <span class="active-badge">
                 <fa-icon icon="check" size="xs"></fa-icon>
-                Active
+                {{ 'labels.branding.active' | translate }}
               </span>
             }
           </div>
 
-          <p class="preset-description">{{ preset.description }}</p>
+          <p class="preset-description">{{ 'labels.branding.presets.' + preset.id + '.description' | translate }}</p>
 
           <div class="swatches-row">
             <div class="swatch-group">
-              <span class="swatch-label">Light</span>
+              <span class="swatch-label">{{ 'labels.branding.light' | translate }}</span>
               <div class="swatch-pair">
                 <span
                   class="color-chip"
                   [style.background-color]="preset.primaryLight"
-                  [matTooltip]="'Primary Light: ' + preset.primaryLight"
+                  [matTooltip]="('labels.branding.primaryLight' | translate) + ': ' + preset.primaryLight"
                 ></span>
                 <span
                   class="color-chip"
                   [style.background-color]="preset.accentLight"
-                  [matTooltip]="'Accent Light: ' + preset.accentLight"
+                  [matTooltip]="('labels.branding.accentLight' | translate) + ': ' + preset.accentLight"
                 ></span>
               </div>
             </div>
 
             <div class="swatch-group">
-              <span class="swatch-label">Dark</span>
+              <span class="swatch-label">{{ 'labels.branding.dark' | translate }}</span>
               <div class="swatch-pair">
                 <span
                   class="color-chip"
                   [style.background-color]="preset.primaryDark"
-                  [matTooltip]="'Primary Dark: ' + preset.primaryDark"
+                  [matTooltip]="('labels.branding.primaryDark' | translate) + ': ' + preset.primaryDark"
                 ></span>
                 <span
                   class="color-chip"
                   [style.background-color]="preset.accentDark"
-                  [matTooltip]="'Accent Dark: ' + preset.accentDark"
+                  [matTooltip]="('labels.branding.accentDark' | translate) + ': ' + preset.accentDark"
                 ></span>
               </div>
             </div>
           </div>
-        </div>
+        </button>
       }
     </div>
   </section>
@@ -129,14 +124,14 @@
       </h2>
     </div>
 
-    <div class="mode-options-grid" role="radiogroup" aria-label="Appearance Mode">
+    <div class="mode-options-grid" role="group" [attr.aria-label]="'labels.text.Appearance Mode' | translate">
       @for (mode of modes; track mode.id) {
         <button
+          mat-button
           type="button"
           class="mode-card"
           [class.active]="activeMode === mode.id"
-          role="radio"
-          [attr.aria-checked]="activeMode === mode.id"
+          [attr.aria-pressed]="activeMode === mode.id"
           (click)="selectMode(mode.id)"
         >
           <div class="mode-icon-wrapper">
@@ -182,7 +177,11 @@
         <span class="logo-title">{{ 'labels.text.Organization Logo' | translate }}</span>
         <div class="logo-controls">
           <div class="logo-preview-box">
-            <img [src]="displayedLogoUrl" alt="Organization Brand Logo" class="logo-preview-image" />
+            <img
+              [src]="displayedLogoUrl"
+              [alt]="'labels.text.Organization Logo' | translate"
+              class="logo-preview-image"
+            />
           </div>
           <div class="logo-action-buttons">
             <input
@@ -224,7 +223,7 @@
       <!-- Mini Mock Toolbar -->
       <div class="mock-toolbar">
         <div class="mock-brand">
-          <img [src]="displayedLogoUrl" alt="Brand Logo" class="mock-logo" />
+          <img [src]="displayedLogoUrl" [alt]="'labels.text.Organization Logo' | translate" class="mock-logo" />
           <span class="mock-org-title">
             {{ orgDisplayNameControl.value || defaultDisplayName }}
           </span>
@@ -243,47 +242,47 @@
         <!-- Metric Summary Tiles -->
         <div class="mock-metrics-row">
           <div class="mock-metric-tile">
-            <span class="metric-label">Active Portfolio</span>
+            <span class="metric-label">{{ 'labels.branding.portfolio' | translate }}</span>
             <span class="metric-value">$14,820,500</span>
-            <span class="metric-sub text-success">+4.2% vs last cycle</span>
+            <span class="metric-sub text-success">{{ 'labels.branding.sampleGrowth' | translate }}</span>
           </div>
           <div class="mock-metric-tile">
-            <span class="metric-label">Active Clients</span>
+            <span class="metric-label">{{ 'labels.branding.clients' | translate }}</span>
             <span class="metric-value">3,420</span>
-            <span class="metric-sub text-info">98.6% On Time</span>
+            <span class="metric-sub text-info">{{ 'labels.branding.sampleOnTime' | translate }}</span>
           </div>
           <div class="mock-metric-tile">
-            <span class="metric-label">PAR > 30 Days</span>
+            <span class="metric-label">{{ 'labels.branding.par' | translate }}</span>
             <span class="metric-value">1.8%</span>
-            <span class="metric-sub text-success">Healthy portfolio</span>
+            <span class="metric-sub text-success">{{ 'labels.branding.healthy' | translate }}</span>
           </div>
         </div>
 
         <!-- Interactive Button Controls -->
         <div class="mock-actions-row">
-          <button mat-raised-button color="primary">Primary Action</button>
-          <button mat-raised-button color="accent">Accent Action</button>
-          <button mat-stroked-button>Stroked Action</button>
-          <button mat-button color="warn">Warning Action</button>
+          <button mat-raised-button color="primary">{{ 'labels.branding.primaryAction' | translate }}</button>
+          <button mat-raised-button color="accent">{{ 'labels.branding.accentAction' | translate }}</button>
+          <button mat-stroked-button>{{ 'labels.branding.outlinedAction' | translate }}</button>
+          <button mat-button color="warn">{{ 'labels.branding.warningAction' | translate }}</button>
         </div>
 
         <!-- Token Contract Legend Chips -->
         <div class="token-legend">
           <span class="token-chip token-primary">
             <span class="chip-dot"></span>
-            --ops-primary
+            {{ 'labels.branding.primary' | translate }}
           </span>
           <span class="token-chip token-accent">
             <span class="chip-dot"></span>
-            --ops-accent
+            {{ 'labels.branding.accent' | translate }}
           </span>
           <span class="token-chip token-surface">
             <span class="chip-dot"></span>
-            --ops-surface-card
+            {{ 'labels.branding.surface' | translate }}
           </span>
           <span class="token-chip token-status-success">
             <span class="chip-dot"></span>
-            --ops-status-success
+            {{ 'labels.branding.success' | translate }}
           </span>
         </div>
       </div>

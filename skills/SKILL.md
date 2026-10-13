@@ -15,7 +15,7 @@ This file defines the procedural knowledge required for AI agents to successfull
 
 - Prefer Angular Material components/directives for interactive UI.
 - Use Material components where they exist (`<mat-table>`, `<mat-select>`) and Material directives on native controls where required (`<button mat-button>`, `<input matInput>`).
-- Use the 8px grid system for margins and padding using either utility classes (e.g., `class="m-b-16"`) or inline CSS (e.g., `margin-bottom: 16px;`). Arbitrary values like `10px` or `15px` are strictly prohibited.
+- Use an 8px layout rhythm for margins and padding. Prefer existing spacing tokens and utility classes. The fork's existing `--ops-space-*` tokens include a 4px subgrid (4px, 12px, 20px) for compact component spacing; reuse these explicit exceptions rather than adding arbitrary values such as 10px or 15px. This does not authorize a repository-wide spacing rewrite.
 
 **Correct Example:**
 

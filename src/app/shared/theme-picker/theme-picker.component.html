@@ -6,7 +6,12 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 -->
 
-<button mat-icon-button [matMenuTriggerFor]="themeMenu" [matTooltip]="'tooltips.Color Schemes' | translate">
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="themeMenu"
+  [matTooltip]="'tooltips.Color Schemes' | translate"
+  [attr.aria-label]="'tooltips.Color Schemes' | translate"
+>
   <fa-icon icon="fill-drip" size="lg"></fa-icon>
 </button>
 
@@ -14,15 +19,23 @@
   <mat-grid-list cols="2">
     @for (preset of presets; track preset.id) {
       <mat-grid-tile>
-        <div mat-menu-item (click)="selectPreset(preset)">
-          <div class="mifosx-theme-picker-swatch" [matTooltip]="preset.name">
+        <button
+          mat-menu-item
+          type="button"
+          (click)="selectPreset(preset)"
+          [attr.aria-label]="'labels.branding.presets.' + preset.id + '.name' | translate"
+        >
+          <div
+            class="mifosx-theme-picker-swatch"
+            [matTooltip]="'labels.branding.presets.' + preset.id + '.name' | translate"
+          >
             @if (activePreset === preset.id) {
               <fa-icon class="mifosx-theme-chosen-icon" icon="check-circle" size="lg"></fa-icon>
             }
             <div class="mifosx-theme-picker-primary" [style.background]="preset.primaryLight"></div>
             <div class="mifosx-theme-picker-accent" [style.background]="preset.accentLight"></div>
           </div>
-        </div>
+        </button>
       </mat-grid-tile>
     }
   </mat-grid-list>

@@ -116,6 +116,28 @@ describe('BrandingAndAppearanceComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should translate preset button names and expose selection through pressed state', () => {
+    const translate = TestBed.inject(TranslateService);
+    translate.setTranslation('test', {
+      labels: {
+        branding: {
+          presets: {
+            'microops-signature': { name: 'Translated preset' }
+          }
+        }
+      }
+    });
+    translate.use('test');
+    fixture.detectChanges();
+    const buttons = fixture.nativeElement.querySelectorAll('button.preset-card');
+    expect(buttons).toHaveLength(6);
+    expect(buttons[0].getAttribute('aria-label')).toBe('Translated preset');
+    buttons[1].click();
+    fixture.detectChanges();
+    expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
+    expect(buttons[0].getAttribute('aria-pressed')).toBe('false');
+  });
+
   it('should initialize with default tenant display name and default logo', () => {
     expect(component.orgDisplayNameControl.value).toBe(environment.brandName);
     expect(component.displayedLogoUrl).toBe(environment.tenantLogoUrl);
