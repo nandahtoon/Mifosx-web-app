@@ -66,6 +66,20 @@
             }
           },
           "configurations": {
+            "microops-local": {
+              "assets": [
+                "src/favicon.ico",
+                "src/robots.txt",
+                "src/manifest.json",
+                "src/llms.txt",
+                { "glob": "**/*", "input": "src/assets", "output": "assets", "ignore": [
+                    "env.js",
+                    "env.template.js"
+                  ] },
+                { "glob": "env.js", "input": "src/environments/microops-local", "output": "assets" },
+                { "glob": "**/*", "input": "node_modules/tinymce", "output": "assets/tinymce" }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -109,6 +123,12 @@
             "proxyConfig": "proxy.conf.js"
           },
           "configurations": {
+            "microops-local": {
+              "buildTarget": "mifosx-web-app:build:development,microops-local",
+              "proxyConfig": "proxy.microops.local.conf.js",
+              "host": "localhost",
+              "port": 4200
+            },
             "development": {
               "buildTarget": "mifosx-web-app:build:development"
             },
