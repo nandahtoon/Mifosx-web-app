@@ -195,6 +195,9 @@ export class SettingsService {
    * Returns server setting
    */
   get server() {
+    if (environment.allowServerSwitch === 'false') {
+      return environment.baseApiUrl;
+    }
     if (localStorage.getItem('mifosXServerURL')) {
       return localStorage.getItem('mifosXServerURL');
     }
@@ -265,6 +268,9 @@ export class SettingsService {
    * Returns Tenant Identifier
    */
   get tenantIdentifier(): string {
+    if (environment.displayTenantSelector === 'false') {
+      return environment.fineractPlatformTenantId;
+    }
     return localStorage.getItem('mifosXTenantIdentifier');
   }
 
