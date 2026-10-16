@@ -42,7 +42,7 @@
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: var(--mo-text-primary, #0f172a);
+      color: var(--ops-text-primary, var(--mo-text-primary, #0f172a));
     }
   }
 
@@ -55,7 +55,7 @@
       width: 56px;
       margin: 0 auto 6px;
       height: 56px;
-      border: 2px solid var(--mo-border-subtle, #e2e8f0);
+      border: 2px solid var(--ops-border, var(--mo-border-subtle, #e2e8f0));
       padding: 2px;
       border-radius: 50%;
     }
@@ -70,7 +70,7 @@
       display: block;
       font-size: 0.8125rem;
       font-weight: 500;
-      color: var(--mo-text-secondary, #64748b);
+      color: var(--ops-text-secondary, var(--mo-text-secondary, #64748b));
     }
 
     .app-user-controls {
@@ -113,7 +113,7 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--mo-text-secondary, #64748b);
+      color: var(--ops-text-secondary, var(--mo-text-secondary, #64748b));
     }
   }
 
@@ -156,35 +156,35 @@
           color 0.15s ease;
 
         &:hover {
-          background-color: var(--mo-surface-hover, rgb(0 0 0 / 4%));
+          background-color: var(--ops-surface-alt, var(--mo-surface-hover, rgb(0 0 0 / 4%)));
         }
 
         &:focus-visible {
-          outline: 2px solid var(--mo-focus-outline, #0052cc);
+          outline: 2px solid var(--ops-primary, var(--mo-focus-outline, #0052cc));
           outline-offset: -2px;
         }
 
         &.active-menu {
-          background-color: var(--mo-primary-light, rgb(0 82 204 / 8%)) !important;
-          color: var(--mo-primary, #0052cc) !important;
-          border-left: 3px solid var(--mo-primary, #0052cc);
+          background-color: var(--ops-primary-container, var(--mo-primary-light, rgb(0 82 204 / 8%))) !important;
+          color: var(--ops-primary, var(--mo-primary, #0052cc)) !important;
+          border-left: 3px solid var(--ops-primary, var(--mo-primary, #0052cc));
           font-weight: 500;
 
           fa-icon {
-            color: var(--mo-primary, #0052cc);
+            color: var(--ops-primary, var(--mo-primary, #0052cc));
           }
         }
 
         .mat-list-icon {
           height: 24px;
           font-size: 18px;
-          color: var(--mo-text-secondary, #64748b);
+          color: var(--ops-text-secondary, var(--mo-text-secondary, #64748b));
         }
       }
     }
 
     .group-chevron {
-      color: var(--mo-text-secondary, #64748b);
+      color: var(--ops-text-secondary, var(--mo-text-secondary, #64748b));
       margin-right: 0.5rem;
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
