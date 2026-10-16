@@ -8,10 +8,9 @@
 
 #mifosx-toolbar {
   position: relative;
-  box-shadow:
-    0 3px 1px -2px rgb(0 0 0 / 20%),
-    0 2px 2px 0 rgb(0 0 0 / 14%),
-    0 1px 5px 0 rgb(0 0 0 / 12%);
+  background-color: var(--ops-primary, #0e6251);
+  box-shadow: var(--ops-shadow-sm, 0 2px 4px rgb(15 23 42 / 6%));
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   .tab-nav-bar {
     display: flex;
