@@ -5,7 +5,7 @@ Run `npm run start:microops-local`, then open `http://localhost:4200`. The exist
 Check port ownership before starting. If `localhost` reaches a different packaged Web, do not authenticate there as source-build evidence or stop its runtime.
 
 - **Historical observation (2026-10-14)**: During earlier testing on 2026-10-14, Docker bound to IPv4 `127.0.0.1:4200` while Node bound to IPv6 `[::1]:4200`, causing dual-listener collision.
-- **Current host state (2026-10-15 14:00 UTC)**: Port 4200 is confirmed completely free across all interfaces on the host (`Get-NetTCPConnection -LocalPort 4200` returned 0 active listeners, consistent with AG3 Infra #53's report at 2026-10-14 21:55 UTC). **A free port is NOT a running Web server**: `npm run start:microops-local` must be actively started in the local DEV lane to serve the application on `http://localhost:4200`.
+- **Historical host snapshot (2026-10-15 14:00 UTC)**: At that observation, port 4200 was reported free across all host interfaces (`Get-NetTCPConnection -LocalPort 4200` returned 0 active listeners, consistent with AG3 Infra #53's report at 2026-10-14 21:55 UTC). This dated evidence does not establish current port ownership or availability. **A free port is NOT a running Web server**: verify current ownership before starting `npm run start:microops-local` in the local DEV lane.
 
 Browser requests use the UI origin and `/fineract-provider/api/v1`; the Angular proxy preserves that path and forwards only `/fineract-provider/**` to `http://127.0.0.1:9080`. For an explicitly configured lab gateway port, set `APISIX_HTTP_PORT` to the same numeric port used by Infra before starting the command. Remote hosts, TLS overrides and alternate tenants are not options in this profile.
 
@@ -17,9 +17,9 @@ Acceptance requires actual browser login, native Office/Clients reads and refres
 
 Contract: [Infra #54](https://github.com/nandahtoon/MicroOps-Infra/issues/54). Runtime ownership belongs to GPTInfra; Web source/profile ownership belongs to AG2. Roll back by stopping this opt-in command and selecting the previously approved profile; source rollback requires a reviewed revert.
 
-## Local evidence and host reconciliation, 2026-10-15
+## Historical local evidence and host reconciliation, 2026-10-15
 
-Host listener reconciliation: port 4200 is confirmed free across all local interfaces (`Get-NetTCPConnection -LocalPort 4200` returned no active listeners), reconciling prior IPv4 Docker container observation with AG3 Infra #53's report (port 4200 free at 2026-10-14 21:55 UTC). Port 9080 is verified listening on `127.0.0.1:9080` (APISIX 3.18.0 gateway returning HTTP 200 `{"status":"UP"}` on actuator health). A free port confirms zero collision, but does not constitute a running server.
+The source-profile report at that date recorded port 4200 free across all host interfaces (`Get-NetTCPConnection -LocalPort 4200` returned no active listeners), reconciling the prior IPv4 Docker container observation with AG3 Infra #53's report (port 4200 free at 2026-10-14 21:55 UTC). It also recorded port 9080 listening on `127.0.0.1:9080` (APISIX 3.18.0 gateway returning HTTP 200 `{"status":"UP"}` on actuator health). These are historical observations, not current live probes. A free port alone does not constitute a running server.
 
 Negative transport test coverage: added 4 scoped regression test cases in `src/app/settings/local-profile.spec.ts` covering synthetic/mocked transport scenarios:
 
@@ -30,6 +30,6 @@ Negative transport test coverage: added 4 scoped regression test cases in `src/a
 
 All 4 negative cases are strictly classified as **mocked TEST evidence** (`HttpClientTestingController`), not live host proof or actual browser/backend acceptance. No credentials or business data were modified, and no authentication injection or TLS bypass was used.
 
-Full local validation: 40 suites / 418 tests passed; full lint, production build, and MPL-2.0 headers verified.
+The historical source-profile report recorded 40 suites / 418 tests passed, full lint, production build, and MPL-2.0 header verification. These results apply to that report's source head; they are not current-head validation.
 
 These are AG2 source-profile results, not independent AG3 acceptance. Packaged image provenance, canonical host routing, unauthorized/offline live scenarios, and Oracle staging remain separate gates. Unit runtime remains HOLD. Exact commit and hosted CI results belong in the PR description, not inferred from an earlier build stamp.
