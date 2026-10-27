@@ -20,13 +20,22 @@ This repository is owned by **Antigravity 2 — Web Application Owner**.
 
 ### Antigravity 1 owns
 
-Antigravity 1 remains the **Core Platform / Backend / Infra / Integration owner**, including Fineract-side integration, M01/M02/backend modules, MicroOps-Infra, Oracle runtime administration, and cross-module integration.
+Antigravity 1 owns **Fineract / Backend / M01 Integration**, including Fineract-side API and backend contracts. Infra ownership and Oracle runtime administration belong to GPTInfra. AG1 may execute only expressly delegated, bounded local Infra tasks; delegation does not transfer ownership.
 
 Antigravity 1 must not make routine Web App implementation edits in this repository while Antigravity 2 owns the active Web workstream.
 
+### Other agent ownership
+
+- **GPTInfra** exclusively owns MicroOps-Infra, Docker/Compose, APISIX, OCI/Oracle and runtime/deployment administration. AG2 supplies the Web image and immutable provenance; GPTInfra owns runtime promotion.
+- **AG3** performs independent read-only QA and reports source, API, image and host-specific evidence. QA does not authorize source edits, runtime changes or business-data writes.
+- **AG1** owns the remaining source/template/validator preparation in Org #138 / PR #139 after the owner removed AG4 from active execution. Historical AG4 package names and authorship are retained. No migration apply is authorized by this assignment.
+- **GPT1** coordinates program governance, architecture and acceptance gates. Dispatch or CI success alone does not constitute acceptance or lift a runtime HOLD.
+
+The matching ownership and handoff contract is maintained in [.github/AGENT-OWNERSHIP.md](.github/AGENT-OWNERSHIP.md).
+
 ### Cross-agent boundary
 
-- The two agents must not edit the same file or implement the same work package concurrently.
+- Agents must not edit the same file or implement the same work package concurrently.
 - A Web requirement that needs backend/Infra change must be handed off through a GitHub Issue or explicit API contract; do not implement a backend workaround in Angular.
 - A backend/Infra requirement that needs a Web change must be handed off to Antigravity 2; do not silently edit Web source from another lane.
 - Cross-repository changes require an explicit handoff containing the exact API/config requirement, expected behavior, error behavior, and acceptance criteria.

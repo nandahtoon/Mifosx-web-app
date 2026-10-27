@@ -13,7 +13,8 @@ concurrency:
 jobs:
   e2e:
     name: Playwright E2E
-    runs-on: ubuntu-latest
+    # Playwright 1.60 supports Ubuntu 24.04; keep runner upgrades explicit.
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
 
     env:
