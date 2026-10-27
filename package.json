@@ -152,6 +152,7 @@
   },
   "overrides": {
     "glob": "^13.0.0",
+    "webpack-dev-middleware": "7.4.5",
     "exceljs": {
       "archiver": "^7.0.1",
       "unzipper": "^0.12.3"

@@ -147,7 +147,9 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "./jest.config.ts"
+            "configPath": "./jest.config.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "setupFilesAfterEnv": "./src/setup-jest.ts"
           }
         },
         "lint": {
