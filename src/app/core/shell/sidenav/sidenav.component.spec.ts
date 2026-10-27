@@ -120,6 +120,120 @@ describe('SidenavComponent', () => {
     expect(component.isGroupActive('admin')).toBe(true);
   });
 
+  describe('Single-active parent disambiguation (WEB-365)', () => {
+    it('should activate loans ONLY and NOT admin on loan product routes', () => {
+      Object.defineProperty(router, 'url', { value: '/products/loan-products', configurable: true });
+      expect(component.isGroupActive('loans')).toBe(true);
+      expect(component.isGroupActive('admin')).toBe(false);
+      expect(component.isGroupActive('savings')).toBe(false);
+      expect(component.isGroupActive('customers')).toBe(false);
+    });
+
+    it('should activate savings ONLY and NOT admin on saving and deposit product routes', () => {
+      const savingRoutes = [
+        '/products/saving-products',
+        '/products/saving-products/1',
+        '/products/fixed-deposit',
+        '/products/fixed-deposit/create',
+        '/products/recurring-deposit',
+        '/products/recurring-deposit/edit/2'
+      ];
+
+      for (const route of savingRoutes) {
+        Object.defineProperty(router, 'url', { value: route, configurable: true });
+        expect(component.isGroupActive('savings')).toBe(true);
+        expect(component.isGroupActive('admin')).toBe(false);
+        expect(component.isGroupActive('loans')).toBe(false);
+      }
+    });
+
+    it('should activate admin ONLY on general products and catalog routes', () => {
+      const adminProductRoutes = [
+        '/products',
+        '/products/share-products',
+        '/products/charges',
+        '/products/manage-tax-configurations',
+        '/products/floating-rates'
+      ];
+
+      for (const route of adminProductRoutes) {
+        Object.defineProperty(router, 'url', { value: route, configurable: true });
+        expect(component.isGroupActive('admin')).toBe(true);
+        expect(component.isGroupActive('loans')).toBe(false);
+        expect(component.isGroupActive('savings')).toBe(false);
+      }
+    });
+
+    it('should auto-expand ONLY loans on loan product navigation', () => {
+      (router.events as any).next(new NavigationEnd(10, '/products/loan-products', '/products/loan-products'));
+      expect(component.isGroupExpanded('loans')).toBe(true);
+      expect(component.isGroupExpanded('admin')).toBe(false);
+    });
+
+    it('should auto-expand ONLY savings on saving product navigation', () => {
+      (router.events as any).next(new NavigationEnd(11, '/products/saving-products', '/products/saving-products'));
+      expect(component.isGroupExpanded('savings')).toBe(true);
+      expect(component.isGroupExpanded('admin')).toBe(false);
+    });
+
+    it('should auto-expand ONLY admin on generic product navigation', () => {
+      (router.events as any).next(new NavigationEnd(12, '/products/share-products', '/products/share-products'));
+      expect(component.isGroupExpanded('admin')).toBe(true);
+      expect(component.isGroupExpanded('loans')).toBe(false);
+      expect(component.isGroupExpanded('savings')).toBe(false);
+    });
+  });
+
+  describe('Keyboard navigation and ARIA accessibility (WEB-365)', () => {
+    it('should toggle group expansion on Enter key', () => {
+      component.sidenavCollapsed = false;
+      fixture.detectChanges();
+      const groupLink = fixture.debugElement.query(By.css('mat-list-item[role="button"]'));
+      expect(groupLink).toBeTruthy();
+
+      expect(component.isGroupExpanded('customers')).toBe(false);
+      groupLink.triggerEventHandler('keydown.enter', { preventDefault: jest.fn() });
+      expect(component.isGroupExpanded('customers')).toBe(true);
+
+      groupLink.triggerEventHandler('keydown.enter', { preventDefault: jest.fn() });
+      expect(component.isGroupExpanded('customers')).toBe(false);
+    });
+
+    it('should toggle group expansion on Space key and prevent default scroll', () => {
+      component.sidenavCollapsed = false;
+      fixture.detectChanges();
+      const groupLink = fixture.debugElement.query(By.css('mat-list-item[role="button"]'));
+      expect(groupLink).toBeTruthy();
+
+      const preventDefaultSpy = jest.fn();
+      expect(component.isGroupExpanded('customers')).toBe(false);
+      groupLink.triggerEventHandler('keydown.space', { preventDefault: preventDefaultSpy });
+      expect(preventDefaultSpy).toHaveBeenCalled();
+      expect(component.isGroupExpanded('customers')).toBe(true);
+    });
+
+    it('should bind proper ARIA attributes to group parents', () => {
+      component.sidenavCollapsed = false;
+      fixture.detectChanges();
+
+      const parentLinks = fixture.debugElement.queryAll(By.css('mat-list-item[role="button"]'));
+      expect(parentLinks.length).toBe(6);
+
+      for (const link of parentLinks) {
+        expect(link.attributes['role']).toBe('button');
+        expect(link.attributes['tabindex']).toBe('0');
+        expect(link.attributes['aria-expanded']).toBe('false');
+        expect(link.attributes['aria-controls']).toMatch(/^nav-subitems-/);
+      }
+
+      // Expand one group and verify aria-expanded updates
+      component.toggleGroup('customers');
+      fixture.detectChanges();
+      const customersLink = parentLinks[0];
+      expect(customersLink.attributes['aria-expanded']).toBe('true');
+    });
+  });
+
   it('should auto-expand active group on NavigationEnd event', () => {
     (router.events as any).next(new NavigationEnd(1, '/accounting', '/accounting'));
     expect(component.isGroupExpanded('accounting')).toBe(true);

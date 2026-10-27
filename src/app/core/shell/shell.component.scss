@@ -13,7 +13,7 @@
   .sidebar-panel {
     min-height: 100vh;
     overflow: hidden auto;
-    box-shadow: var(--mo-shadow-md, 0 4px 6px -1px rgb(0 0 0 / 10%));
+    box-shadow: var(--ops-shadow-md, var(--mo-shadow-md, 0 4px 6px -1px rgb(0 0 0 / 10%)));
     transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 

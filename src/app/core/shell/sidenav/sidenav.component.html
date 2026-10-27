@@ -93,6 +93,12 @@
         <!-- Customers Group -->
         <mat-list-item
           (click)="onGroupClick('customers')"
+          (keydown.enter)="onGroupClick('customers'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('customers'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('customers')"
+          [attr.aria-controls]="'nav-subitems-customers'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Customers' | translate }}"
           [class.active-menu]="isGroupActive('customers')"
@@ -112,7 +118,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('customers')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-customers" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/clients']"
@@ -158,6 +164,12 @@
         <!-- Loans Group -->
         <mat-list-item
           (click)="onGroupClick('loans')"
+          (keydown.enter)="onGroupClick('loans'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('loans'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('loans')"
+          [attr.aria-controls]="'nav-subitems-loans'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Loans' | translate }}"
           [class.active-menu]="isGroupActive('loans')"
@@ -177,7 +189,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('loans')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-loans" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/checker-inbox-and-tasks/loan-approval']"
@@ -236,6 +248,12 @@
         <!-- Collections Group -->
         <mat-list-item
           (click)="onGroupClick('collections')"
+          (keydown.enter)="onGroupClick('collections'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('collections'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('collections')"
+          [attr.aria-controls]="'nav-subitems-collections'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Collections' | translate }}"
           [class.active-menu]="isGroupActive('collections')"
@@ -255,7 +273,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('collections')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-collections" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/collections/collection-sheet']"
@@ -288,6 +306,12 @@
         <!-- Savings Group -->
         <mat-list-item
           (click)="onGroupClick('savings')"
+          (keydown.enter)="onGroupClick('savings'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('savings'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('savings')"
+          [attr.aria-controls]="'nav-subitems-savings'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Savings' | translate }}"
           [class.active-menu]="isGroupActive('savings')"
@@ -307,7 +331,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('savings')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-savings" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/products/saving-products']"
@@ -376,6 +400,12 @@
         <!-- Accounting Group -->
         <mat-list-item
           (click)="onGroupClick('accounting')"
+          (keydown.enter)="onGroupClick('accounting'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('accounting'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('accounting')"
+          [attr.aria-controls]="'nav-subitems-accounting'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Accounting' | translate }}"
           [class.active-menu]="isGroupActive('accounting')"
@@ -402,7 +432,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('accounting')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-accounting" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/accounting']"
@@ -508,6 +538,12 @@
         <!-- Administration Group -->
         <mat-list-item
           (click)="onGroupClick('admin')"
+          (keydown.enter)="onGroupClick('admin'); $event.preventDefault()"
+          (keydown.space)="onGroupClick('admin'); $event.preventDefault()"
+          tabindex="0"
+          role="button"
+          [attr.aria-expanded]="isGroupExpanded('admin')"
+          [attr.aria-controls]="'nav-subitems-admin'"
           [matTooltipPosition]="tooltipPosition"
           matTooltip="{{ 'labels.menus.Administration' | translate }}"
           [class.active-menu]="isGroupActive('admin')"
@@ -527,7 +563,7 @@
         </mat-list-item>
 
         @if (!sidenavCollapsed && isGroupExpanded('admin')) {
-          <div class="nav-subitems">
+          <div class="nav-subitems" id="nav-subitems-admin" role="region">
             <mat-list-item
               class="nav-subitem"
               [routerLink]="['/appusers']"

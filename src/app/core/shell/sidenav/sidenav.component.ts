@@ -169,6 +169,24 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   /**
+   * Helper to identify if a URL belongs to loan products.
+   */
+  private isLoanProductRoute(url: string): boolean {
+    return url.startsWith('/products/loan-products');
+  }
+
+  /**
+   * Helper to identify if a URL belongs to saving/deposit products.
+   */
+  private isSavingProductRoute(url: string): boolean {
+    return (
+      url.startsWith('/products/saving-products') ||
+      url.startsWith('/products/fixed-deposit') ||
+      url.startsWith('/products/recurring-deposit')
+    );
+  }
+
+  /**
    * Returns true if any child route in the group is active.
    */
   isGroupActive(groupId: string): boolean {
@@ -183,23 +201,19 @@ export class SidenavComponent implements OnInit, AfterViewInit {
         return (
           url.startsWith('/checker-inbox-and-tasks/loan') ||
           url.startsWith('/checker-inbox-and-tasks/reschedule') ||
-          url.startsWith('/products/loan-products')
+          this.isLoanProductRoute(url)
         );
       case 'collections':
         return url.startsWith('/collections');
       case 'savings':
-        return (
-          url.startsWith('/products/saving-products') ||
-          url.startsWith('/products/fixed-deposit') ||
-          url.startsWith('/products/recurring-deposit')
-        );
+        return this.isSavingProductRoute(url);
       case 'accounting':
         return url.startsWith('/accounting');
       case 'admin':
         return (
           url.startsWith('/appusers') ||
           url.startsWith('/system') ||
-          url.startsWith('/products') ||
+          (url.startsWith('/products') && !this.isLoanProductRoute(url) && !this.isSavingProductRoute(url)) ||
           url.startsWith('/templates')
         );
       default:
@@ -229,23 +243,19 @@ export class SidenavComponent implements OnInit, AfterViewInit {
     } else if (
       url.startsWith('/checker-inbox-and-tasks/loan') ||
       url.startsWith('/checker-inbox-and-tasks/reschedule') ||
-      url.startsWith('/products/loan-products')
+      this.isLoanProductRoute(url)
     ) {
       this.expandedGroups.add('loans');
     } else if (url.startsWith('/collections')) {
       this.expandedGroups.add('collections');
-    } else if (
-      url.startsWith('/products/saving-products') ||
-      url.startsWith('/products/fixed-deposit') ||
-      url.startsWith('/products/recurring-deposit')
-    ) {
+    } else if (this.isSavingProductRoute(url)) {
       this.expandedGroups.add('savings');
     } else if (url.startsWith('/accounting')) {
       this.expandedGroups.add('accounting');
     } else if (
       url.startsWith('/appusers') ||
       url.startsWith('/system') ||
-      url.startsWith('/products') ||
+      (url.startsWith('/products') && !this.isLoanProductRoute(url) && !this.isSavingProductRoute(url)) ||
       url.startsWith('/templates')
     ) {
       this.expandedGroups.add('admin');
