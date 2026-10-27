@@ -13,7 +13,7 @@ concurrency:
 jobs:
   e2e:
     name: Playwright E2E
-    # Playwright 1.60 supports Ubuntu 24.04; keep runner upgrades explicit.
+    # Keep runner and Playwright system-dependency upgrades explicit.
     runs-on: ubuntu-24.04
     timeout-minutes: 45
 
@@ -24,7 +24,6 @@ jobs:
       E2E_USERNAME: mifos
       E2E_PASSWORD: password
       E2E_TENANT_ID: default
-      NODE_TLS_REJECT_UNAUTHORIZED: '0'
 
     steps:
       - name: Checkout code
@@ -39,8 +38,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+      - name: Prefer HTTPS Ubuntu mirrors for browser dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mirror_list=/etc/apt/apt-mirrors.txt
+          if [[ ! -f "$mirror_list" ]] || ! grep -Fq "mirror+file:$mirror_list" /etc/apt/sources.list.d/ubuntu.sources; then
+            echo "::error::Ubuntu runner APT mirror layout changed; review browser preparation."
+            exit 1
+          fi
+          # Preserve runner-image failover; prefer HTTPS archives over the slow Azure path.
+          printf '%s\n' \
+            $'https://archive.ubuntu.com/ubuntu/\tpriority:1' \
+            $'https://security.ubuntu.com/ubuntu/\tpriority:2' \
+            $'http://azure.archive.ubuntu.com/ubuntu/\tpriority:3' \
+            | sudo tee "$mirror_list"
+
+      - name: Install Playwright headless Chromium
+        # All CI projects use default headless Chromium without a channel override.
+        run: npx playwright install --with-deps --only-shell chromium
 
       - name: Start E2E infrastructure
         run: docker compose -f docker-compose.e2e.yml up -d --build
@@ -88,6 +104,9 @@ jobs:
           echo "✅ Web-app ready"
 
       - name: Run Playwright tests
+        env:
+          # The synthetic Fineract fixture uses a self-signed certificate.
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         run: npx playwright test --reporter=html,github --workers=1
 
       - name: Dump Docker logs on failure
