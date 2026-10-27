@@ -94,16 +94,17 @@ This is a large-scale financial application. It contains many domain modules (e.
 - **Framework:** Angular v20, using TypeScript and SCSS.
 - **UI Component Library:** Angular Material. All visual components must strictly use Angular Material elements (e.g., `<mat-card>`, `<mat-select>`) instead of native HTML where possible.
 - **Backend:** Apache Fineract®.
-- **Proxying:** `npm start` uses `proxy.conf.js` to avoid CORS issues during local dev to a remote instance (e.g., `https://demo.mifos.community`). Use `ng serve --proxy-config proxy.localhost.conf.js` when developing against a `localhost:8443` Fineract instance.
+- **MicroOps local development:** Use `npm run start:microops-local` for the approved existing APISIX gateway at `http://127.0.0.1:9080` with tenant `default`. The opt-in profile preserves `/fineract-provider/**` and ignores stale browser endpoint/tenant preferences. Read [docs/MICROOPS-LOCAL-WEB.md](docs/MICROOPS-LOCAL-WEB.md) and verify current port ownership before starting; this command does not provision or restart the backend.
+- **Other profiles:** `npm start` retains upstream `proxy.conf.js` behavior, which targets a remote demo. The separate `proxy.localhost.conf.js` profile targets the legacy `localhost:8443` Fineract setup. Neither is evidence of the approved MicroOps local gateway or Oracle staging.
 
 ## Testing & Linting Instructions
 
 Always make sure the code meets our quality and styling standards before committing.
 
-- **Run Formatting:** Use `npx prettier --write .` before closing any branch. We enforce Prettier formatting.
+- **Run Formatting:** Use the locked Prettier configuration on explicit changed-file paths (`npx prettier --write <paths>`, then `npx prettier --check <paths>`). Do not format the entire repository for a bounded task. Inspect the diff for unrelated churn; broader checks remain required where applicable.
 - **Linting:** Run `npm run lint` (which runs `eslint`, `stylelint`, `prettier`, and `htmlhint`). A CI pipeline will block the PR if this fails.
 - **Tests:** Run Jest unit tests using `npm run test` or `npm run test:watch`. E2E tests are handled by Playwright and Cypress. Run them via `npm run playwright` or `npm run e2e` respectively.
-- **File Headers:** Always run `npm run headers:check` and `npm run headers:add` to ensure new files have the correct open source license file headers.
+- **File Headers:** For eligible new or changed source files, pass explicit paths to `npm run headers:add -- <paths>` and `npm run headers:check -- <paths>`. Preserve existing MPL-2.0 headers and provenance. A helper's usage output without file paths is not a successful header check.
 - **Translations:** Since the app uses `@ngx-translate/core`, if you add new strings in code, ensure you use proper i18n variables. Run `npm run translations:extract` to extract these.
 
 ## Workflow & PR Instructions

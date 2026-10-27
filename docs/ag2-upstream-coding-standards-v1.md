@@ -3,7 +3,7 @@
 **Owner:** AG2 (Antigravity 2), exclusive implementation owner for `nandahtoon/Mifosx-web-app`.  
 **Upstream reference:** [openMF/web-app](https://github.com/openMF/web-app), particularly upstream `AGENTS.md`, `skills/SKILL.md`, `CONTRIBUTING.md` and actual project configs.  
 **Local authority:** current Web `AGENTS.md`, `skills/SKILL.md`, `CONTRIBUTING.md`, `package.json`, `angular.json`, `eslint.config.js`, `.prettierrc`, `.editorconfig`, and accepted MicroOps Program governance [#127](https://github.com/nandahtoon/MicroOps-360-Fineract-Org/issues/127).  
-**Status:** proposed coding contract, pending draft-PR review. This document does not certify existing code or CI.
+**Status:** accepted repository coding contract, integrated through [Web PR #64](https://github.com/nandahtoon/Mifosx-web-app/pull/64). Acceptance of this guide does not certify existing code, CI or runtime readiness.
 
 ## 1. Non-negotiable upstream-first rule
 
@@ -42,7 +42,7 @@ Before changing a module, AG2 must inspect the current implementation in the **e
 
 For every bounded Web PR:
 
-1. Format changed files with locked Prettier/configuration. Local AGENTS also requires `npx prettier --write .` before closing a branch: apply that requirement when applicable and inspect unrelated churn. This proposed document does not override it. Hosted build.yml checks changed Prettier/SCSS paths, while npm run lint checks broader scope; report actual commands and scope.
+1. Format explicit changed-file paths with locked Prettier/configuration, consistent with local AGENTS. Do not introduce unrelated repository-wide formatting churn. Hosted build.yml checks changed Prettier/SCSS paths, while npm run lint checks broader scope; report actual commands and scope.
 2. Preserve MPL-2.0 headers and provenance. Pass explicit relevant paths to `npm run headers:add -- <paths>` and `npm run headers:check -- <paths>`; without paths the helpers print usage, not evidence of compliance. Respect actual CI exclusions.
 3. Run `npm run lint`, `npm run test -- --runInBand` (or the repository-supported equivalent), targeted Jest tests, `npm run build`, and relevant `npm run playwright` tests where the required safe environment is available. Record failures honestly; do not invent PASS.
 4. Inspect exact-head GitHub CI, package-lock integrity and security/license implications; distinguish CI checks from real browser/backend acceptance.
