@@ -12,12 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AppearanceStorageService } from './appearance-storage.service';
 
 export type ThemePreset =
-  | 'microops-signature'
-  | 'ocean-corporate'
-  | 'rich-purple'
-  | 'corporate-navy'
-  | 'calm-productivity'
-  | 'emerald-banking';
+  'microops-signature' | 'ocean-corporate' | 'rich-purple' | 'corporate-navy' | 'calm-productivity' | 'emerald-banking';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 
