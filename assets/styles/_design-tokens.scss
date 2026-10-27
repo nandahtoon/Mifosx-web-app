@@ -141,6 +141,18 @@
   --ds-radius: var(--ops-radius-md);
   --ds-radius-lg: var(--ops-radius-lg);
 
+  /* -------------------------------------------------------------------------
+     Backward Compatibility: Legacy --mo-* Shell Tokens Bridge
+     ------------------------------------------------------------------------- */
+  --mo-primary: var(--ops-primary);
+  --mo-primary-light: var(--ops-primary-container);
+  --mo-focus-outline: var(--ops-primary);
+  --mo-text-primary: var(--ops-text-primary);
+  --mo-text-secondary: var(--ops-text-secondary);
+  --mo-border-subtle: var(--ops-border);
+  --mo-shadow-md: var(--ops-shadow-md);
+  --mo-surface-hover: var(--ops-surface-alt);
+
   /* Material Design 3 System Tokens Integration */
   --md-sys-color-primary: var(--ops-primary);
   --md-sys-color-on-primary: #fff;
@@ -228,6 +240,28 @@ body.dark-theme {
   --ds-alert: var(--ops-status-error);
   --ds-alert-bg: var(--ops-status-error-bg);
   --ds-zero: var(--ops-status-neutral);
+
+  /* Backward Compatibility: Legacy --mo-* on Body (Dark Mode) */
+  --mo-primary: var(--ops-primary);
+  --mo-primary-light: var(--ops-primary-container);
+  --mo-focus-outline: var(--ops-primary);
+  --mo-text-primary: var(--ops-text-primary);
+  --mo-text-secondary: var(--ops-text-secondary);
+  --mo-border-subtle: var(--ops-border);
+  --mo-shadow-md: var(--ops-shadow-md);
+  --mo-surface-hover: var(--ops-surface-alt);
+}
+
+body {
+  /* Backward Compatibility: Dynamic --mo-* cascade on Body for all Theme Presets (Light & Dark) */
+  --mo-primary: var(--ops-primary);
+  --mo-primary-light: var(--ops-primary-container);
+  --mo-focus-outline: var(--ops-primary);
+  --mo-text-primary: var(--ops-text-primary);
+  --mo-text-secondary: var(--ops-text-secondary);
+  --mo-border-subtle: var(--ops-border);
+  --mo-shadow-md: var(--ops-shadow-md);
+  --mo-surface-hover: var(--ops-surface-alt);
 }
 
 /* =============================================================================
