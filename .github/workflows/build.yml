@@ -111,6 +111,9 @@ jobs:
       - name: Run unit tests
         run: npm run test:ci
 
+      - name: Check SockJS transport compatibility
+        run: node --test scripts/sockjs-transport.test.cjs
+
       - name: Run production build
         run: npm run build:prod
 
