@@ -20,15 +20,35 @@ Antigravity 2 owns the Web App end-to-end:
 - immutable Web image/version evidence;
 - Web-side Oracle staging readiness and smoke evidence.
 
-## Antigravity 1 — Core Platform Owner
+## Antigravity 1 — Fineract / Backend / M01 Integration Owner
 
-Antigravity 1 owns Core Platform / Backend / Infra / Integration.
+Antigravity 1 owns Fineract-side API, backend and M01 integration contracts. Its normal implementation lane is outside this Web repository.
 
-Its normal implementation lane is outside this Web repository. Backend, Fineract, M01/M02, Infra, Oracle runtime, and module-integration changes are handed across the boundary through GitHub Issues or explicit contracts.
+AG1 may execute only expressly delegated, bounded local Infra tasks; delegation does not transfer Infra ownership or Oracle runtime authority.
+
+## GPTInfra — Infrastructure and Runtime Owner
+
+GPTInfra exclusively owns MicroOps-Infra, Docker/Compose, APISIX, OCI/Oracle and runtime/deployment administration. AG2 owns the Web image build and immutable provenance; GPTInfra owns runtime promotion and infrastructure operations. Cross-boundary requirements use GitHub Issues or explicit contracts.
+
+## AG3 — Independent Read-only QA
+
+AG3 verifies source, API, image and host-specific evidence independently. This role does not authorize source edits, runtime changes or business-data writes. Local evidence does not certify Oracle staging.
+
+## Source and Migration Preparation — AG1 Takeover
+
+The owner removed AG4 from active execution. AG1 owns the remaining source/template/validator preparation under Org #138 / PR #139. Preserve historical package names and authorship; preparation does not authorize migration apply or backend business-data changes.
+
+Authoritative handoff: [Org #138 comment 6280770329](https://github.com/nandahtoon/MicroOps-360-Fineract-Org/issues/138#issuecomment-6280770329). GPTInfra retains runtime ownership and AG3 independent review.
+
+## GPT1 — Program Governance and Acceptance Gates
+
+GPT1 coordinates program governance, architecture and acceptance gates. Dispatch or CI success alone does not constitute acceptance or lift a runtime HOLD.
+
+These lanes follow [Program #127](https://github.com/nandahtoon/MicroOps-360-Fineract-Org/issues/127), [GPTInfra's role contract in Infra #34](https://github.com/nandahtoon/MicroOps-Infra/issues/34), and [AG3's read-only lane in Infra #53](https://github.com/nandahtoon/MicroOps-Infra/issues/53). [Program PR #143](https://github.com/nandahtoon/MicroOps-360-Fineract-Org/pull/143) tracks consistency corrections as a proposal; it does not replace accepted gates. Keep this file aligned with [AGENTS.md](../AGENTS.md).
 
 ## Non-overlap rule
 
-Antigravity 1 and Antigravity 2 must not implement the same work package or edit the same file concurrently.
+Agents must not implement the same work package or edit the same file concurrently.
 
 Cross-boundary requirements use this handoff contract:
 
