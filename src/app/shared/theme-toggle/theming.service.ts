@@ -40,7 +40,7 @@ export const THEME_PRESETS: ThemePresetOption[] = [
     id: 'ocean-corporate',
     name: 'Ocean Corporate',
     description: 'High-contrast institutional ocean azure',
-    primaryLight: '#0284c7',
+    primaryLight: '#0369a1',
     accentLight: '#0369a1',
     primaryDark: '#38bdf8',
     accentDark: '#0284c7'

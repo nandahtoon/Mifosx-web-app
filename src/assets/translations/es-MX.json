@@ -428,6 +428,57 @@
     "validation.mustBePositive": "{{field}} debe ser un número positivo."
   },
   "labels": {
+    "branding": {
+      "scopeTitle": "Appearance on this browser",
+      "scopeDescription": "These settings apply to this browser profile for the selected server and tenant. They remain after sign-out and may be shared by accounts using this browser profile. They do not change institution-wide settings or sync to other devices. Clearing browser data removes them.",
+      "active": "Active",
+      "light": "Light",
+      "dark": "Dark",
+      "primaryLight": "Primary light",
+      "accentLight": "Accent light",
+      "primaryDark": "Primary dark",
+      "accentDark": "Accent dark",
+      "portfolio": "Sample active portfolio",
+      "clients": "Sample active clients",
+      "par": "Sample PAR over 30 days",
+      "sampleGrowth": "+4.2% versus sample previous cycle",
+      "sampleOnTime": "98.6% on time (sample)",
+      "healthy": "Healthy portfolio (sample)",
+      "primaryAction": "Primary action",
+      "accentAction": "Accent action",
+      "outlinedAction": "Outlined action",
+      "warningAction": "Warning action",
+      "primary": "Primary",
+      "accent": "Accent",
+      "surface": "Surface",
+      "success": "Success",
+      "presets": {
+        "microops-signature": {
+          "name": "MicroOps Signature",
+          "description": "Balanced teal and cyan"
+        },
+        "ocean-corporate": {
+          "name": "Ocean Corporate",
+          "description": "Institutional ocean blue"
+        },
+        "rich-purple": {
+          "name": "Rich Purple",
+          "description": "Royal purple and violet"
+        },
+        "corporate-navy": {
+          "name": "Corporate Navy",
+          "description": "Classic midnight navy"
+        },
+        "calm-productivity": {
+          "name": "Calm Productivity",
+          "description": "Slate and neutral tones"
+        },
+        "emerald-banking": {
+          "name": "Emerald Banking",
+          "description": "Emerald and botanical green"
+        }
+      }
+    },
     "Mifos Reporting Plugin for Eclipse Birt": "Mifos Reporting Plugin for Eclipse Birt",
     "version": {
       "Tenant": "Instancia",
@@ -3153,7 +3204,6 @@
       "to": "a",
       "valid": "válido",
       "Active Pause": "Pausa Activa",
-      "Breach Actions": "Acciones de Incumplimiento",
       "days": "días",
       "Duration": "Duración",
       "Expired": "Expirada",
@@ -4143,7 +4193,10 @@
       "withoutCategory": "Sin categoría",
       "Maker-Checker principle requires every tasks": "El principio Maker-Checker requiere que dos personas completen cada tarea para reducir la posibilidad de errores y uso indebido. Una persona inicia el proceso y la segunda lo completa.",
       "Breach Actions": "Acciones de Incumplimiento",
-      "“Maker-Checker” principle requires every tasks": "El principio \"Maker-Checker\" requiere que dos personas completen cada tarea para reducir la posibilidad de errores y uso indebido. Una persona inicia el proceso y la segunda lo completa."
+      "“Maker-Checker” principle requires every tasks": "El principio \"Maker-Checker\" requiere que dos personas completen cada tarea para reducir la posibilidad de errores y uso indebido. Una persona inicia el proceso y la segunda lo completa.",
+      "Branding Studio Description": "Choose a theme, display name, and logo for this browser.",
+      "Organization Identity Description": "Preview your display name and logo, then save them for the login page on this browser.",
+      "Branding & Appearance": "Branding & Appearance"
     },
     "permissions": {
       "actions": {
