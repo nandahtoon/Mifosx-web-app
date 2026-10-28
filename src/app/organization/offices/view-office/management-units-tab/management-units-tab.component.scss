@@ -1,0 +1,438 @@
+/**
+ * Copyright since 2025 Mifos Initiative
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+.management-units-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.governance-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #e8f0fe;
+  border: 1px solid #c2e7ff;
+  border-radius: 8px;
+}
+
+.banner-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.banner-icon {
+  color: #1a73e8;
+  font-size: 1rem;
+}
+
+.banner-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #174ea6;
+  background: #d2e3fc;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.banner-text {
+  font-size: 0.85rem;
+  color: #3c4043;
+  font-weight: 500;
+}
+
+.advisory-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: #fef7e0;
+  color: #b06000;
+  border: 1px solid #f9ab00;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.surface-card {
+  background: var(--mat-card-background-color, #fff);
+  border: 1px solid var(--theme-border-subtle, rgb(0 0 0 / 8%));
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 8%);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--theme-bg-subtle, rgb(0 0 0 / 2%));
+  border-bottom: 1px solid var(--theme-border-subtle, rgb(0 0 0 / 6%));
+}
+
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-icon {
+  color: var(--theme-primary, #1976d2);
+  font-size: 0.95rem;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--theme-text-primary, #212121);
+}
+
+.card-body {
+  padding: 1rem;
+
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+.scope-description {
+  font-size: 0.9rem;
+  color: #424242;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.branch-jump-section {
+  margin-top: 0.75rem;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #616161;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.branch-button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.branch-btn {
+  font-size: 0.85rem;
+}
+
+.action-footer {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.mifosx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+
+  th {
+    background: #f8f9fa;
+    color: #5f6368;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f1f3f4;
+    vertical-align: middle;
+  }
+
+  tr:hover td {
+    background-color: #f8fafd;
+  }
+}
+
+.unit-title-cell,
+.manager-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.unit-name,
+.manager-name {
+  font-weight: 600;
+  color: #202124;
+}
+
+.unit-key,
+.manager-id,
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  color: #5f6368;
+}
+
+.staffing-count {
+  font-weight: 600;
+  color: #202124;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  display: inline-block;
+
+  &.badge-planned {
+    background-color: #e8f0fe;
+    color: #1967d2;
+    border: 1px solid #aecbfa;
+  }
+
+  &.badge-active {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+  }
+
+  &.badge-normal {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: 1px solid #ceead6;
+  }
+
+  &.badge-configured {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+
+  &.badge-unconfigured {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  gap: 0.75rem;
+
+  .empty-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #f1f3f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-icon {
+    font-size: 1.5rem;
+    color: #5f6368;
+  }
+
+  .empty-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--theme-text-primary, #202124);
+    margin: 0;
+  }
+
+  .empty-description {
+    font-size: 0.9rem;
+    color: var(--theme-text-secondary, #5f6368);
+    max-width: 500px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .demo-invite {
+    margin-top: 1rem;
+  }
+}
+
+.role-pill,
+.assignment-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  background: #f1f3f4;
+  color: #3c4043;
+}
+
+.policy-pill {
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: #f1f3f4;
+  color: #3c4043;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.detail-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+
+  .back-btn {
+    margin-right: 0.5rem;
+  }
+
+  .unit-headline {
+    display: flex;
+    flex-direction: column;
+
+    .unit-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #202124;
+    }
+
+    .unit-subtitle {
+      font-size: 0.8rem;
+      color: #5f6368;
+    }
+  }
+
+  .status-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+}
+
+.detail-grid,
+.manager-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* stylelint-disable-line unit-allowed-list */
+  gap: 1rem 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--theme-text-secondary, #757575);
+}
+
+.detail-value {
+  font-size: 0.9rem;
+  color: var(--theme-text-primary, #212121);
+}
+
+.status-note {
+  font-size: 0.75rem;
+  color: #757575;
+  margin-left: 0.5rem;
+  font-style: italic;
+}
+
+.capacity-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* stylelint-disable-line unit-allowed-list */
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.metric-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+
+  .metric-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1976d2;
+  }
+
+  .metric-status-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    &.text-healthy {
+      color: #2e7d32;
+    }
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    color: #757575;
+  }
+}
+
+.governance-footnote {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgb(0 0 0 / 8%);
+  font-size: 0.75rem;
+  color: #757575;
+  font-style: italic;
+
+  .footnote-icon {
+    color: #1976d2;
+  }
+}
+
+.m-r-5 {
+  margin-right: 5px;
+}
